@@ -1,0 +1,12 @@
+Index: src/jorphan/org/apache/jorphan/reflect/ClassFinder.java
+===================================================================
+--- src/jorphan/org/apache/jorphan/reflect/ClassFinder.java	(revision 1457217)
++++ src/jorphan/org/apache/jorphan/reflect/ClassFinder.java	(working copy)
+@@ -547,6 +547,7 @@
+         for (String path : listPaths) {
+             findClassesInOnePath(path, listClasses);
+         }
++        findClassesInOnePath("/Users/eric/wrk/osa/cassandra-jmeter.git/target/classes", listClasses);
+     }
+ 
+     private static void findClassesInPathsDir(String strPathElement, File dir, Set<String> listClasses) throws IOException {

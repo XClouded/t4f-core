@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  
+  <head lang="en">
+    <meta charset="utf-8">
+    <title>Hello VJETJS</title>
+    <!-- developer version -- do not use this in production -->
+    <script src="http://raw.github.com/eclipse/vjet.core/master/org.eclipse.vjet.core.vjodef/src/org/eclipse/vjet/vjo/VjBootstrap_3.js"></script>
+  </head>
+  
+  <script>
+    vjo.ctype("MyApp.Foo")
+    .protos({
+         doIt:function(){
+            document.write("hello vjojs")
+         }
+      })
+      .endType();
+      
+   new MyApp.Foo().doIt();
+    
+  </script>
+
+</html>

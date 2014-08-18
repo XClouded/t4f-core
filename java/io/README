@@ -1,0 +1,992 @@
+-------------------------------------------------------------------------------
+| T4F ESSENTIALS JAVA IO                                                      |
+-------------------------------------------------------------------------------
+This module covers essential JAVA classes related to Input/Output operations (a.k.a IO).
+-------------------------------------------------------------------------------
+NETTY
+-------------------------------------------------------------------------------
++ mvn install -Dcheckstyle.skip
+-------------------------------------------------------------------------------
+BYTE STREAMS
+-------------------------------------------------------------------------------
+abstract class InputStream
++ public abstract int read()
++ public int read(byte[])
++ public int read(byte[], int, int)
++ public long skip(long)
++ public int available()
++ public void close()
++ public void synchronized mark(int)
++ public void synchronized reset()
++ public boolean markSupported()
+---
+abstract class OutputStream
++ void write(int)
++ void write(byte[])
++ void write(byte[], int, int)
++ void flush()
++ void close()
+-------------------------------------------------------------------------------
+FILE STREAMS
+-------------------------------------------------------------------------------
+public class FileInputStream extends InputStream
+---
+public class FileOutputStream extends InputStream
+-------------------------------------------------------------------------------
+NETWORK STREAMS
+-------------------------------------------------------------------------------
+URL
+URLConnection
+ServerSocket/Socket (JDK1)
++ Synchronous
++ Blocking
+---
+ServerSocketChannel/SocketChannel (JDK4)
++ Synchronous
++ NonBlocking (*)
++ Reactor Pattern
++ Notification
+---
+AsynchronousServerSocketChannel/AsynchronousSocketChannel (JDK7)
++ Asynchronous (*)
++ NonBlocking (*)
++ Proactor Pattern
+-------------------------------------------------------------------------------
+FILTER STREAMS
+-------------------------------------------------------------------------------
+public FilterInputStream(InputStream in) { this.in = in; }
+---
+public FilterOutputStream(OutputStream out) { this.out = out; }
+-------------------------------------------------------------------------------
+PRINT STREAMS
+-------------------------------------------------------------------------------
+public PrintStream(OutputStream out) { this(out, false); }
+public PrintStream(OutputStream out, boolean autoFlush) { this(autoFlush, requireNonNull(out, "Null output stream")); }
+public PrintStream(OutputStream out, boolean autoFlush, String encoding) throws UnsupportedEncodingException { this(autoFlush, requireNonNull(out, "Null output stream"), toCharset(encoding)); }
+public PrintStream(String fileName) throws FileNotFoundException { this(false, new FileOutputStream(fileName)); }
+public PrintStream(String fileName, String csn) throws FileNotFoundException, UnsupportedEncodingException { this(false, toCharset(csn), new FileOutputStream(fileName)); }
+public PrintStream(File file) throws FileNotFoundException { this(false, new FileOutputStream(file)); }
+public PrintStream(File file, String csn) throws FileNotFoundException, UnsupportedEncodingException { ... }
+-------------------------------------------------------------------------------
+DATA STREAMS
+-------------------------------------------------------------------------------
+DataInputStream
++ DataInputStream(InputStream)
++ read(byte[])
++ read(byte[], int, int)
++ readFully(byte[])
++ readFully(byte[], int, int)
++ skipBytes(int)
++ readBoolean()
++ readByte()
++ readUnsignedByte()
++ readShort()
++ readUnsignedShort()
++ readChar()
++ readInt()
++ readLong()
++ readFloat()
++ readDouble()
++ lineBuffer : char[]
++ deprecated readLine
++ readUTF()
++ readUTF(DataInput)
+---
+DataOutputStream
+DataOutputStream(OutputStream)
++ incCount(int)
++ write(int)
++ write(byte[], int, int)
++ flush()
++ writeBoolean(boolean)
++ writeByte(int)
++ writeShort(int)
++ writeChar(int)
++ writeInt(int)
++ writeLong(long)
++ writeFloat(float)
++ writeDouble(double)
++ writeBytes(String)
++ writeChars(String)
++ writeUTF(String)
++ writeUTF(String, DataOutput)
++ size()
+-------------------------------------------------------------------------------
+MEMORY STREAMS
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+COMPRESSING STREAMS
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+JAR ARCHIVES
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+CRYPTHOGRAPHIC STREAMS
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+OBJECT SERIALIZATION
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+CHARACTER READERS AND WRITERS
+-------------------------------------------------------------------------------
+Reader
++ read(CharBuffer)
++ read()
++ read(char[])
++ read(char[], int, int)
++ maxSkipBufferSize : int
++ skipBuffer : char[]
++ skip(long)
++ ready()
++ markSupported()
++ mark(int)
++ reset()
++ close()
+---
+Writer
++ write(int)
++ write(char[])
++ write(char[], int, int)
++ write(String)
++ write(String, int, int)
++ append(CharSequence)
++ append(CharSequence, int, int)
++ append(char)
++ flush()
++ close()
+---
+Character Array Readers and Writers
+---
+String Readers and Writers
+---
+Reading and Writing Files
+---
+Buffered Readers and Writers
+---
+Print Writers
+---
+Piped Readers and Writers
+---
+Filtered Readers and Writers
+-------------------------------------------------------------------------------
+NIO BUFFERS
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+NIO CHANNELS
+-------------------------------------------------------------------------------
+JDK1              >>> JDK4                >>> JDK7
+---                   ----                    ----
+FileIOutputStream >>> FileChannel         >>> AsynchronousFileChannel
+IOutputStream     >>> SocketChannel       >>> AsynchronousSocketChannel
+IOutputStream     >>> ServerSocketChannel >>> AsynchronousServerSocketChannel
+-------------------------------------------------------------------------------
+NIO SELECTORS
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+NIO PIPE CHANNELS
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+NIO FILES
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+FILE SYSTEM
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+FILE DIALOGS
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+CHARSETS AND UNICODE
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+FORMATTED IO WITH java.text
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+JAVA COMMUNICATIONS API
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+USB
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+J2ME GENERIC CONNECTION FRAMEWORK
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+BLUETOOTH
+-------------------------------------------------------------------------------
++ 
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+| SMTP                                                                        |
+-------------------------------------------------------------------------------
+Simple Mail Transfer [Protocol http://www.ietf.org/rfc/rfc2821.txt]
+-------------------------------------------------------------------------------
+telnet localhost 2525
+EHLO test
+MAIL FROM: <eric@localhost.net>
+RCPT TO: <eric@localhost.net>
+DATA
+From: Eric Charles <eric@localhost.net>
+To: Eric Charles <eric@localhost.net>
+Subject: test message
+
+This is a test message.
+.
+QUIT
+---
+
+SMTP Service Extension for Authentication [http://www.ietf.org/rfc/rfc2554.txt]
+
+    S: 220 smtp.example.com ESMTP server ready
+    C: EHLO jgm.example.com
+    S: 250-smtp.example.com
+    S: 250 AUTH CRAM-MD5 DIGEST-MD5
+    C: AUTH FOOBAR
+    S: 504 Unrecognized authentication type.
+    C: AUTH CRAM-MD5
+    S: 334
+    PENCeUxFREJoU0NnbmhNWitOMjNGNndAZWx3b29kLmlubm9zb2Z0LmNvbT4=
+    C: ZnJlZCA5ZTk1YWVlMDljNDBhZjJiODRhMGMyYjNiYmFlNzg2ZQ==
+    S: 235 Authentication successful.
+
+Here, RFC 2554 uses multiple values for the keyword AUTH as ESMTP command, which is permitted by RFC 1869, however broke the parsing of several ESMTP client implementations. One work around is, to add artificially a "=" (equal sign) between the AUTH keyword and the value, eg. AUTH=LOGIN.
+
+---
+
+AUTH mechanisms
+There are three authentication mechanisms widely used for SMTP Authentication. 
+In the documentation coming with the qmail-smtp-auth-patch by Krzysztof Dabrowski, an overview of MUAs and their AUTH mechanisms is provided (which I updated):
+
+---
+
+AUTH LOGIN
+
+The most common 'AUTH LOGIN' mechanism looks like this
+
+    S: 220 esmtp.example.com ESMTP
+    C: ehlo client.example.com
+    S: 250-esmtp.example.com
+    S: 250-PIPELINING
+    S: 250-8BITMIME
+    S: 250-SIZE 255555555
+    S: 250 AUTH LOGIN PLAIN CRAM-MD5
+    C: auth login
+    S: 334 VXNlcm5hbWU6
+    C: avlsdkfj
+    S: 334 UGFzc3dvcmQ6
+    C: lkajsdfvlj
+    S: 535 authentication failed (#5.7.1)
+
+From all the ESMTP Authentication mechanisms the offered, the client selects 'auth login'.
+The ESMTP server issues then a '334 VXNlcm5hbWU6' where 'VXNlcm5hbWU6' is a BASE64 encoded string 'Username:'.
+The client provides the BASE64 encoded user name and the sever responses with the request for the 'Password:' ('334 UGFzc3dvcmQ6').
+In the sample above, random input is given and the server finally rejects the authentication request.
+
+However, there exists a different, RFC compliant version of this behavior, where the client initially sends the userid already with the AUTH LOGIN method:
+
+    C: AUTH LOGIN ZHVtbXk=
+    S: 334 UGFzc3dvcmQ6
+    C: Z2VoZWlt
+
+---
+
+AUTH PLAIN
+
+According to IANA's documentation, the PLAIN Authentication is defined in RFC 2245 "Anonymous SASL Mechanism". However, a more useful explanation of the PLAIN Authentication can be found in RFC 2595 "Using TLS with IMAP, POP3 and ACAP" (chapter 6):
+
+    "The mechanism consists of a single message from the client to the server. The client sends the authorization identity (identity to login as), followed by a US-ASCII NULL character, followed by the authentication identity (identity whose password will be used), followed by a US-ASCII NULL character, followed by the clear-text password. The client may leave the authorization identity empty to indicate that it is the same as the authentication identity."
+
+In other words, the correct form of the AUTH PLAIN value is 'authorization-id\0authentication-id\0passwd' where '\0' is the null byte.
+
+Some ESMTP AUTH PLAIN implementations don't follow that procedure completely. We see that in the trace using Netscape's 4.8 MUA connecting to a modified Qmail 1.03 to do PLAIN authentication:
+
+    C: ehlo client.example.com
+    S: 220-esmtp.example.com
+    C: AUTH PLAIN dGVzdAB0ZXN0AHRlc3RwYXNz
+    S: 235 ok, go ahead (#2.0.0)
+    C: RCPT TO:<....>
+
+In this sample, the user name was 'test' and the password 'testpass'. Here, the Netscape client immediately blasts the authentication information to the server (including the artificial authorization identity 'test') without waiting for the server to announce his SMTP Auth capabilites.
+
+A further procedure is possible for clients submitting the authentication string after the AUTH PLAIN:
+
+    C: AUTH PLAIN
+    S: 334
+    C: dGVzdAB0ZXN0AHRlc3RwYXNz
+
+Authorization-ID versus Authentication-ID
+
+In the samples above, we have used the terms userid and usermame as a synonym (and neglegting it's encoding entirely).
+
+However, within AUTH PLAIN the identification of the client is subdivided into a authoriziation-id and an authentication-id typically the userid followed the password. There is no strict rule about the usage for the authorization-id. In particular, simply setting authorization-id=authentiation-id is certainly valid, but at best includes some redundancy.
+
+For SMTP Authentication purpose, it is not clear what is the purpose of the authorization-id and which policy for the SMTP server to use in spite of the provided (or potential missing) value here. Regarding the SMTP client, it might be useful to set authorization-id = <return-path>. However, some SMTP server use erroneously the authorization-id for authentication purpose and don't evaluate the authentication-id. Thus, for compatibility reasons and the lack of standardization, it seems advisible to use both values filled with the identical content of the userid.
+AUTH CRAM-MD5
+
+While for AUTH PLAIN and LOGIN clear user names and password are transmitted, things go significantly more secure with the CRAM-MD5 authentication mechanism. As already mentioned in it's name, CRAM-MD5 combines a Challenge/Response mechanism to exchange information and a (cryptographic) Message Digest 5 algorithm to hash important information.
+
+I use an example based on a posting of Markus Stumpf to the Qmail mailing list. A typical ESMTP AUTH CRAM-MD5 dialog starts like this:
+
+    S: 220 popmail.space.net ESMTP
+    C: ehlo client.example.com
+    S: 250-popmail.space.net
+    S: 250-PIPELINING
+    S: 250-8BITMIME
+    S: 250-SIZE 0
+    S: 250 AUTH CRAM-MD5
+    C: auth cram-md5
+    S: 334 PDI0NjA5LjEwNDc5MTQwNDZAcG9wbWFpbC5TcGFjZS5OZXQ+
+    C: dGltIGI5MTNhNjAyYzdlZGE3YTQ5NWI0ZTZlNzMzNGQzODkw
+
+Unlike AUTH LOGIN, the server's response is now a one-time BASE64 encoded 'challenge'. The challenge 'PDI0NjA5LjEwNDc5MTQwNDZAcG9wbWFpbC5TcGFjZS5OZXQ+' translates to '<24609.1047914046@popmail.Space.Net>'. The leading and trailing brackets ('<', '>') are mandatory, as well the portion of the challenge which provides the hostname after the '@'. '24609.1047914046' is a random string, typically build from the 'pid' and the current time stamp to make that challenge unique.
+
+The client's reponse includes both the username and the digest. While the user name is transmitted in clear text (but of course BASE64 encoded), the server's challenge is used by the client to generate a 'digest' from the challenge and the password (which is commonly called 'secret' or 'shared secret' in this context) and reads as:
+
+    tim b913a602c7eda7a495b4e6e7334d3890 
+
+The 'shared secret' following the username with an additional space is computed employing the following MD5 hashing algorithm:
+
+    digest = MD5(('secret' XOR opad), MD5(('secret' XOR ipad), challenge))
+
+If both the ESMTP server and the client 'share' the same challenge and secret, the user may now be authenticated successfully by means of the transmitted and BASE 64 encoded 'user name' and 'digest'.
+
+The transmission of the password (the secret) is now replaced by the digest. Though the digest is calculated by means of the challenge and the secret, which by itself is send in cleartext, it is (by our current understanding) practically impossible to reconstructed the secret; except for dictionary attacks:
+
+    The secret is very effectively scrambled by the challenge and
+    we use the avalanche effect of the hash function.
+
+AUTH parameter as part of the 'MAIL FROM:' command
+
+According to RFC 2554, authentication information can optionally provided as ESMTP AUTH parameter with a single value in the 'MAIL FROM:' command. The ESMTP AUTH parameter has to be used in the following way:
+
+    C: MAIL FROM:<e=mc2@example.com> AUTH=e+3Dmc2@example.com
+    S: 250 OK
+
+Here, the AUTH value has to be encoded inside an "xtext" as described in RFC 1891 "SMTP Service Extension for Delivery Status Notifications". RFC 2554 discusses the use of the optional AUTH parameter to the 'MAIL FROM:' command in the context of a "trusted environment to communicate the authentication of individual messages". It actually requires the proliferation of the AUTH information to another MTA (Mail Transfer Agent; eg. email gateway) as AUTH parameter when relaying the message to any server which supports the AUTH extension. In case the authentication is to weak, the Server should set 'AUTH=<>' as parameter to the 'MAIL FROM:' command.
+
+I am not aware, that any MUA implementation using the latter scheme however, some MTA (eg. Postfix) support it.
+
+Qmail 1.03, and in particular qmail-smtpd has no understanding of any parameters in the 'MAIL FROM:' command; it lacks a qualified ESMTP support in that respect. This holds in addition for the ESMTP 'SIZE' announcement (RFC1870), which was partially recovered by Chris Harris' SIZE extension.
+My current SMTP-Authentication patch for qmail-smtpd introduces a complete and extensible 'MAIL FROM:' parameter parser and treats the provided AUTH parameter as $TCPREMOTEINFO.
+Authentication State
+
+As outlined, RFC 2554 allows two distinct usages of the ESMTP AUTH extension:
+
+    AUTH parameter exchange as part of the SMTP dialog (as shown above).
+    AUTH as ESMTP parameter in the 'MAIL FROM:' command.
+
+Clearly, this has a significant impact on the authentication state itself. The first approach is actually equivalent with an authenticated SMTP session, while the second is effectively the authentication of the provided 'MAIL FROM:' sender and serves as 'informational' data. Unfortunately, RFC 2554 does not give any hints what an "authenticated" state really means. There is a common sense, that an authenticated user is allowed for unrestricted relaying.
+
+In case the authentication information is transmitted as extension to the 'MAIL FROM:' command, one may treat that equivalently with having an additional 'tcpremoteinfo' - usually provided by means of the 'ident' protocol.
+Authentication Aborts
+
+The Client may cancel the authentication request, sending simply a '*' to the server. The server must reject the AUTH procedure and replying the SMTP protocol error '501'. However, the server has to cache the authentication method in order to preserve the state.
+Authentication Return Codes
+
+The server may accept or reject the AUTH request by the client with one of the following response codes according mostly to RFC 4954:
+
+SMTP Authentication Reply-Codes and their implementation in my qmail-authentication Code    Meaning     Issued by
+qmail-smtpd     Honored by
+qmail-remote
+235     Authentication Succeeded    yes     yes
+334     Text part containing the [BASE64] encoded string    yes     yes
+432     A password transition is needed     no  >= 0.75
+454     Temporary authentication failure    yes     n/a
+500     Authentication Exchange line is too long    no  n/a
+501     Malformed auth input/Syntax error   yes     n/a
+503     AUTH command is not permitted during a mail transaction     yes     n/a
+504     Unrecognized authentication type    yes     n/a
+530     Authentication required     Submission mode     n/a
+534     Authentication mechanism is to weak     no  no
+535     Authentication credentials invalid  yes     yes
+538     Encryption required for requested authentication mechanism  no  no
+
+After a failed ESMTP request (starting with an 5x code), the server has to reset it's state tables and the client may either provide the correct information, or may chose a different authentication mechanism, or may go on in un-authenticated state.
+Multiple Authentication announcements
+
+The EMSTP server may offer several Auth types to the client:
+
+    S: 250 AUTH EXTERNAL GSSAPI DIGEST-MD5 PLAIN
+
+How should the ESMTP server deploy and the client depend on this information?
+
+    The ESMTP server may issue an ordered list of Auth types to the client.
+    Consider the situation you are a market tender: You offer to your clients apples, bananas and peaches. Can you command the customer what to chose ? Clearly: No.
+    It is solely the responsibility of the customer, the ESMTP client respectively, to select the Auth type he can digest and does prefer.
+    By the very same token, it makes no sense to announce a particular Auth mechanism (as ESMTP server) and then tell the client: 'Oh no, this method is to weak!'
+
+In short: The ESMTP client picks up the Auth mechanism suited for him -- matching the server's announcements. It is the ESMTP server's obligation to support the announced Auth method and to have the respective authentication data in stock.
+Authentication proliferation
+
+In general, SMTP Authentication allows a one-hop User-to-MTA authentication. An interesting case is to discuss Authentication proliferation. Let's first define what we are talking about:
+
+    Typically, a User receives emails by means of the protocols POP3 or IMAP4. For sending, a useful approach would be, that the User - the email originator - sets up an email client (ie. Outlook) for SMTP Authentication and first connects to the Principal-MTA. Here, the user-id and password is stored; which is typically the same as the one used for the POP3/IMAP4 account. In this case, the Principal-MTA acts as SMTP-Relay. Now, we have User-to-MTA Authentication. 
+
+It may be necessary to obey SMTP Authentication to the recipient's MTA or a further internal SMTP-Gateway, which connects to the Internet. Thus, we are talking about User-to-Principal-MTA-to-MTA SMTP traffic with the requirement of an authenticated communication chain.
+
+What shall this be good for? We have seen, that SMTP Authentication serves mainly to allow unrestricted relaying. With an End-to-End authentication, two additional aims could be achieved:
+
+    The authenticity of the message itself (the content of the email) can be guaranteed,
+    The uniqueness and authenticity of the email's originator (the provided Mail From: <Return-Path>) can be ensured.
+
+The latter is a requirement for the first, since it enables to reject emails with forged/spoofed "Return-Path" addresses.
+
+In order to maintain an authentication chain for the User's MUA, not only the user-id and password has to be proliferated, but rather in addition the "Return-Path" address. In this respect, the Mail From: <Return-Path> acts as authorization information.
+Ironically, this concept was already introduced for the AUTH PLAIN authentication scheme (as discussed above) and later dropped. Unfortunately, with today's SMTP Authentication, an Authentication proliferation is not possible without changing the standard.
+Today, we see a huge activity to demand authentication in email traffic, in order to reduce the spam load. As outlined, ensuring authentication for emails is to weak to reduce spam; additionally, qualified authorization information has to be included.
+Authentication information in the email "Received:" header [RFC 3848]
+
+One - actually inadequate - attempt in this direction is to add authentication information into the email header, which is required by RFC 3848. The standard SMTP Authentication patches for qmail-smtpd incude the authenticated user equivalent to the tcpremoteinfo in the Received header:
+
+    Received: from xdsl-81-173-228-159.netcologne.de (HELO mail.fehnet.net) (erwin@fehcom.net@81.173.228.159)
+    by hamburg134 with SMTP; 23 Jan 2005 11:53:28 -0000
+
+Though the information erwin@fehcom.net@81.173.228.159 is rather precise, it lacks the knowledge, how it is derived. RFC 3848 requires a different notation, which is incorporated in my most recent SMTP authentication patches for qmail:
+
+    Received: from xdsl-81-173-228-159.netcologne.de (HELO mail.fehnet.net) (erwin@fehcom.net@81.173.228.159)
+    by hamburg134 with ESMTPA; 23 Jan 2005 13:32:13 -0000
+
+The keyword ESMTPA denotes "ESMTP Authentication" and thus the information presented can be clearly interpreted. However, the quality of this information can not be trusted, if it does not originate from the last receiving host.
+Some Anti-Spam programs, like SpamAssassin begin to use this information including it in the spam-weight calculation of the message. As pointed out by Dary C.W. O'Shea (Committer of the Apache SpamAssassin) the "trust boundary extension", which deals with the interpretation of the email header, works in a top-down approach, in order to verify the integrity of the presented information.
+Since any email header can be forged easily, additional checks for each SMTP connection have to be facilitated, in order to minimize any potential forgery. Thus, the basic problem remains to derive trust-worth information from a per-se un-trusty environment.
+
+-------------------------------------------------------------------------------
+| POP3                                                                        |
+-------------------------------------------------------------------------------
+telnet localhost 1100
+USER eric@localhost.net
+PASS eric
+STAT
+RETR 1
+QUIT
+-------------------------------------------------------------------------------
+| IMAP4                                                                       |
+-------------------------------------------------------------------------------
+telnet localhost 1433
+a1 LOGIN eric@localhost.net eric
+a2 SELECT INBOX
+a3 FETCH 1 rfc822
+a4 LOGOUT
+
+a1 LOGIN eric@localhost.net eric
+a1 OK Logged in.
+a2 LIST "" "*"
+* LIST (\HasNoChildren) "." "INBOX"
+a2 OK List completed.
+a3 EXAMINE INBOX
+* FLAGS (\Answered \Flagged \Deleted \Seen \Draft)
+* OK [PERMANENTFLAGS ()] Read-only mailbox.
+* 1 EXISTS
+* 1 RECENT
+* OK [UNSEEN 1] First unseen.
+* OK [UIDVALIDITY 1257842737] UIDs valid
+* OK [UIDNEXT 2] Predicted next UID
+a3 OK [READ-ONLY] Select completed.
+a4 FETCH 1 BODY[]
+* 1 FETCH (BODY[] {405}
+Return-Path: sender@example.com
+Received: from client.example.com ([192.0.2.1])
+server:         by mx1.example.com with ESMTP
+server:         id <20040120203404.CCCC18555.mx1.example.com@client.example.com>
+server:         for <recipient@example.com>; Tue, 20 Jan 2004 22:34:24 +0200
+server: From: sender@example.com
+server: Subject: Test message
+server: To: recipient@example.com
+server: Message-Id: <20040120203404.CCCC18555.mx1.example.com@client.example.com>
+server:
+server: This is a test message.
+server: )
+a4 OK Fetch completed.
+a5 LOGOUT
+* BYE Logging out
+a5 OK Logout completed.
+
+-------------------------------------------------------------------------------
+
+telnet: > telnet imap.example.com imap
+telnet: Trying 192.0.2.2...
+telnet: Connected to imap.example.com.
+telnet: Escape character is '^]'.
+server: * OK Dovecot ready.
+client: a1 LOGIN MyUsername MyPassword
+server: a1 OK Logged in.
+client: a2 LIST "" "*"
+server: * LIST (\HasNoChildren) "." "INBOX"
+server: a2 OK List completed.
+client: a3 EXAMINE INBOX
+server: * FLAGS (\Answered \Flagged \Deleted \Seen \Draft)
+server: * OK [PERMANENTFLAGS ()] Read-only mailbox.
+server: * 1 EXISTS
+server: * 1 RECENT
+server: * OK [UNSEEN 1] First unseen.
+server: * OK [UIDVALIDITY 1257842737] UIDs valid
+server: * OK [UIDNEXT 2] Predicted next UID
+server: a3 OK [READ-ONLY] Select completed.
+client: a4 FETCH 1 BODY[]
+server: * 1 FETCH (BODY[] {405}
+server: Return-Path: sender@example.com
+server: Received: from client.example.com ([192.0.2.1])
+server:         by mx1.example.com with ESMTP
+server:         id <20040120203404.CCCC18555.mx1.example.com@client.example.com>
+server:         for <recipient@example.com>; Tue, 20 Jan 2004 22:34:24 +0200
+server: From: sender@example.com
+server: Subject: Test message
+server: To: recipient@example.com
+server: Message-Id: <20040120203404.CCCC18555.mx1.example.com@client.example.com>
+server: 
+server: This is a test message.
+server: )
+server: a4 OK Fetch completed.
+client: a5 LOGOUT
+server: * BYE Logging out
+server: a5 OK Logout completed.
+
+Testing
+Testing mail delivery
+
+Right, now we're ready to test things out! First, let's look at mailbox delivery. In fact we have to deliver at least one mail into each mailbox to create its directory structure, before we can access it using pop3 or imap.
+
+Here's one way to do it: we can invoke Exim, Linnet's mail transport agent, directly from the command line to test whether an address is valid and to perform a delivery to a mailbox. In the latter case you have to type the message directly in, line by line, ending with ctrl-D or a dot on a line of its own.
+
+# linnet exim -bt fred@example.com
+Maildir directory: /var/linnet/mail/6/25/fred%40example.com/Maildir
+fred@example.com
+  router = maildir, transport = maildir_delivery
+# linnet exim -v -odf fred@example.com
+Subject: test
+
+this is a test
+.
+LOG: MAIN
+  <= root@billdog.local.linnet.org U=root P=local S=381
+delivering 1DBBO8-0000wC-El
+Maildir directory: /var/linnet/mail/6/25/fred%40example.com/Maildir
+LOG: MAIN
+  => fred@example.com F=<root@billdog.local.linnet.org> P=<root@billdog.local.li
+nnet.org> R=maildir T=maildir_delivery S=503 QT=4s DT=0s
+LOG: MAIN
+  Completed
+
+Another way to do it is by connecting to the SMTP daemon on port 25 and submitting a mail over TCP/IP, in the same way that incoming messages are received over the Internet. After the 'data' command, the message is terminated by a single dot on a line of its own.
+
+# telnet 127.0.0.1 25
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+220 billdog.local.linnet.org (localhost [127.0.0.1]:25) ESMTP Exim 4.50+Linnet+0
+.4.0 Tue, 15 Mar 2005 12:47:16 +0000
+ehlo test
+250-billdog.local.linnet.org Hello localhost [127.0.0.1]
+250-SIZE 52428800
+250-PIPELINING
+250 HELP
+mail from:<>
+250 OK
+rcpt to:<wilma@example.com>
+250 Accepted
+data
+354 Enter message, ending with "." on a line by itself
+subject: test
+
+this is a test
+.
+250 OK id=1DBBSK-0000wa-Ek
+quit
+221 billdog.local.linnet.org closing connection
+Connection closed by foreign host.
+
+In this case you don't actually see the delivery taking place, but you can find it in Exim's log files:
+
+# tail /var/linnet/exim/log/mainlog
+...
+2005-03-15 12:47:35 +0000 1DBBSK-0000wa-Ek <= <> H=localhost (test) [127.0.0.1]:
+51793 I=[127.0.0.1]:25 P=esmtp S=258 for wilma@example.com
+2005-03-15 12:47:35 +0000 1DBBSK-0000wa-Ek => wilma@example.com F=<> P=<> R=mail
+dir T=maildir_delivery S=352 QT=7s DT=0s
+2005-03-15 12:47:35 +0000 1DBBSK-0000wa-Ek Completed
+&prompt;
+
+If example.com were a real domain, and you set up the domain name system with an MX record pointing at your Linnet box, people on the Internet could now send mail to <fred@example.com> and <wilma@example.com>, and it would arrive in their mailboxes.
+Testing POP3 and IMAP
+
+You can of course test POP3 and IMAP access by pointing a mail client at your new mailserver, but it's a much better test to connect to it directly on port 110 (POP3) or port 143 (IMAP) and login directly. This eliminates any uncertainty that there may be an issue with your client program, and in any case gives more useful debugging information if there is a problem.
+
+# telnet localhost 110
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
++OK Hello there.
+user fred@example.com
++OK Password required.
+pass wibble
+-ERR Temporary problem, please try again later
+
+Oops, what happened there? Well, you can check the logs. The POP3 and IMAP daemons use 'syslog' to record their data. Depending on how your system is set up, mail logs probably go to /var/log/maillog.
+
+# tail /var/log/maillog
+...
+Mar 15 12:55:58 billdog pop3d: authdaemon: s_connect() failed: Connection refused
+Mar 15 12:55:58 billdog pop3d: [Hint: perhaps authdaemond is not running?]
+Mar 15 12:55:58 billdog pop3d: LOGIN FAILED, user=fred@example.com, ip=[127.0.0.1]
+Mar 15 12:55:58 billdog pop3d: authentication error: Connection refused
+
+Aha, now we see the problem: the courier-imap packages have a separate authentication daemon whose job it is to validate passwords, and it's not running. So we simply have to start it and try again:
+
+# linnet start authdaemon
+authdaemon: running (pid 3666)
+# telnet localhost 110
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
++OK Hello there.
+user fred@example.com
++OK Password required.
+pass wibble
++OK logged in.
+stat
++OK 1 515
+retr 1
++OK 515 octets follow.
+Return-path: <root@billdog.local.linnet.org>
+Envelope-to: fred@example.com
+Delivery-date: Tue, 15 Mar 2005 12:43:12 +0000
+Received: from root by billdog.local.linnet.org (localhost)
+        with local id 1DBBO8-0000wC-El (Exim 4.50) for fred@example.com
+        (return-path <root@billdog.local.linnet.org>); Tue, 15 Mar 2005
+12:43:12 +0000
+Subject: test
+Message-Id: <E1DBBO8-0000wC-El@billdog.local.linnet.org>
+From: Charlie Root <root@billdog.local.linnet.org>
+Date: Tue, 15 Mar 2005 12:43:10 +0000
+
+this is a test
+.
+quit
++OK Bye-bye.
+Connection closed by foreign host.
+&prompt;
+
+That's good. IMAP commands are different, but can still be given using telnet. Note that every command must be prefixed with a "tag", which is an arbitrary sequence of characters, and a space. In this example I have used "a" as the tag.
+
+# telnet localhost 143
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+* OK [CAPABILITY IMAP4rev1 UIDPLUS CHILDREN NAMESPACE THREAD=ORDEREDSUBJECT THRE
+AD=REFERENCES SORT QUOTA IDLE ACL ACL2=UNION STARTTLS] Courier-IMAP ready. Copyr
+ight 1998-2005 Double Precision, Inc.  See COPYING for distribution information.
+a login wilma@example.com boing
+a OK LOGIN Ok.
+a select inbox
+* FLAGS (\Draft \Answered \Flagged \Deleted \Seen \Recent)
+* OK [PERMANENTFLAGS (\* \Draft \Answered \Flagged \Deleted \Seen)] Limited
+* 1 EXISTS
+* 1 RECENT
+* OK [UIDVALIDITY 1110891662] Ok
+* OK [MYRIGHTS "cdilrsw"] ACL
+a OK [READ-WRITE] Ok
+a fetch 1 rfc822
+* 1 FETCH (RFC822 {362}
+Return-path: <>
+Envelope-to: wilma@example.com
+Delivery-date: Tue, 15 Mar 2005 12:47:35 +0000
+Received: from localhost ([127.0.0.1]:51793 helo=test)
+        by billdog.local.linnet.org (localhost [127.0.0.1]:25)
+        with esmtp id 1DBBSK-0000wa-Ek (Exim 4.50) for wilma@example.com
+        (return-path <>); Tue, 15 Mar 2005 12:47:35 +0000
+subject: test
+
+this is a test
+)
+a OK FETCH completed.
+a logout
+* BYE Courier-IMAP server shutting down
+a OK LOGOUT completed
+Connection closed by foreign host.
+
+-------------------------------------------------------------------------------
+| DNS                                                                         |
+-------------------------------------------------------------------------------
+client: > dig example.com mx
+client: > nslookup -query=mx example.com
+dig @172.16.1.131 apache.org MX
+dig -x 91.183.38.48
+nslookup 91.183.38.48
+host 91.183.38.48
+-------------------------------------------------------------------------------
+| MONITORING                                                                  |
+-------------------------------------------------------------------------------
+tcpdump
+tcpdump -i eth0 -v -X -s 1514
+
+-------------------------------------------------------------------------------
+| TSHARK                                                                      |
+-------------------------------------------------------------------------------
+tshark
+
+-------------------------------------------------------------------------------
+| WIRESHARK                                                                   |
+-------------------------------------------------------------------------------
+$ sudo apt-get install wireshark
+$ sudo dpkg-reconfigure wireshark-common
+$ sudo usermod -a -G wireshark $USER
+$ sudo reboot
+Apparently, the libfreetype you're using is incompatible with Wireshark. Others have had similar problems (here and here), and it seems to be related to a foul DYLD_LIBRARY_PATH. The second link (referring to gnuplot but same problem here) provides a temporary(?) workaround:
+    Open the folder /Applications in the finder
+    Right-click on Wireshark.app and select "Show package contents"
+    Navigate to /Applications/Wireshark.app/Contents/Resources/bin
+    Right-click on the file "wireshark" and select "Open with -> Other ... -> TextEdit.app"
+    Change the line:
+from: DYLD_LIBRARY_PATH="${ROOT}/lib:${DYLD_LIBRARY_PATH}"
+to: DYLD_LIBRARY_PATH="${ROOT}/lib"
+and
+from: DYLD_FRAMEWORK_PATH
+to: DYLD_FRAMEWORK_PATH="${ROOT}/lib"
+EDIT: If the workaround above doesn't work for you, try re-installing freetype [from MacPorts].
+The Wireshark Wiki
+Login
+CaptureFilters
+    FrontPage
+    RecentChanges
+    FindPage
+    HelpContents
+    CaptureFilters
+    Immutable Page
+    Info
+    Attachments
+CaptureFilters
+An overview of the capture filter syntax can be found in the User's Guide. A complete reference can be found in the expression section of the tcpdump manual page.
+Wireshark uses the same syntax for capture filters as tcpdump, WinDump, Analyzer, and any other program that uses the libpcap/WinPcap library.
+If you need a capture filter for a specific protocol, have a look for it at the ProtocolReference.
+Contents
+    CaptureFilters
+      Examples
+      Useful Filters
+      Default Capture Filters
+      Further Information
+      See Also
+      Discussion
+Examples
+Capture only traffic to or from IP address 172.18.5.4:
+    host 172.18.5.4
+Capture traffic to or from a range of IP addresses:
+    net 192.168.0.0/24
+or
+    net 192.168.0.0 mask 255.255.255.0
+Capture traffic from a range of IP addresses:
+    src net 192.168.0.0/24
+or
+    src net 192.168.0.0 mask 255.255.255.0
+Capture traffic to a range of IP addresses:
+    dst net 192.168.0.0/24
+or
+    dst net 192.168.0.0 mask 255.255.255.0
+Capture only DNS (port 53) traffic:
+    port 53
+Capture non-HTTP and non-SMTP traffic on your server (both are equivalent):
+    host www.example.com and not (port 80 or port 25)
+    host www.example.com and not port 80 and not port 25
+Capture except all ARP and DNS traffic:
+    port not 53 and not arp
+Capture traffic within a range of ports
+    (tcp[0:2] > 1500 and tcp[0:2] < 1550) or (tcp[2:2] > 1500 and tcp[2:2] < 1550)
+or, with newer versions of libpcap (0.9.1 and later):
+    tcp portrange 1501-1549
+Capture only Ethernet type EAPOL:
+    ether proto 0x888e
+Reject ethernet frames towards the Link Layer Discovery Protocol Multicast group:
+    not ether dst 01:80:c2:00:00:0e
+Capture only IP traffic - the shortest filter, but sometimes very useful to get rid of lower layer protocols like ARP and STP:
+    ip
+Capture only unicast traffic - useful to get rid of noise on the network if you only want to see traffic to and from your machine, not, for example, broadcast and multicast announcements:
+    not broadcast and not multicast
+Capture IPv6 "all nodes" (router and neighbor advertisement) traffic. Can be used to find rogue RAs:
+    dst host ff02::1
+Capture HTTP GET requests. This looks for the bytes 'G', 'E', 'T', and ' ' (hex values 47, 45, 54, and 20) just after the TCP header. "tcp[12:1] & 0xf0) >> 2" figures out the TCP header length. From Jefferson Ogata via the tcpdump-workers mailing list.
+    port 80 and tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420
+Useful Filters
+Blaster and Welchia are RPC worms. (Does anyone have better links, i.e. ones that describe or show the actual payload?)
+Blaster worm:
+    dst port 135 and tcp port 135 and ip[2:2]==48
+Welchia worm:
+    icmp[icmptype]==icmp-echo and ip[2:2]==92 and icmp[8:4]==0xAAAAAAAA
+   The filter looks for an icmp echo request that is 92 bytes long and has an icmp payload that begins with 4 bytes of A's (hex). It is the signature of the welchia worm just before it tries to compromise a system.
+Many worms try to spread by contacting other hosts on ports 135, 445, or 1433. This filter is independent of the specific worm instead it looks for SYN packets originating from a local network on those specific ports. Please change the network filter to reflect your own network.
+dst port 135 or dst port 445 or dst port 1433  and tcp[tcpflags] & (tcp-syn) != 0 and tcp[tcpflags] & (tcp-ack) = 0 and src net 192.168.0.0/24
+Default Capture Filters
+Wireshark tries to determine if it's running remotely (e.g. via SSH or Remote Desktop), and if so sets a default capture filter that should block out the remote session traffic. It does this by checking environment variables in the following order:
+Environment Variable
+Resultant Filter
+SSH_CONNECTION
+not (tcp port srcport and addr_family host srchost and tcp port dstport and addr_family host dsthost)
+SSH_CLIENT
+not (tcp port srcport and addr_family host srchost and tcp port dstport)
+REMOTEHOST
+not addr_family host host
+DISPLAY
+not addr_family host host
+CLIENTNAME
+not tcp port 3389
+(addr_family will either be "ip" or "ip6")
+Further Information
+    Filtering while capturing from the Wireshark User's Guide
+    The tcpdump man page includes a comprehensive capture filter reference
+    The Mike Horn Tutorial gives a good introduction to capture filters
+    Capture and display filter Cheat sheets
+    packetlevel.ch Filter examples
+See Also
+DisplayFilters: more info on filters while displaying, not while capturing
+The String-Matching Capture Filter Generator
+Discussion
+BTW, the Symantec page says that Blaster probes 135/tcp, 4444/tcp, and 69/udp. Would
+    (tcp dst port 135 or tcp dst port 4444 or udp dst port 69) and ip[2:2]==48
+    be a better filter? - Gerald Combs
+Q: What is a good filter for just capturing SIP and RTP packets?
+A: On most systems, for SIP traffic to the standard SIP port 5060,
+    tcp port sip
+should capture TCP traffic to and from that port,
+    udp port sip
+should capture UDP traffic to and from that port, and
+    port sip
+should capture both TCP and UDP traffic to and from that port (if one of those filters gets "parse error", try using 5060 instead of sip). For SIP traffic to and from other ports, use that port number rather than sip.
+In most cases RTP port numbers are dynamically assigned. You can use something like the following which limits the capture to UDP, even source and destination ports, a valid RTP version, and small packets. It will capture any non-RTP traffic that happens to match the filter (such as DNS) but it will capture all RTP packets in many environments.
+    udp[1] & 1 != 1 && udp[3] & 1 != 1 && udp[8] & 0x80 == 0x80 && length < 250
+Capture WLAN traffic without Beacons:
+    link[0] != 0x80
+Capture all traffic originating (source) in the IP range 192.168.XXX.XXX:
+    src net 192.168
+Capture PPPoE traffic:
+    pppoes
+    pppoes and (host 192.168.0.0 and port 80)
+Capture VLAN traffic:
+    vlan
+    vlan and (host 192.168.0.0 and port 80)
+    CategoryHowTo
+CaptureFilters (last edited 2011-10-05 18:15:45 by GeraldCombs)
+    Immutable Page
+    Info
+    Attachments
+Original content on this site is available under the GNU General Public License.
+See the License page for details.     Powered by MoinMoin and Python.
+Please don't pee in the pool.
+-------------------------------------------------------------------------------
+| IRC                                                                         |
+-------------------------------------------------------------------------------
+IRC Important Tips for Connecting to IRCnet servers
+    It’s very important to use other ports than the default 6667 whenever possible, since that port tends to be very busy. Try something else in the 6660-6669 range instead.
+    Many IRCnet servers allow none or few connections from users outside their domain, so try a server in your own country or at least close to you.
+    Even after you connect, the traditional /links command to get a server list will only show about 1/3 of the servers, since many servers are “masked” and not shown. So for example, although there are about 16 servers in Finland (.fi), unless you’re already on a .fi server, /links or /links *.fi will show only the first one. You would need to do something like /links *.fi *.fi to see them all. 
+See also this troubleshooting guide for connecting to IRCnet (external link).
+IRCnet Server Lists
+The following are all external links and will take you away from our site. We keep these lists because IRCnet lacks an official web site, so these sites have different degrees of stability and accuracy. (EFnet and IRCnet are the oldest networks. They actually predate notions of network founders and ownership, and are by necessity an ad hoc collection of servers with minimal central administration, so phrases like “official” can often be more about vanity than reality.)
+IRCnet Server List: Semi-official
+    This site is pretty new and is part of the self-acclaimed “IRCnet website”, whether it stands the test of time remains to be seen. As with most server lists, you would need to add the servers manually to your client - in mIRC you may do so in the connection setup dialog window. Alternatively, just issue commands like /server irc.whatever.com:6666 which connects you to irc.whatever.com on port 6666.
+IRCnet Server List: another semi-official site
+    This list is run by the admins of an IRCnet server, and is automatically refreshed by a computer script several times a day. It is thus guaranteed to be as complete as possible. It’s sorted by domain, which is the same as the country except for a few exceptions such as the US servers. Read through the “description” column and avoid those marked as “routing servers” which won’t allow you to connect. Like with the previous list, you would need to add the servers manually to your client.
+IRCnet Server Map
+    This unofficial site provides a map showing how the IRCnet servers are linked together, either in an ASCII format (less sexy but more readable) or the GraphViz image (more sexy but less readable). The maps are automatically updated every few hours using an open source script available at that site.
+-------------------------------------------------------------------------------
+/server chat.freenode.net:6667
+    IRC - Internet Relay Chat
+    Helpful Tips
+    Basic IRC Commands 
+    mIRC Setup Tutorial
+    PIRCH Setup Tutorial 
+Just as you are able to surf the net with a few tricks to help make things easier, IRC is very similar. Below you will find some of the more common IRC commands that we use often. For a far more complete list, please visit our mIRC Commands page.
+/join
+    Type /join #channelname -- to join a channel of your choice 
+    Example: /join #bossmom 
+    What it looks like: 
+    [18:44] *** Now talking in #beginner 
+    --Op-- bossmom has joined the channel 
+    [18:44] *** Topic is 'Beginner's Help/Chat Channel....All Are Welcome Here!! ®© [ENGLISH]' 
+    [18:44] *** Set by X on Sun Jul 23 16:10:34
+/me
+    The /me is an action message. 
+    Type /me 'does anything' 
+    Example: /me waves hello 
+    What it looks like: 
+    * bossmom waves hello
+/msg
+    Type /msg nickname (message) to start a private chat. 
+    Example: /msg puddytat Hey tat, how are you? 
+    What it looks like: 
+    -> *puddytat* Hey tat, how are you?
+/nick
+    /nick changes your nickname 
+    Example: type /nick newnickname (limit 9 characters) 
+    What it looks like: I typed /nick luv2quilt 
+    *** bossmom is now known as luv2quilt
+/notice
+    A notice is used to send a short message to another person without opening up a private window. 
+    Type /notice nickname (message) 
+    Example: /notice badnick Please change your nickname for this family channel. 
+    What it looks like: 
+    -> -badnick- Please change your nickname for this family channel. 
+/part
+    Type /part -- to leave one channel 
+    Type /partall -- to leave all the channels you are in
+/ping
+    Type /ping nickname. What this command does is give you the ping time, or lag time, between you and the person you pinged. Lag can be explained as the amount of time it takes for you to type your message and for others to read your messages. Unfortunately, lag is always a part of IRC, although most times it's not a problem, just a nuisance. 
+    Example: /ping luv2quilt 
+    What it looks like: 
+    [19:04] -> [luv2quilt] PING 
+    [19:04] [luv2quilt PING reply]: 0secs
+/query
+    Similar to the /msg, except it forces a window to pop open. 
+    Type /query nickname (message) 
+    Example: /query Sofaspud^ Sooo....what's new? 
+    What it looks like: 
+    <luv2quilt> soooo....what's new?
+/quit
+    Type /quit to leave IRC altogether. This disconnects mirc from the server. 
+    Example: /quit Going out for dinner...nite all 
+    What it looks like: 
+    *** Quits: saca (Leaving)
+/ignore
+    Unfortunately, there will be times when you don't want to talk to someone, or else someone may be harassing you. 
+    By typing /ignore nickname 3, you will not receive anymore messages from that person. 
+    Example: /ignore luv2quilt 3 
+    To Unignore them, type /ignore -r luv2quilt 3 
+    What it looks like: 
+    *** Added *!*bossmom@*.dialup.netins.net to ignore list 
+    *** Removed *!*bossmom@*.dialup.netins.net from ignore list
+/whois
+    Type /whois nickname to see a bit more information about another user. You'll see what server another person is using, or what their ISP is. Pretty helpful when you don't recognize a nickname that wants to chat. You may recognize the IP, (Internet Protocol) and then feel more comfortable carrying on a conversation. You'll also be able to see what other channels a person is in, which might be a good indicator if you really want to talk with them or not. 
+    Example: /whois bossmom 
+    What it looks like: 
+    luv2quilt is bossmom@elwo-01-094.dialup.netins.net * Enjoy the Journey........ 
+    luv2quilt on @#bossmom 
+    luv2quilt using Seattle.WA.US.Undernet.org the time for school is during a recession. 
+    luv2quilt has been idle 18secs, signed on Sun Jul 23 18:47:26 
+    luv2quilt End of /WHOIS list.
+/chat
+    This opens up a DCC/CHAT window to another user. What's nice about these is that you can continue to chat even if you get disconnected from your server. 
+    Word of Caution: Do NOT accept dcc/chats nor dcc/gets from anyone that you don't know. 
+    Type /chat nickname. 
+    Example: /chat oddjob^ 
+    What it looks like: 
+    Chat with oddjob^ 
+    Waiting for acknowledgement...
+/help
+    There's one more very helpful command, and probably the one you'll use a lot when first starting out. In fact, I still use it quite a lot, and that's the built-in help menu of mIRC. 
+    Type /help, you'll see the the mIRC Help Menu open up. You can do a search from there, or you can type /help topic. Either way, a TON of information at your fingertips. 
+    Example: /help Basic IRC Commands 
+You are doing great so far. If you haven't yet read some Basic IRC Tips, I'd encourage you to take a peek, otherwise we are ready to setup your IRC client. Please choose one of the following clients you would like to learn:
+    mIRC Setup Tutorial
+    PIRCH Setup Tutorial 
+-------------------------------------------------------------------------------

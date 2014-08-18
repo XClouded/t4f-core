@@ -1,0 +1,95 @@
+T4F Essentials Java Guice
+=========================
+
+These samples cover essential JAVA classes related to Guice dependency injector and its extensions.
+
+The sample program is based on the GWT-Guice Official Documentation.
+Sample Program (All the programs are using Guice 3.0, Constructor binding is supported from this version)
+Guice allows us to instantiate the object for the interface based on the binding mentioned.
+
++ First Step
+++ Just mention the binding in AbstractModule's Implementation class (in sample program its BillingModule.java).
++ Linked Binding
+++ Linking the binded implementation/abstract class to another class.
++ Binding Annotations
+++ If you have multiple implementation for same interface, you can bind it by defining a annotation and the rules in overridden configure method of Module's Implementation class.
+++ @Named is built-in annotation and you need to define named to it, in the configure method.
++ Instance Binding
+++ This is to bind the instance directly to the interface in the Module class.
++ @Provides Method
+++ Allows us to set properties to while the Object is getting created. This can be used with Annotations also.
++ Provider Bindings
+++ If the Object creation get complicated, we can move it to a separate class instead of using @Provides Method. (Copy paste from Guice page).
++ Untargetted Bindings
+++ Directly binding the concrete class, Usually used to mention Singleton. Annotation can be used with this as well.
++ Constructor Bindings
+++ Assume, you have more than one constructor in class and you need to instantiate using a particular constructor. Then, use this method.
++ Just-in-time Binding
+++ Binding will be decided based on the annotation provided in the interface, in other words, there is not explicit bindings mentioned in the module class (If binding and annotation is provided then binding will override annotation).
+
+Bindings
++ Linked Bindings
++ Binding Annotations
++ Instance Bindings
++ @Provides Methods
++ Provider Bindings
++ Untargetted Bindings
++ Constructor Bindings
++ Built-in Bindings
++ Just-In-Time Bindings 
++ Scopes
++ Injections
+++ Injecting Providers 
++ AOP 
+Best Practices
++ Minimize mutability
++ Inject only direct dependencies
++ Avoid static state
++ Use @Nullable
++ Modules should be fast and side-effect free
++ Be careful about I/O in Providers
++ Avoid conditional logic in modules
++ Keep constructors as hidden as possible 
+Web and Servlets
++ Getting Started
++ Configuring Guice Servlet
++ Advanced Topics
++ Inspecting Servlet Bindings 
+Persistence
++ Getting Started
++ Using JPA
++ Transactions and Units of Work
++ Multiple persistence modules 
+JSR-330
+OSGi
+Custom Injections
+Third Party Modules 
+Extensions
++ Extending Guice
++ Elements SPI
++ Extensions SPI
++ AssistedInject
++ Multibindings
++ Custom Scopes
++ Throwing Providers
++ Graphing Guice Applications 
+Internals
++ Bootstrap
++ Binding Resolution
++ Injection Points
++ Class Loading
++ Optional AOP
+
+Apache Onami
+------------
+See http://99soft.github.com/guice.html
+See http://wiki.apache.org/incubator/OnamiProposal
++ G-Guava	Google Guice integration modules for Google Guava
++ Guartz	Quartz integration, originally developed by Nino Martinez Wael
++ GSPI	a Java5 compatible small collection of reusable tools for Google Guice to make easier the integration with the Service Provider Interface pattern.
++ JUnice	Simple library to inject a Junit4 test classes via Google-Guice.
++ Lifegycle	@AfterInjection and @Dispose Guice annotations handlers
++ Rocoto	Expanded properties for Google Guice
++ sli4j	Simple Logging Injector for Java
++ Gache
++ Autobind

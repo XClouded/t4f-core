@@ -1,0 +1,100 @@
+<html><!-- Source is http://www.cs.uic.edu/~troy/spring05/cs450/sockets/socket.html -->
+<head>
+<title>Socket Examples</title>
+</head>
+
+<body>
+<h2>Socket Examples</h2>
+Prof. Drake's 
+<a href="http://www.cs.uic.edu/~troy/fall04/cs441/drake/sockets.html">
+Networking and Sockets</a> page
+<p>
+The following are some simple TCP socket examples.
+<ul>
+<li>This client/server pair runs a simple TCP socket program
+as an Echo Server
+that only allows one client to connect to the server.
+<ul>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/EchoClient.java">EchoClient.java</a>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/EchoServer.java">EchoServer.java</a>
+</ul>
+<p>
+
+<li>This client/server pair improves on the previous Echo
+Server that allows multiple clients to connect to the server.
+<ul>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/EchoClient2.java">EchoClient2.java</a>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/EchoServer2.java">EchoServer2.java</a>
+</ul>
+<p>
+
+<li>This server improves on the previous Echo Server since it
+allows the "connection thread" of the server to stop executing
+via a command sent from the client.
+<ul>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/EchoServer2b.java">EchoServer2b.java</a>
+</ul>
+<p>
+
+<li>This server improves on the previous Echo Server since it
+uses a time out on the server's connection TCP socket to continuously
+check if it should stop the "connection thread" of the server
+from executing.
+<ul>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/EchoServer2c.java">EchoServer2c.java</a>
+</ul>
+<p>
+
+<li>This example shows how to send an object across a TCP socket
+by serializing a class.  
+<ul>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/SerialClient.java">SerialClient.java</a>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/SerialServer.java">SerialServer.java</a>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/Point2d.java">Point2d.java</a>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/Point3d.java">Point3d.java</a>
+</ul>
+<p>
+
+<li>This is a example of a extremely simple web server.
+The client is a web browser.  
+<ul>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/WebServer.java">WebServer.java</a>
+</ul>
+</ul>
+<p>
+The following are some simple UDP socket examples.
+
+<ul>
+<li>This client/server pair runs a simple UDP socket program
+as an Echo/Uppercase Server
+that only allows the client to send one message to the server.
+<ul>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/UDPClient.java">UDPClient.java</a>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/UDPServer.java">UDPServer.java</a>
+</ul>
+<p>
+
+<li>This client sends multiple messages to the Echo/Uppercase
+Server to check if packets get dropped.
+<ul>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/UDPClient2.java">UDPClient2.java</a>
+</ul>
+<p>
+
+<li>This program scans the UDP ports on the local machine to
+see if they are being used.
+<ul>
+<li><a href="http://www.cs.uic.edu/~troy/spring05/cs450/sockets/UDPPortScanner.java">UDPPortScanner.java</a>
+</ul>
+</ul>
+<p>
+
+
+
+<p>
+
+These examples were written very quickly and currently
+are under-commented.
+
+</body>
+</html>

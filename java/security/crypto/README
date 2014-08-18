@@ -1,0 +1,5 @@
+1. Generate the server certificate
+$JAVA_HOME/bin/keytool -genkey --keysize 1024 -alias server-alias -keyalg RSA -keypass changeit -storepass changeit -keystore keystore.jks
+
+2. Export the generated server certificate in keystore.jks into the file server.cer
+$JAVA_HOME/bin/keytool -export -alias server-alias -storepass changeit -file server.cer -keystore keystore.jks

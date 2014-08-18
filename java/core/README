@@ -1,0 +1,32 @@
+T4F Essentials Java Language
+============================
+
+This module covers essential basic JAVA classes and usage.
+
+TODO
+----
+
+reference
++ weak
++ soft
+
+public static <T> void sort(List<T> list, Comparator<? super T> c) {
+    Object[] a = list.toArray();
+    Arrays.sort(a, (Comparator)c);
+    ListIterator i = list.listIterator();
+    for (int j=0; j<a.length; j++) {
+        i.next();
+        i.set(a[j]);
+    }
+}
+
+Listing 2 shows an example of how to launch a VM in debug mode and listen for a socket connection at port 8765.
+Listing 2. Target VM acts as a debug server
+
+-Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=8765
+
+Listing 3 shows how to attach to a running debugger application using a socket on host 127.0.0.1 at port 8000.
+Listing 3. Target VM acts as a debug client
+
+-Xdebug -Xrunjdwp:transport=dt_socket,address=127.0.0.1:8000
+

@@ -1,0 +1,49 @@
+-------------------------------------------------------------------------------
+| T4F CLOJURE                                                                 |
+-------------------------------------------------------------------------------
+If not done by m2eclipse, add natures and buildcommands to eclipse .project file
+<natures>
+ <nature>ccw.leiningen.nature</nature>
+ <nature>ccw.nature</nature>
+</natures>
+<buildSpec>
+  <buildCommand>
+    <name>ccw.builder</name>
+    <arguments>
+    </arguments>
+  </buildCommand>
+  <buildCommand>
+    <name>ccw.leiningen.builder</name>
+    <arguments>
+    </arguments>
+  </buildCommand>
+<buildSpec>
+-------------------------------------------------------------------------------
+clj
+-------------------------------------------------------------------------------
+lein clean
+lein compile
+lein install # !!! can override pom.xml, so rewrite with pom.xml_bu
+lein run
+-------------------------------------------------------------------------------
+(load "io/aos/clj/hello")
+(ns io.aos.clj.hello)
+(hello "Clojure")
+-------------------------------------------------------------------------------
+Create and run a simple Clojure project ("Hello Betty")
+Open the Java perspective
+  Window > Open Perspective > Java (a perspective is a predefined layout of views, suitable for a particular type of development)
+Create a Clojure project
+  With Leiningen Project Wizard: File > New > Leiningen Project, name it myproject
+  The project is created using the "default" Leiningen Template, which creates a Clojure project with a predefined "myproject.core" namespace in src/myproject/core.clj
+Add a function definition to myproject.core:
+  Open src/main/clojure/t4fclojure.clj, add the following at the end: (defn hello [who] (str "Hello " who " !")), save the file
+Run the project:
+  With file src/main/clojure/t4fclojure.clj open, Hit Ctrl+Alt+S (Cmd+Alt+S on MacOS). 
+  This sends the whole file's code to the REPL (and also takes care of starting a REPL for the project if none is currently started)
+Switch to the REPL in the namespace of your file:
+  Hit Ctrl+Alt+N (Cmd+Alt+N on MacOS). Alternatively, just click on the bottom of the REPL inside the "text input area"
+Call your function (Hit Enter to send the expression if the cursor is at the end, or hit Ctrl+Enter / Cmd+Enter if the cursor is not at the end of the text):
+> (hello "Clojure") [Ctrl+Enter]
+> "Hello Clojure !"
+-------------------------------------------------------------------------------

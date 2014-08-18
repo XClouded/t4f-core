@@ -1,0 +1,37 @@
+Return-Path: <bounces+12765-32ee-eric.charles=u-mangate.com@mail.pongr.com>
+MIME-Version: 1.0
+org.apache.james.spamassassin.flag: NO
+org.apache.james.spamassassin.status: No, hits=0.0 required=5.0
+Delivered-To: eric.charles@u-mangate.com
+Received: from o1.mail.pongr.com (HELO o1.mail.pongr.com) ([75.126.253.184])
+          by srv002 (JAMES SMTP Server ) with SMTP ID 1586155022
+          for <eric.charles@u-mangate.com>;
+          Sun, 20 May 2012 07:46:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=pongr.com; h=from:to
+	:message-id:subject:mime-version:content-type
+	:content-transfer-encoding:date; s=smtpapi; bh=5fOZ3wGVSOHrAsEve
+	xld+4oQwv8=; b=TmMrwuakYM2NhZY8R+IZSIBP6Ijx5hy3y3Q3xiRlrXJPfPgCQ
+	4BEnVL2LGs6UKH6kGm6giAqggMALAnjrc6OBnBAwZZMY2AuT3LLiCM1JSvt3gFYv
+	qUivt7EUzRggcAnQwJUjcNG9zG0cG7Xt9v6uul1Qmh9EgNQI0g/4VMTQOU=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=pongr.com; h=from:to
+	:message-id:subject:mime-version:content-type
+	:content-transfer-encoding:date; q=dns; s=smtpapi; b=KWAF2qaEY/0
+	aRcvfwVJd3kSGEn6x6w6dcT4bWhCac2YKh5XoRMH2LXtR80ZMLYYidXYkNSbEQRU
+	TGszVXSGLyHzU312HMJ8tCV0R2UdaRkOnR8Tq5qrTlxpSrn2kmK7T4MAyEdL3Acb
+	wS6bLaTL9z2StuswDEDMA4oU/emwXc5w=
+Received: by 10.8.49.92 with SMTP id mf40.18521.4FB8852C4
+        Sun, 20 May 2012 00:46:20 -0500 (CDT)
+Received: from ip-10-244-195-100.ec2.internal (unknown [10.8.49.124])
+	by mi12 (SG) with ESMTP id 4fb8852c.7eb7.ac98d6
+	for <eric.charles@u-mangate.com>; Sun, 20 May 2012 00:46:20 -0500 (CST)
+From: apache@pongr.com
+To: eric.charles@u-mangate.com
+Message-ID: <4198649.3935.1337492757935.JavaMail.tomcat6@ip-10-244-195-100>
+Subject: Nice Apache Software photo
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Date: Sun, 20 May 2012 00:46:20 -0500 (CDT)
+X-Sendgrid-EID: iQF8ir2dOGTxc3+wp1SNlszYdvzweinEYKBFCcyM/jH+IzzstFl0/eD6yWEfukNj6b0GVD+mQZ6eJsd2YTYe3CYeLQU+9gz0xs+4XVR8P5bKEjMg/NTlUGz7UJz+ex6E/Wt/D3QoQ8dKOW3VjcNUMg==
+
+Sweet Apache Software photo! Feel like showing it off for extra points? http://pngr.it/fzuIS9
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+  <loggers>
+    <root level="info">
+      <appender-ref ref="Console"/>
+    </root>
+  </loggers>
+  <appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%highlight{[%d{yyyy-MM-dd z HH:mm:ss.SSS}] [%level] (%C.java:%L):%M - %msg%n}"/>
+    </Console>
+  </appenders>
+</configuration>

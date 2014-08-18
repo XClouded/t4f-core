@@ -1,0 +1,17 @@
+javac aos/jni/JavaJNI.java
+javah -jni aos.jni.JavaJNI
+mv aos_jni_JavaJNI.h ../c
+
+nm ../../../Debug/libt4f-essentials-c-jni.so | grep zero
+sudo cp ../../../Debug/libt4f-essentials-c-jni.so /usr/lib
+sudo ldconfig
+
+gcc -I/opt/jdk1.8.0/include/ -I/opt/jdk1.8.0/include/linux -c -fpic ../c/JavaJNI.cpp
+gcc -shared -o JavaJNI.so JavaJNI.o
+mv JavaJNI.so libt4f-essentials-c-jni.so
+nm libt4f-essentials-c-jni.so | grep zero
+sudo cp libt4f-essentials-c-jni.so /usr/lib
+sudo ldconfig
+
+java JavaJNI
+java -Djava.library.path=../../../Debug/src/main/c JavaJNI

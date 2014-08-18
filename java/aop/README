@@ -1,0 +1,6 @@
+T4F Essentials JAVA AOP
+=======================
+
+You have to mvn install before running the unit tests in you IDE, otherwise you will get such exceptions...
+
+Caused by: java.lang.NoSuchMethodException: aos.aop.aspectj.auth.aspect.ProfileVerificationAspect.aspectOf()

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the AOS Community (AOS) under one or more
+  contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The AOS licenses this file
+  to you under the Apache License, Version 2.0 (the 
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>somesecurity</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <filter>
+        <filter-name>JSecurityFilter</filter-name>
+        <filter-class>org.jsecurity.web.servlet.JSecurityFilter</filter-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>
+                #See JSecurity API http://jsecurity.org/api/index.html
+                # and http://www.jsecurity.org/api/org/jsecurity/web/servlet/JSecurityFilter.html
+                
+                #create an object of the RoleSecurityJdbcRealm
+                #JSecurityFilter will inject that object into the SecurityManager
+                [main]
+                realmA = name.brucephillips.somesecurity.dao.RoleSecurityJdbcRealm
+                
+                #this application will use all the default
+                #filters (see link above)
+                #for example the default login page is /login.jsp
+                #users who try to access a page protected by JSecurity
+                #will be sent to /login.jsp
+                [filters]
+
+
+                #only let authenticated users
+                #with the appropriate role
+                #view the web pages in the secure
+                #and admin areas
+                [urls]
+                /secure/** = authc
+               
+
+            </param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>JSecurityFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+  <servlet>
+    <description>Finds all users in the data store</description>
+    <display-name>GetAllUsers</display-name>
+    <servlet-name>GetAllUsers</servlet-name>
+    <servlet-class>name.brucephillips.somesecurity.servlet.GetAllUsers</servlet-class>
+  </servlet>
+  <servlet>
+  	<description>
+  	Log in user using username and password provided</description>
+  	<display-name>
+  	LoginUser</display-name>
+  	<servlet-name>LoginUser</servlet-name>
+  	<servlet-class>
+  	name.brucephillips.somesecurity.servlet.LoginUser</servlet-class>
+  </servlet>
+  <servlet>
+  	<description>
+  	Logs user out</description>
+  	<display-name>
+  	LogoutUser</display-name>
+  	<servlet-name>LogoutUser</servlet-name>
+  	<servlet-class>
+  	name.brucephillips.somesecurity.servlet.LogoutUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllUsers</servlet-name>
+    <url-pattern>/GetAllUsers</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoginUser</servlet-name>
+  	<url-pattern>/LoginUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LogoutUser</servlet-name>
+  	<url-pattern>/LogoutUser</url-pattern>
+  </servlet-mapping>
+  <resource-ref>
+        <description>My DataSource Reference</description>
+        <res-ref-name>jdbc/security</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+  
+</web-app>

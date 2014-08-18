@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/DECORATION/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.1.0 http://maven.apache.org/xsd/decoration-1.1.0.xsd"
+  name="${project.name}">
+
+  <version position="none" />
+
+  <bannerLeft>
+
+    <name>T4F Essentials Java IO</name>
+<!--     <src>https://secure.gravatar.com/avatar/aa39ba1c8bc579bea1099773150f570c</src> -->
+    <src>/img/aos-letter.png</src>
+    <height>40px</height>
+    <href>${project.url}</href>
+    <alt>AOS Logo</alt>
+  </bannerLeft>
+
+  <custom>
+
+    <fluidoSkin>
+
+      <topBarEnabled>true</topBarEnabled>
+      <sideBarEnabled>false</sideBarEnabled>
+
+      <navBarStyle>navbar-inverse</navBarStyle>
+      <topBarContainerStyle>width: 90%;</topBarContainerStyle>
+
+      <googlePlusOne />
+
+      <facebookLike />
+<!-- 
+      <googleSearch>
+        <sitesearch>${project.url}</sitesearch>
+      </googleSearch>
+-->
+      <gitHub>
+        <projectId>echarles/t4f-essentials</projectId>
+        <ribbonOrientation>right</ribbonOrientation>
+        <ribbonColor>red</ribbonColor>
+      </gitHub>
+
+<!--       <ohloh> -->
+<!--         <projectId>???</projectId> -->
+<!--         <widget>factoids</widget> -->
+<!--       </ohloh> -->
+
+    </fluidoSkin>
+
+  </custom>
+
+  <body>
+  
+    <menu name="T4F Java IO">
+      <item name="Home" href="home.html"/>
+      <item name="Usage" href="usage.html"/>
+      <item name="Design" href="design.html" />
+    </menu>
+<!--
+    <menu name="Netty">
+      <item name="Netty3 User Guide"           href="./doc/netty3/NettyProject36UserGuide.html" />
+      <item name="Netty3 User Guide (PDF)"     href="./doc/netty3/netty-3.2.6.pdf" />
+      <item name="Netty3 User Event"           href="./doc/netty3/NettyEvent.txt" />
+      <item name="Netty4 New and Noteworthy"   href="./doc/netty4/New+and+Noteworthy.html" />
+    </menu>
+-->
+    <menu ref="reports" />
+
+    <footer>
+      <div class="row span12">
+       AOS, the AOS logo are trademarks of The AOS Community.
+       All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+    </footer>
+    
+  </body>
+
+</project>

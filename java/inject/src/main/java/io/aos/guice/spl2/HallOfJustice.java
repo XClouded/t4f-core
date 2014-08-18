@@ -1,0 +1,50 @@
+/****************************************************************
+ * Licensed to the AOS Community (AOS) under one or more        *
+ * contributor license agreements.  See the NOTICE file         *
+ * distributed with this work for additional information        *
+ * regarding copyright ownership.  The AOS licenses this file   *
+ * to you under the Apache License, Version 2.0 (the            *
+ * "License"); you may not use this file except in compliance   *
+ * with the License.  You may obtain a copy of the License at   *
+ *                                                              *
+ *   http://www.apache.org/licenses/LICENSE-2.0                 *
+ *                                                              *
+ * Unless required by applicable law or agreed to in writing,   *
+ * software distributed under the License is distributed on an  *
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY       *
+ * KIND, either express or implied.  See the License for the    *
+ * specific language governing permissions and limitations      *
+ * under the License.                                           *
+ ****************************************************************/
+package io.aos.guice.spl2;
+
+import java.util.Random;
+
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
+/**
+ * This is how you would implement a Provider "method" pre-Guice 2.0. Basically
+ * you would have to host the Provider in its own class, and register it with
+ * the binder:
+ * 
+ * binder.bind(Hero.class).toProvider(HallOfJustice.class);
+ */
+public class HallOfJustice implements Provider<Hero> {
+	private FrogMan frog;
+	private WeaselGirl weasel;
+	private Random randomBoolean = new Random();
+
+	@Inject
+	public HallOfJustice(FrogMan frog, WeaselGirl weasel) {
+		this.frog = frog;
+		this.weasel = weasel;
+	}
+
+	public Hero get() {
+		if (randomBoolean.nextBoolean()) {
+			return frog;
+		}
+		return weasel;
+	}
+}

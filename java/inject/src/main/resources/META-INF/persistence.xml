@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!--
+  Licensed to the AOS Community (AOS) under one or more
+  contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The AOS licenses this file
+  to you under the Apache License, Version 2.0 (the 
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+	http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
+
+	<!-- A JPA Persistence Unit -->
+	<persistence-unit name="warpPersistTest" transaction-type="RESOURCE_LOCAL">
+
+<!--		<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
+		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+<!--		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
+ 
+		<!-- JPA entities can be registered here, but it's not necessary -->
+<!--		<class>aos.warppersist.spl1.jpa.model.impl.Asset</class>-->
+<!--		<class>aos.warppersist.spl1.jpa.model.impl.Project</class>-->
+
+		<properties>
+		
+			<!-- Hibernate -->
+<!--            <property name="hibernate.connection.driver_class" value="org.apache.derby.jdbc.ClientDriver"/>-->
+<!--            <property name="hibernate.connection.url" value="jdbc:derby://localhost:1527/samplejpa;create=true"/>-->
+<!--            <property name="hibernate.connection.username" value="aos"/>-->
+<!--            <property name="hibernate.connection.password" value="aos"/>-->
+<!--            <property name="hibernate.connection.pool_size" value="1"/>-->
+<!--            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>-->
+<!--            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
+<!--			<property name="hibernate.hbm2ddl.auto" value="update"/>-->
+<!--			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
+
+			<!-- OpenJPA -->
+			<property name="openjpa.ConnectionURL" value="jdbc:derby://localhost:1527/samplejpa;create=true" />
+			<property name="openjpa.ConnectionDriverName" value="org.apache.derby.jdbc.ClientDriver"/>
+			<property name="openjpa.ConnectionUserName" value="aos" />
+			<property name="openjpa.ConnectionPassword" value="aos" /> 
+			<property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO" />
+			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema"/>
+			<property name="openjpa.jdbc.SchemaFactory" value="native(ForeignKeys=true)"/>
+			<property name="openjpa.jdbc.MappingDefaults" value="ForeignKeyDeleteAction=restrict, JoinForeignKeyDeleteAction=restrict"/>
+			<property name="openjpa.RuntimeUnenhancedClasses" value="warn"/>
+		
+			<!-- Eclipselink -->
+<!--			<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/samplejpa1;create=true" />-->
+<!--			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />-->
+<!--			<property name="javax.persistence.jdbc.user" value="aos" />-->
+<!--			<property name="javax.persistence.jdbc.password" value="aos" />-->
+<!--			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />-->
+<!--			<property name="eclipselink.ddl-generation.output-mode" value="database" />-->
+
+        </properties>
+
+	</persistence-unit>
+
+</persistence>

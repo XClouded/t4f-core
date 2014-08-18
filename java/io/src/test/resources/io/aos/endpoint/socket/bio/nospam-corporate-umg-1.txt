@@ -1,0 +1,50 @@
+Return-Path: <zcox@pongr.com>
+Delivered-To: eric.charles@u-mangate.com
+Received: from na3sys009aog115.obsmtp.com (HELO na3sys009aog115.obsmtp.com) ([74.125.149.238])
+          by srv002 (JAMES SMTP Server ) with SMTP ID 2094586712
+          for <eric.charles@u-mangate.com>;
+          Thu, 17 May 2012 06:48:26 +0200 (CEST)
+Received: from mail-yx0-f179.google.com ([209.85.213.179]) (using TLSv1) by na3sys009aob115.postini.com ([74.125.148.12]) with SMTP
+	ID DSNKT7Ur2D3CI25seLiRydKHUlIaH8Gzp1Tq@postini.com; Thu, 17 May 2012 09:48:25 PDT
+Received: by yenr13 with SMTP id r13so1950344yen.10
+        for <eric.charles@u-mangate.com>; Thu, 17 May 2012 09:48:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20120113;
+        h=subject:cc:from:content-type:x-mailer:message-id:date:to
+         :content-transfer-encoding:mime-version:x-gm-message-state;
+        bh=AbEDdwv6udsS23DEa3koi8f5THdLn6mIclzCbk0pNfI=;
+        b=fHxA9GZNf6EHSnK0h8Btj4qtZvUrxn/0OkuBxIvI4cbqapPeZabjj321OXWv0S8R16
+         k8abK9yBbn4IrwwScEzPa7gLwuxIH+/e+FZbi9MYZ+hXElkOoIKmXJF71EtQOvIkSI60
+         UPz19MX4xC7e3Ip6QiTFLP0Xqv1ml0kg1Xf5sxkK5tNmcKr2KC9IBzAD3F/UTleY82tO
+         wj3p5sfersxJIOjo5WhvsmwPTAVWwGHkVRj0vFZAstT5JxdbcDSXAhHHmACgNmcZdMwn
+         28NjI5BL0KU3MGm5LdZojbdLwuHR5zdiHYkDy4fHVqVaYRaUfgdTrDurZeZ8pW38DgvL
+         XSVg==
+Received: by 10.43.58.73 with SMTP id wj9mr5225449icb.17.1337273303508;
+        Thu, 17 May 2012 09:48:23 -0700 (PDT)
+Received: from [172.16.42.12] ([207.45.81.210])
+        by mx.google.com with ESMTPS id em4sm18482974igc.16.2012.05.17.09.48.22
+        (version=TLSv1/SSLv3 cipher=OTHER);
+        Thu, 17 May 2012 09:48:23 -0700 (PDT)
+Subject: no-reply
+Cc: Jamie Thompson <jthompson@pongr.com>
+From: Zach Cox <zcox@pongr.com>
+Content-Type: text/plain;
+	charset=us-ascii
+X-Mailer: iPhone Mail (9B206)
+Message-Id: <94AAA70B-2C93-4156-8BF2-374EFDA749ED@pongr.com>
+Date: Thu, 17 May 2012 11:48:21 -0500
+To: Eric Charles <eric.charles@u-mangate.com>
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (1.0)
+X-Gm-Message-State: ALoCoQnznrU9O8vS1IgSY8PRWpAu4iS22rGScwzoFJb/0HOifadNT9gtyBAmQm5LjS4VV9azOvs8
+
+Hi Eric,
+
+Currently we use something like contact@pongr.com or brandname@pongr.com as t=
+he =46rom address on emails that are sent out by the system through Sendgrid=
+. Would it make things better if these were all no-reply@pongr.com instead?
+
+Thanks,
+Zach
+
+

@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><!-- Source is http://www.cs.uic.edu/~troy/fall04/cs441/drake/sockets.html -->
+<head>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+  <title>Networking and Sockets</title>
+</head>
+<body>
+<h1>Networking and Sockets</h1>
+<h2> 1. Networking basics</h2>
+<h3> 1.1 Hosts and ports</h3>
+To use the services of a host on the network, a program needs to
+identify that computer. &nbsp;Internet hosts are identified by an <i>IP
+address</i> consisting of four 8-bit unsigned numbers (called <i>octets</i>),
+usually given in decimal separated by periods.&nbsp; (IP stands for
+Internet Protocol.)&nbsp; Because numeric addresses are difficult for
+people to remember, the internet Domain Name Service associates host
+names (e.g., <code>ernie.cs.uic.edu</code> ) with IP addresses (e.g., <code>131.193.40.40</code>).<br>
+<br>
+The class <code>java.net.InetAddress</code> encapuslates an internet
+host&#8217;s name and IP address. &nbsp;<code>InetAddress</code> has no
+public
+constructors: you obtain an instance with the class messages <code>getAllByName</code>
+or <code>getByName</code>, which contact the internet domain name
+services to resolve a host name to its IP address or vice versa.&nbsp;
+The argument is a string giving either an internet name or an IP
+address. &nbsp; (<code> getAllByName</code> is used when a host has
+multiple IP addresses, e.g. because it is connected to multiple
+networks, and it returns <code>InetAddress[]</code> .) &nbsp;For
+example:<br>
+<code> &nbsp; &nbsp;InetAddress rtfm =
+InetAddress.getByName("rtfm.mit.edu");<br>
+&nbsp; &nbsp;InetAddress tigger =
+InetAddress.getByName("128.248.155.51");</code><br>
+<code>getAllByName</code> and <code>getByName</code> signal an <code>UnknownHostException</code>
+if the host name cannot be resolved or a <code>SecurityException</code>
+if the security manager does not allow the program to resolve that host
+name. &nbsp;The class message <code>getLocalHost</code> returns an <code>
+InetAddress</code> representing the machine on which the virtual
+machine is running. &nbsp;The accessors <code>getHostName</code> and <code>
+getHostAddress</code> return the internet name and IP address,
+respectively.&nbsp; The class <code>InetAddress</code> also defines <code>equals</code>,
+<code>hashCode</code>, and <code>toString</code>.<br>
+<br>
+Typically, a computer has a single physical connection to the network
+through which data destined for that machine arrives. Since data
+arriving over that connection may be intended for various applications,
+the operating system needs a way to route data to the correct process.
+&nbsp;<em></em> A <i>port</i> is a virtual address on an internet host
+identified
+by a 16-bit integer.&nbsp; (It is not the same as a hardware port.)
+&nbsp;Ports allow a host to provide multiple services that are
+available remotely.&nbsp; <i>Well-known ports</i> are port numbers
+that are assigned by convention for specific services. &nbsp;Examples
+include port 21 for FTP servers, port 23 for telnet, and port 25 for
+SMTP (simple mail transfer protocol),
+and all well-known ports have numbers less than 1024. &nbsp;Data
+transmitted over the Internet includes addressing information that
+identifies the host by its 32-bit IP address and the port by its number.<br>
+<br>
+<h3>1.2 Protocols</h3>
+TCP (Transport Control Protocol) is a <i>connection-oriented protocol</i>
+built on top of IP which establishes a reliable point-to-point
+connection between the source and destination that remains in effect
+until closed.&nbsp; It ensures that all the packets in a message are
+delivered and are received in the correct order. &nbsp;TCP
+error-detection and error-correction features allow the source and
+destination to treat the connection as a byte stream.&nbsp; For
+example, FTP, SMTP, DNS, NNTP (net news), and HTTP are built on top of
+TCP.<br>
+<br>
+UDP (User Datagram Protocol) is a <i>connectionless</i> protocol built
+on top of IP that does not establish a link between the source and
+destination, and does not guarantee the order of the packets in a
+message or even whether individual packets are delivered. &nbsp;If a
+message consists of several packets, the recipient must reconstruct the
+message.&nbsp; The advantage of UDP is that it requires much less
+overhead than TCP because there is no hand-shaking, no retry if an
+acknowledge isn't received, no buffering and numbering of packets, etc.
+&nbsp;Connectionless protocols typically are used either for one-packet
+messages for which delivery is not crucial, e.g. responses to time
+requests, or to reduce the transmission overhead for
+time-critical data that can be lossy, such as streaming audio or
+continuous measurements.<br>
+<br>
+The package <code>java.net</code> includes classes for both
+connection-oriented and connectionless communication. &nbsp;We will not
+cover connectionless communication in detail.<br>
+<br>
+<h3>1.3 Sockets</h3>
+Sockets are an interprocess communication mechanism originally defined
+in BSD 4.x UNIX that support communication between processes on
+different
+computers. &nbsp;A <em>socket</em> is one endpoint of a two-way
+communication
+link between two processes running on a network. &nbsp;Sockets are used
+in pairs, one for each of the communicating processes. &nbsp;A <i>socket
+address</i> consists of a IP address and a port number so that the TCP
+layer
+can identify which process should receive the data.<br>
+<br>
+Client-server socket usage is not symmetric: the server is running and
+the client requests a connection to it. &nbsp;Typically, IPC systems
+define two types of sockets: a <i>server socket</i> for handling
+connection requests and a <i>client socket</i> for transmitting and
+receivng data. &nbsp;A
+server socket provides a network-accessible service which &#8220;listens&#8221;
+for requests on a particular port number. &nbsp;The client's operating
+system usually assigns the port number for a client socket, which the
+server receives when its operating system recognizes and establishes a
+connection
+from the client. &nbsp;When the operating system on the server machine
+recognizes a message for its IP number, it resumes the server process
+associated with that port (if necessary), and begins a session (for a
+connection-oriented protocol), which creates a client socket for the
+server to use to send and receive messages to and from the client's
+socket. &nbsp;Usually, the server process begins a new process (in
+Java, a new thread) to handle that connection so that it can continue
+to service other clients (which is why the operating system creates a
+new socket for the connection on the server side). The
+session continues until the server or client closes the connection.<br>
+<br>
+UNIX uses the same <code>read</code> and <code>write</code> system
+calls for sockets that it uses with files and pipes. &nbsp;As with
+those streams, these calls are syunchronous: <code>read</code> blocks
+if nothing has been received from the other socket and continues when
+bytes are received, and <code>write</code> blocks if the recipient's
+buffer is full and continues when it is not.<br>
+<br>
+Sockets are far simpler to code in Java because the classes encapsulate
+many of the options that must be specified and the function calls and
+structures that are needed when coding in C. &nbsp;Furthermore, the C
+system calls are not safe and are difficult to debug because they
+include several <code>enum</code> and <code>void*</code> arguments.<br>
+<br>
+<h2>2.&nbsp; Networking in Java</h2>
+<h3>2.1 The package <code>java.net</code></h3>
+The basic classes for implementing networked application are defined in
+the package <code>java.net</code>.&nbsp; They include:<br>
+<ul>
+  <li><code>InetAddress</code> represents an internet host</li>
+  <li><code>URL</code> represents a uniform resource locator</li>
+  <li><code>Socket</code> represents a client socket used for
+communication among processes on different hosts (TCP)</li>
+  <li><code>ServerSocket</code> represents a server socket that listens
+for client connections (TCP)</li>
+  <li><code>DatagramSocket</code>, <code>MulticastSocket</code>, and <code>DatagramPacket</code>
+for connectionless communication (UDP)</li>
+  <li>Implementation classes and interfaces (e.g. <code>SocketImplFactory</code>,
+    <code>SocketImpl</code>, and <code>SocketOptions</code>)</li>
+  <li>Auxiliary URL and security classes (e.g., <code>URLConnection</code>,
+    <code>URLDecoder</code>, and <code>SocketPermissions</code>)</li>
+  <li>Exceptions (e.g., <code>UnknownHostException</code>, <code>MalformedURLException</code>,
+and <code>SocketTimeoutException</code>)</li>
+</ul>
+Java 1.4 adds several classes such as <code>Inet6Address</code>, <code>URI</code>,
+and <code>InetSocketAddress</code>.&nbsp; We covered <code>InetAddress</code>
+above, and will discuss the socket classes in the next four sections.<br>
+<br>
+A URL consists of a protocol, a host name, a port, a path (usually to a
+file), and a reference (sometimes called a "fragment").&nbsp; For
+example, for the URL<br>
+<code>http://www.cs.uic.edu:80/~i441/index.html#sockets</code>, <code>http</code>
+is the protocol, <code>www.cs.uic.edu</code> is the host, <code>80</code>
+is the port number, <code>~i441/index.html</code> is the path, and <code>sockets</code>
+is the reference.&nbsp; The <code>URL</code> constructor takes a
+string giving the URL, strings for the protocol, host, and file, three
+strings and an <code>int</code> port, or a <code>URL</code> and a
+string to be combined with it.&nbsp; The class defines the accessors <code>getProtocol</code>,
+<code>getHost</code>, <code>getFile</code>, <code>getPort</code>, and
+<code>getRef</code> for the components of the URL. The method <code>getContent</code>
+attempts to determine the type of the URL's data (e.g., from the
+filename extension or a "magic number") and returns the type <code>Object</code>,
+e.g. a <code>String</code> for text or an <code>ImageProducer</code>
+for an image.&nbsp; The method <code>openStream</code> returns an
+input string from which the contents of the URL can be read.&nbsp; The
+class <code>URL</code> also defines <code>equals</code>, <code>hashCode</code>,
+and <code>toString</code>.<br>
+<br>
+<h3>2.2 The class <code>Socket</code></h3>
+The class <code>java.net.Socket</code> represents an endpoint of a
+connection-oriented protocol (i.e., a "client socket"). &nbsp;Its
+constructor takes an <code> InetAddress</code> or a host name giving
+the host and a port number, and can signal <code>UnknownHostException</code>,
+<code>IOException</code>, and <code>SecurityException</code>. &nbsp;
+(For C programmers, the constructor encapsulates the <code>socket</code>,
+<code>connect</code>, and <code>inet_addr</code> function calls, and
+the <code>gethostname</code> and <code>gethostbyname</code> calls
+when
+the string argument is a DNS name.) &nbsp;Client programs obtain an
+instance by calling the constructor, while server programs obtain an
+instance from <code>ServerSocket.accept</code>. &nbsp;
+<code>Socket</code> defines accessors such as <code>getPort</code>
+and <code>getInetAddress</code> (the remote port and host with which
+the socket is communicating), <code> getLocalAddress</code> and
+<code>getLocalPort</code>, and several that access the socket
+configuration (e.g., <code>get/setSoTimeout</code>,
+<code>get/setSoLinger</code>, and <code>get/setTcpNoDelay</code>).
+&nbsp;The method <code>close</code> closes the socket. &nbsp;
+The methods <code>getInputStream</code> and <code>getOutputStream</code>
+return streams that can be used to send and receive data. &nbsp;
+The server and client programs can filter the streams returned by
+the sockets to use readers and writers for text data or object
+streams for transmitting serialized objects, or to compress and
+uncompress the messages. &nbsp;Examples are presented below.<br>
+<br>
+<h3>2.3 The class <code>ServerSocket</code></h3>
+The class <code>java.net.ServerSocket</code> represents sockets that
+listen for connection requests. &nbsp;The constructor takes a port
+number
+and an optional queue length. &nbsp;If the port number is 0, the
+operating system assigns a port number, in which case, the program uses
+<code>getLocalPort</code> to obtain the port number. &nbsp;(For C
+programmers, the constructor encapsulates the <code>socket</code>, <code>bind</code>
+, and <code>listen</code> function calls.)&nbsp; The default queue
+length for the number of pending connections that the operating system
+will maintain is 50.&nbsp; The constructor can also take an <code>InetAddress</code>
+to support hosts that have multiple network interfaces with different
+IP numbers. &nbsp;The method <code>accept</code> waits for a client to
+connect and &nbsp;returns a socket representing the connection with the
+client. &nbsp;The method <code> close</code> closes the socket, and
+the class provides accessors such as <code>getInetAddress</code>,
+<code>getLocalPort</code>, <code>getSoTimeout</code>, <code>setSoTimeout</code>,
+and <code>isClosed</code>. &nbsp;The constructor, <code>accept</code>,
+and <code>close</code> can signal <code>IOException</code>, and the
+constructor signals <code>SecurityException</code> if the server
+cannot be bound to the given port number.<br>
+<br>
+The platform-specific implementation of instances of <code>ServerSocket</code>
+and <code>Socket</code> is encapsulated in a subclass of the abstract
+class <code>SocketImpl</code>.&nbsp; Both classes define the class
+method <code> setSocketFactory</code>, which takes a <code>SocketImplFactory</code>
+.&nbsp; For example, we could define a socket implementation that
+connects via a proxy or goes
+through a firewall.<br>
+<br>
+<h3>2.4 Connection-oriented communication</h3>
+The server creates a <code>ServerSocket</code> to accept connections
+and calls <code>ServerSocket.accept</code> to wait for a connection
+and
+obtain a socket connected to a client. &nbsp;It obtains input and
+output
+streams from the socket, and uses them to write and read data.
+&nbsp;The
+following is a skeleton for a server class:<br>
+<br>
+<code>import java.io.*;<br>
+import java.net.*;<br>
+<br>
+public class Server extends Thread &nbsp;{<br>
+&nbsp; &nbsp;public static final int PORT_NUMBER = 12345;<br>
+&nbsp; &nbsp;protected Socket socket;<br>
+<br>
+&nbsp; &nbsp;public static void main(String[] args) {<br>
+&nbsp; &nbsp; &nbsp; ServerSocket server = null;<br>
+&nbsp; &nbsp; &nbsp; try {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;server = new
+ServerSocket(PORT_NUMBER);<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;while (true) {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; new Server(server.accept());<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br>
+&nbsp; &nbsp; &nbsp; }<br>
+&nbsp; &nbsp; &nbsp; catch(IOException ex) {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;System.out.println(&#8220;Unable to start
+server or accept connections&#8221;);<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;System.exit(1);<br>
+&nbsp; &nbsp; &nbsp; }<br>
+&nbsp; &nbsp; &nbsp; finally {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;try {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server.close()<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;catch(IOException ex) {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // not much can be done: log
+the error<br>
+</code><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // exits since
+this is the end of main<br>
+</code><code>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }<br>
+&nbsp; &nbsp; &nbsp; }<br>
+&nbsp; &nbsp;}<br>
+<br>
+&nbsp; &nbsp;private Server(Socket socket) {<br>
+&nbsp; &nbsp; &nbsp; this.socket = socket;<br>
+&nbsp; &nbsp; &nbsp; start();<br>
+&nbsp; &nbsp;}<br>
+<br>
+&nbsp; &nbsp;// the server services client requests in the run method<br>
+&nbsp; &nbsp;public void run() {<br>
+&nbsp; &nbsp; &nbsp; InputStream in = null;<br>
+&nbsp; &nbsp; &nbsp; OutputStream out = null;<br>
+&nbsp; &nbsp; &nbsp; try {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;in = socket.getInputStream();<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;out = socket.getOutputStream();<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// ... do useful stuff ...<br>
+&nbsp; &nbsp; &nbsp; }<br>
+&nbsp; &nbsp; &nbsp; catch(IOException ex) {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;System.out.println(&#8220;Unable to get
+streams from client&#8221;);<br>
+&nbsp; &nbsp; &nbsp; }<br>
+&nbsp; &nbsp; &nbsp; finally {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;try {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; in.close();<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; out.close();<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; socket.close();<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;catch(IOException ex) {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // not much can be done: log
+the error<br>
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; }</code><code><br>
+&nbsp; &nbsp; &nbsp; }<br>
+&nbsp; &nbsp;}<br>
+}<br>
+</code><br>
+Since the server is a process running on the host, it needs a <code>main</code>
+method which is executed from the command line.&nbsp; (A server usually
+does not have a graphic user interface because it runs in the
+background.)
+&nbsp;The class <code>Server</code> extends <code>Thread</code> so
+that it can start a new thread for each client that connects and
+then continue to accept connections.&nbsp; It uses a server socket
+and client sockets, rather than extending these classes. &nbsp;
+<code>serv.accept</code> blocks waiting for a connection request and
+returns a client socket for communicating with the client, and is
+usually called in an endless loop as in this example. &nbsp;
+In this case, the server program never exits so you must use the
+operating system &#8220;kill&#8221; command to stop it. &nbsp;The client socket is
+passed to the constructor so that it is available in <code>run</code>.
+&nbsp;The constructor sets the socket for communicating with the client
+and starts a thread for that connection. &nbsp;Note that <code>start</code>
+returns without waiting for the thread's <code>run</code> method to
+finish,
+so the server re-enters the <code>accept</code> loop concurrently.
+&nbsp;
+<code> main</code> must handle all exceptions.<br>
+<br>
+The <code>run</code> method for a server class is usually a loop that
+gets a command from the client, computes or accesses the requested
+information, and returns it to the client.&nbsp; Typically, there is a
+client command that breaks out of the loop, at which point the server
+closes the connection.&nbsp; For example, a server that echoes the
+client text would do the following
+(at &#8220;<code>&#8230; do useful stuff ...</code> &#8221; in the above example):<br>
+<br>
+<code>&nbsp; &nbsp;BufferedReader inReader = new BufferedReader(new
+InputStreamReader(in));<br>
+&nbsp; &nbsp;// the constructor argument &#8220;true&#8221; enables auto-flushing<br>
+&nbsp; &nbsp;PrintWriter outWriter = new PrintWriter(out, true);<br>
+&nbsp; &nbsp;outWriter.println(&#8220;Echo server: enter &#8216;bye&#8217; to exit.&#8221;);<br>
+&nbsp; &nbsp;while (true) {<br>
+&nbsp; &nbsp; &nbsp; // readLine blocks until a line-terminated string
+is available<br>
+&nbsp; &nbsp;&nbsp; &nbsp;String inLine = inReader.readLine();<br>
+&nbsp; &nbsp;&nbsp; &nbsp;// readLine returns null if the client just
+presses &lt;return&gt;<br>
+&nbsp; &nbsp;&nbsp; &nbsp;if (inLine != null) {<br>
+&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; if
+(inLine.trim().equalsIgnoreCase(&#8220;bye&#8221;)) {<br>
+&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;break;<br>
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; }<br>
+&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; outWriter.println(&#8220;Echo: &#8220; + inLine);<br>
+&nbsp; &nbsp; &nbsp; }<br>
+&nbsp; &nbsp;}</code><br>
+<br>
+The server sends a prompt to the client which it prints to standard
+output.&nbsp; The client reads a line from standard input and sends it
+to the server, which checks whether it is the exit command and if not,
+sends it back to the client prepended with <code>Echo: </code>.&nbsp;
+The client then prints this response.<br>
+<br>
+The client is also a separate process and need a <code>main</code>
+method. &nbsp;The client creates a <code>Socket</code> by passing the
+server&#8217;s
+host name and port number to the constructor, and uses it to
+communicate
+with the server. &nbsp;The constructor invocation attempts to establish
+a connection with the given host and port, and blocks until the
+connection
+is established.&nbsp; If the server process cannot be contacted or
+refuses the connection, an exception is signaled.&nbsp; Like the
+server's <code>run</code> method, the client program
+obtains streams from the socket.&nbsp; The following skeletal client
+program takes the server name from the command line.&nbsp; To simplify
+the example, we
+have omitted the code that checks the number of command line arguments.
+&nbsp;(A client could also be defined as an applet that creates the
+socket in <code>
+init</code> .)<br>
+<br>
+<code>import java.io.*;<br>
+import java.net.*;<br>
+<br>
+public class Client {<br>
+&nbsp; &nbsp;public static void main(String args[]) {<br>
+&nbsp; &nbsp; &nbsp; new Client(args[0]);<br>
+&nbsp; &nbsp;}<br>
+<br>
+&nbsp; &nbsp;public Client(String host) {<br>
+&nbsp;&nbsp; &nbsp; &nbsp;Socket socket;<br>
+&nbsp;&nbsp;&nbsp; &nbsp; try {<br>
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; socket = new Socket(host,
+Server.PORT_NUMBER);<br>
+&nbsp; &nbsp; &nbsp; }<br>
+&nbsp;&nbsp;&nbsp; &nbsp; catch(UnknownHostException
+ex) {<br>
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; System.out.println(host + " is
+not a valid host name.");<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return;<br>
+&nbsp; &nbsp; &nbsp; }<br>
+</code><code> &nbsp;&nbsp;&nbsp; &nbsp; catch(IOException
+ex) {<br>
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; System.out.println(&#8220;Error
+communicating with &#8221; + host);<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return;<br>
+&nbsp; &nbsp; &nbsp; }</code><code><br>
+&nbsp;&nbsp; &nbsp;&nbsp; // &#8230; initialize model, GUI, etc. ...<br>
+&nbsp; &nbsp; &nbsp; InputStream in = null;<br>
+&nbsp; &nbsp; &nbsp; OutputStream out = null;<br>
+&nbsp; &nbsp; &nbsp; try {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;in = socket.getInputStream();<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;out = socket.getOutputStream();<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// ... do useful stuff ...<br>
+&nbsp; &nbsp; &nbsp; }<br>
+&nbsp; &nbsp; &nbsp; finally {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;try {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; in.close();<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; out.close();<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; socket.close();<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;catch(IOException ex) {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // not much can be done ...<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br>
+&nbsp; &nbsp; &nbsp; } <br>
+&nbsp; &nbsp;}<br>
+}<br>
+</code><br>
+Note that the port number passed to the <code>Socket</code>
+constructor is the server port number. &nbsp;The client's port number
+is assigned by the operating system and is available via <code>getLocalPort</code>.
+&nbsp;In this simple example, the client exits if it cannot connect
+with a server. &nbsp;Since the exception raised by attempting to
+connect might be due to a temporary condition such as the size of the
+server's connection request queue, we usually code the invocation of
+the <code>Socket</code> constructor in a loop that sleeps a few
+seconds and tries to connect again, with a counter that limits the
+number of connection attempts.<br>
+<br>
+To test a client-server program without using another machine, you can
+run both processes on the same computer and have the client use the
+special &#8220;local loopback address&#8221; 127.0.0.1, which denotes the local
+machine.&nbsp; Even though it is a local connection, this method still
+requires that
+you have networking software running on your machine.<br>
+<br>
+<h3>2.5 Connectionless communication</h3>
+<code>java.net</code> also provides classes for connectionless
+communication: both the server and client create a <code>
+DatagramSocket</code>.
+&nbsp;The constructor takes an optional port number, and the methods
+<code>send</code> and <code>receive</code> send and receive the
+argument <code> DatagramPacket</code> . &nbsp;Like <code>Socket</code>,
+<code> DatagramSocket</code> provides accessors such as <code>getLocalAddress</code>
+, <code>getLocalPort</code> , <code>getSoTimeout</code> , and
+<code> close</code> closes the socket. &nbsp;Both the server and client
+create <code>DatagramPacket</code> instances to contain the data
+transmitted. &nbsp;The constructor for a received packet takes a byte
+array for the data and the packet length, while the constructor for
+a packet to send takes the byte array data, the packet length, and the
+destination address and port. &nbsp;<code> DatagramPacket</code>
+provides the accessors <code>get/setAddress</code>, <code>get/setPort</code>,
+<code>get/setLength</code>, and <code>get/setData</code>.<br>
+<br>
+<br>
+</body>
+</html>

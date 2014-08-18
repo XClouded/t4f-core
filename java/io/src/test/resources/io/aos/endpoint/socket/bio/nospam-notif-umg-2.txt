@@ -1,0 +1,35 @@
+Return-Path: <bounces+12765-32ee-eric.charles=u-mangate.com@mail.pongr.com>
+Delivered-To: eric.charles@u-mangate.com
+Received: from o1.mail.pongr.com (HELO o1.mail.pongr.com) ([75.126.253.184])
+          by srv002 (JAMES SMTP Server ) with SMTP ID 1354255499
+          for <eric.charles@u-mangate.com>;
+          Thu, 17 May 2012 03:48:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=pongr.com; h=from:to
+	:message-id:subject:mime-version:content-type
+	:content-transfer-encoding:date; s=smtpapi; bh=WFcY8F3BVbg5jL9hy
+	XMGqgMTGjo=; b=HkC8x1wVQMHMCoUQy+3RmPafVUpfYnsCqeXr7K5LMCMaVbtXZ
+	YQRt3qBtQ6KhOttcG6T5pBtbm9objq8ve1GttcfwPA8zm++HyDR3nWmWKwRQZMRV
+	Nju5xaURquBF9u5G5e1aq4X6M7AxAyPW3rwbYaKy1nslwR0h83pFu1/Glk=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=pongr.com; h=from:to
+	:message-id:subject:mime-version:content-type
+	:content-transfer-encoding:date; q=dns; s=smtpapi; b=eqmR8/KtOSb
+	gBgxmwMbKq//GDUQB9geEivnSfHjPUROhXkCxN2gZmMdaZ3PGt5o+T5ATgFVNo+n
+	oHcxIyCwHEFrjCTPTBGrmbWzNIdg9MenQTI8YhWBh/1l8lEhYF6hrOLe/9FJxlel
+	Z62/29/BWAnfQjaqZHiy2hGzPPHNZGyk=
+Received: by 10.41.149.157 with SMTP id f04-22.12960.4FB501938
+        Thu, 17 May 2012 13:48:03 +0000 (UTC)
+Received: from ip-10-244-195-100.ec2.internal (unknown [10.8.49.124])
+	by mi1 (SG) with ESMTP id 4fb50193.366e.1d12430
+	for <eric.charles@u-mangate.com>; Thu, 17 May 2012 08:48:03 -0500 (CST)
+From: apachejames@pongr.com
+To: eric.charles@u-mangate.com
+Message-ID: <32869983.5240.1337262469707.JavaMail.tomcat6@ip-10-244-195-100>
+Subject: Nice Apachejames photo!
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Date: Thu, 17 May 2012 13:48:03 +0000 (UTC)
+X-Sendgrid-EID: iQF8ir2dOGTxc3+wp1SNlszYdvzweinEYKBFCcyM/jE6CpwlHk1siz1KvNPao7nAYEAy5r93M0Jb4RGdJ16pZ3+dIZ6TPvS+J8wLkIV1fffPpy+5okPCnvJY/UnKDj6MlcLi5tdBRSUBAusGhR/aEKum3GY42IuBc+RabBj7uyI=
+
+Sweet Apachejames photo! Click here to join Pongr and unlock rewards: http://pngr.it/L7cROe
+

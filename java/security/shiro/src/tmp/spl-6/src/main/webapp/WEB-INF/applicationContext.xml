@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the AOS Community (AOS) under one or more
+  contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The AOS licenses this file
+  to you under the Apache License, Version 2.0 (the 
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    <property name="securityManager" ref="securityManager"/>
+    <!-- override these for application-specific URLs if you like:
+    <property name="loginUrl" value="/login.jsp"/>
+    <property name="successUrl" value="/home.jsp"/>
+    <property name="unauthorizedUrl" value="/unauthorized.jsp"/> -->
+    <!-- The 'filters' property is not necessary since any declared javax.servlet.Filter bean  -->
+    <!-- defined will be automatically acquired and available via its beanName in chain        -->
+    <!-- definitions, but you can perform instance overrides or name aliases here if you like: -->
+    <!-- <property name="filters">
+        <util:map>
+            <entry key="anAlias" value-ref="someFilter"/>
+        </util:map>
+    </property> -->
+    <property name="filterChainDefinitions">
+        <value>
+        		[main]
+                realmA = name.brucephillips.rolesecurity.dao.RoleSecurityJdbcRealm
+
+                [filters]
+                roles.unauthorizedUrl = /unauthorized.jsp
+
+                [urls]
+                /secure/** = authc, roles[user]
+                /admin/** = authc, roles[admin]
+
+        </value>
+    </property>
+</bean>
+
+<!-- Define any javax.servlet.Filter beans you want anywhere in this application context.   -->
+<!-- They will automatically be acquired by the 'shiroFilter' bean above and made available -->
+<!-- to the 'filterChainDefinitions' property.  Or you can manually/explicitly add them     -->
+<!-- to the shiroFilter's 'filters' Map if desired. See its JavaDoc for more details.       -->
+<!--<bean id="someFilter" class="..."/>-->
+<!--<bean id="anotherFilter" class="..."> ... </bean>-->
+<!--...-->
+
+<bean id="securityManager" class="org.apache.shiro.web.DefaultWebSecurityManager">
+    <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
+    <property name="realm" ref="myRealm"/>
+    <!-- By default the servlet container sessions will be used.  Uncomment this line
+         to use shiro's native sessions (see the JavaDoc for more): -->
+    <!-- <property name="sessionMode" value="native"/> -->
+</bean>
+
+<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+<!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
+<!-- security datasource: -->
+<bean id="myRealm" class="name.brucephillips.rolesecurity.dao.RoleSecurityJdbcRealm">
+</bean>
+
+<!-- Enable Shiro Annotations for Spring-configured beans.  Only run after -->
+<!-- the lifecycleBeanProcessor has run: -->
+<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    <property name="securityManager" ref="securityManager"/>
+</bean>
+
+</beans>

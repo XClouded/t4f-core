@@ -1,0 +1,1 @@
+This is the content of the test file loaded via the JAVA classloader, a few special characters: "@&é'('è§!é&"é"àçà('§è". That's all folks!

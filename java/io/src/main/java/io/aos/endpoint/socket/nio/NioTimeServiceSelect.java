@@ -1,0 +1,80 @@
+/****************************************************************
+ * Licensed to the AOS Community (AOS) under one or more        *
+ * contributor license agreements.  See the NOTICE file         *
+ * distributed with this work for additional information        *
+ * regarding copyright ownership.  The AOS licenses this file   *
+ * to you under the Apache License, Version 2.0 (the            *
+ * "License"); you may not use this file except in compliance   *
+ * with the License.  You may obtain a copy of the License at   *
+ *                                                              *
+ *   http://www.apache.org/licenses/LICENSE-2.0                 *
+ *                                                              *
+ * Unless required by applicable law or agreed to in writing,   *
+ * software distributed under the License is distributed on an  *
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY       *
+ * KIND, either express or implied.  See the License for the    *
+ * specific language governing permissions and limitations      *
+ * under the License.                                           *
+ ****************************************************************/
+
+package io.aos.endpoint.socket.nio;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
+import java.nio.channels.Selector;
+import java.nio.channels.SelectionKey;
+import java.net.InetSocketAddress;
+
+
+public class NioTimeServiceSelect extends NioTimeService
+{
+	private Selector selector;
+	private long giveup;
+
+	public NioTimeServiceSelect (int port, long timeout)
+		throws Exception
+	{
+		super (port);
+
+		this.giveup = System.currentTimeMillis() + timeout;
+		this.selector = selector.open();
+
+		this.channel.configureBlocking (false);
+		this.channel.register (this.selector, SelectionKey.OP_READ);
+	}
+
+	// this version never times out
+	protected InetSocketAddress receivePacket (DatagramChannel channel,
+		ByteBuffer buffer)
+		throws Exception
+	{
+System.out.println ("In TimerServiceSelect receivePacket");
+		buffer.clear();
+
+		while (true) {
+			InetSocketAddress sa;
+
+			sa = (InetSocketAddress) channel.receive (buffer);
+
+			if (sa != null) {
+				return (sa);
+			}
+
+			long sleepTime = giveup - System.currentTimeMillis();
+
+			if (sleepTime < 1) {
+				return (null);	// time's up
+			}
+
+System.out.println ("Selecting for " + (sleepTime / 1000) + " seconds");
+			selector.select (sleepTime);
+		}
+	}
+
+	public static NioTimeService newInstance (int listenPort)
+		throws Exception
+	{
+System.out.println ("inputStreamnewInstance");
+		return (new NioTimeServiceSelect (listenPort, 5));
+	}
+}
