@@ -22,12 +22,12 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.aos</groupId>
-    <artifactId>t4f-c</artifactId>
+    <artifactId>t4f-core-c</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>t4f-c-cpp</artifactId>
-  <name>AOS T4F C C++</name>
+  <artifactId>t4f-core-c-cpp</artifactId>
+  <name>T4F Core C C++</name>
   <packaging>jar</packaging>
   <version>1.0.0-SNAPSHOT</version>
 </project>

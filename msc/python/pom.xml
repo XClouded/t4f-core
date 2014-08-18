@@ -22,12 +22,12 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.aos</groupId>
-    <artifactId>t4f-msc</artifactId>
+    <artifactId>t4f-core-msc</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>t4f-msc-python</artifactId>
-  <name>AOS T4F Miscellaneous Python</name>
+  <artifactId>t4f-core-msc-python</artifactId>
+  <name>T4F Core Miscellaneous Python</name>
   <dependencies>
     <dependency>
       <groupId>org.python</groupId>

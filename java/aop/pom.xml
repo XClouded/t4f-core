@@ -22,12 +22,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.aos</groupId>
-		<artifactId>t4f-java</artifactId>
+		<artifactId>t4f-core-java</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
-	<artifactId>t4f-java-aop</artifactId>
-	<name>AOS T4F Java AOP</name>
+	<artifactId>t4f-core-java-aop</artifactId>
+	<name>T4F Core Java AOP</name>
 	<dependencies>
 		<dependency>
 			<groupId>org.aspectj</groupId>

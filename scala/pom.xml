@@ -22,12 +22,12 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.aos</groupId>
-    <artifactId>t4f</artifactId>
+    <artifactId>t4f-core</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>t4f-scala</artifactId>
-  <name>AOS T4F Scala</name>
+  <artifactId>t4f-core-scala</artifactId>
+  <name>T4F Core Scala</name>
   <profiles>
     <profile>
       <id>run-java</id>

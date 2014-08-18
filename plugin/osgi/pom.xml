@@ -22,12 +22,12 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.aos</groupId>
-    <artifactId>t4f-plugin</artifactId>
+    <artifactId>t4f-core-plugin</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>t4f-plugin-osgi</artifactId>
-  <name>AOS T4F Plugin OSGI</name>
+  <artifactId>t4f-core-plugin-osgi</artifactId>
+  <name>T4F Core Plugin OSGI</name>
   <packaging>pom</packaging>
   <modules>
     <module>eclipse</module>

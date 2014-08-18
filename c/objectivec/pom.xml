@@ -22,12 +22,12 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.aos</groupId>
-    <artifactId>t4f-c</artifactId>
+    <artifactId>t4f-core-c</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>t4f-c-objectivec</artifactId>
-  <name>AOS T4F C Objective C</name>
+  <artifactId>t4f-core-c-objectivec</artifactId>
+  <name>T4F Core C Objective C</name>
   <packaging>jar</packaging>
   <version>1.0.0-SNAPSHOT</version>
 </project>

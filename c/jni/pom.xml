@@ -22,11 +22,11 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.aos</groupId>
-    <artifactId>t4f-c</artifactId>
+    <artifactId>t4f-core-c</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>t4f-c-jni</artifactId>
-  <name>AOS T4F C JNI</name>
+  <artifactId>t4f-core-c-jni</artifactId>
+  <name>T4F Core C JNI</name>
   <packaging>jar</packaging>
 </project>

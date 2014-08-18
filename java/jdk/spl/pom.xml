@@ -19,14 +19,14 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <artifactId>t4f-java-jdk-spl</artifactId>
-  <name>AOS T4F Java JDK Sample</name>
+  <artifactId>t4f-core-java-jdk-spl</artifactId>
+  <name>T4F Core Java JDK Sample</name>
   <packaging>jar</packaging>
   <modelVersion>4.0.0</modelVersion>
   <version>1.0.0-SNAPSHOT</version>
   <parent>
     <groupId>io.aos</groupId>
-    <artifactId>t4f-java-jdk</artifactId>
+    <artifactId>t4f-core-java-jdk</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>

@@ -22,12 +22,12 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.aos</groupId>
-    <artifactId>t4f-javascript</artifactId>
+    <artifactId>t4f-core-javascript</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>t4f-javascript-java</artifactId>
-  <name>AOS T4F Javascript JAVA</name>
+  <artifactId>t4f-core-javascript-java</artifactId>
+  <name>T4F Core Javascript JAVA</name>
   <packaging>jar</packaging>
       <build>
         <plugins>

@@ -6,9 +6,7 @@
                                                            
  #t4f
 -------------------------------------------------------------------------------
-t4f stands for 'Train For Freedom'
--------------------------------------------------------------------------------
-opensource-communities
+communities
 + apache
 + cran
 + eclipse
@@ -18,7 +16,7 @@ opensource-communities
 + spring
 + ubuntu
 -------------------------------------------------------------------------------
-opensource-technologies
+technologies
 + angular.js
 + ansible
 + css3

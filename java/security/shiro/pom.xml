@@ -22,12 +22,12 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.aos</groupId>
-    <artifactId>t4f-java-security</artifactId>
+    <artifactId>t4f-core-java-security</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <artifactId>t4f-java-security-shiro</artifactId>
-  <name>AOS T4F Java Security Shiro</name>
+  <artifactId>t4f-core-java-security-shiro</artifactId>
+  <name>T4F Core Java Security Shiro</name>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>

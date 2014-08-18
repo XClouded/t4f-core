@@ -21,13 +21,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <groupId>io.aos</groupId>
-    <artifactId>t4f</artifactId>
+    <artifactId>t4f-core</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>t4f-pattern</artifactId>
-  <name>AOS T4F Pattern</name>
+  <artifactId>t4f-core-pattern</artifactId>
+  <name>T4F Core Pattern</name>
   <dependencies>
     <dependency>
       <groupId>log4j</groupId>
