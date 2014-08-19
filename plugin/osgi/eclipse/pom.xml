@@ -32,19 +32,25 @@
     <dependency>
       <groupId>org.eclipse.swt</groupId>
       <artifactId>org.eclipse.swt.gtk.linux.ppc64</artifactId>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/org.eclipse.swt.gtk.linux.ppc64-3.103.0-SNAPSHOT.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jface</groupId>
       <artifactId>org.eclipse.jface</artifactId>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/org.eclipse.jface-3.10.0-SNAPSHOT.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>org.eclipse.core</groupId>
       <artifactId> org.eclipse.core.commands</artifactId>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/org.eclipse.core.commands-3.6.100-SNAPSHOT.jar</systemPath>
     </dependency>
     <dependency>
-      <groupId>aos.wrap</groupId>
-      <artifactId>wrap-draw2d</artifactId>
-      <version>20130605</version>
+      <groupId>org.eclipse</groupId>
+      <artifactId>org.eclipse.draw2d</artifactId>
+      <version>3.9.0.201305060205</version>
       <scope>system</scope>
       <systemPath>${basedir}/lib/org.eclipse.draw2d_3.9.0.201305060205.jar</systemPath>
     </dependency>
