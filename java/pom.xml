@@ -30,7 +30,7 @@
   <name>T4F Core Java</name>
   <packaging>pom</packaging>
   <modules>
-    <module>aop</module>
+<!--     <module>aop</module> -->
     <module>benchmark</module>
     <module>class</module>
     <module>concurrent</module>
