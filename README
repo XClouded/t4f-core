@@ -6,6 +6,8 @@
                                                            
  #t4f
 -------------------------------------------------------------------------------
+| T4F CORE                                                                    |
+-------------------------------------------------------------------------------
 communities
 + apache
 + cran
@@ -17,24 +19,21 @@ communities
 + ubuntu
 -------------------------------------------------------------------------------
 technologies
-+ angular.js
 + ansible
-+ css3
++ c
 + docker.io
-+ ember.js
-+ hadoop
-+ html5
-+ java+scala+c
++ groovy
++ java
 + latex
 + maven
 + mozilla-apt
 + mozilla-javaxpcom
++ mustache.js
 + openoffice
 + palletops
 + qt
 + r
-+ spark
++ scala
 + svg
-+ swt
 + vert.x
 -------------------------------------------------------------------------------
