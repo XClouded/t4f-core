@@ -8,7 +8,7 @@
 
   <bannerLeft>
 
-    <name>T4F Essentials Java IO</name>
+    <name>T4F Core Java IO</name>
 <!--     <src>https://secure.gravatar.com/avatar/aa39ba1c8bc579bea1099773150f570c</src> -->
     <src>/img/aos-letter.png</src>
     <height>40px</height>
@@ -55,6 +55,7 @@
       <item name="Home" href="home.html"/>
       <item name="Usage" href="usage.html"/>
       <item name="Design" href="design.html" />
+      <item name="Latex" href="latex.pdf" />
     </menu>
 <!--
     <menu name="Netty">
