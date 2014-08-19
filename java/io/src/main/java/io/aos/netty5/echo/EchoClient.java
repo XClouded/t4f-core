@@ -19,10 +19,13 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 
 /**
  * Sends one message when a connection is open and echoes back any received
@@ -30,19 +33,22 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  * traffic between the echo client and server by sending the first message to
  * the server.
  */
-public class EchoClient {
+public final class EchoClient {
 
-    private final String host;
-    private final int port;
-    private final int firstMessageSize;
-    
-    public EchoClient(String host, int port, int firstMessageSize) {
-        this.host = host;
-        this.port = port;
-        this.firstMessageSize = firstMessageSize;
-    }
+    static final boolean SSL = System.getProperty("ssl") != null;
+    static final String HOST = System.getProperty("host", "127.0.0.1");
+    static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
+    static final int SIZE = Integer.parseInt(System.getProperty("size", "256"));
 
-    public void run() throws Exception {
+    public static void main(String[] args) throws Exception {
+        // Configure SSL.git
+        final SslContext sslCtx;
+        if (SSL) {
+            sslCtx = SslContext.newClientContext(InsecureTrustManagerFactory.INSTANCE);
+        } else {
+            sslCtx = null;
+        }
+
         // Configure the client.
         EventLoopGroup group = new NioEventLoopGroup();
         try {
@@ -53,37 +59,23 @@ public class EchoClient {
              .handler(new ChannelInitializer<SocketChannel>() {
                  @Override
                  public void initChannel(SocketChannel ch) throws Exception {
-                     ch.pipeline().addLast(
-                             //new LoggingHandler(LogLevel.INFO),
-                             new EchoClientHandler(firstMessageSize));
+                     ChannelPipeline p = ch.pipeline();
+                     if (sslCtx != null) {
+                         p.addLast(sslCtx.newHandler(ch.alloc(), HOST, PORT));
+                     }
+                     //p.addLast(new LoggingHandler(LogLevel.INFO));
+                     p.addLast(new EchoClientHandler());
                  }
              });
 
             // Start the client.
-            ChannelFuture f = b.connect(host, port).sync();
+            ChannelFuture f = b.connect(HOST, PORT).sync();
 
             // Wait until the connection is closed.
             f.channel().closeFuture().sync();
-            
         } finally {
             // Shut down the event loop to terminate all threads.
             group.shutdownGracefully();
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-        // Print usage if no argument is specified.
-
-        // Parse options.
-        final String host = "localhost";
-        final int port = Integer.parseInt("8080");
-        final int firstMessageSize;
-        if (args.length == 3) {
-            firstMessageSize = Integer.parseInt(args[2]);
-        } else {
-            firstMessageSize = 256;
-        }
-
-        new EchoClient(host, port, firstMessageSize).run();
     }
 }

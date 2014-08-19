@@ -17,12 +17,8 @@ package io.aos.netty5.echo;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelHandlerAdapter;
-
-import java.nio.charset.Charset;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import io.netty.channel.ChannelHandlerContext;
 
 /**
  * Handler implementation for the echo client.  It initiates the ping-pong
@@ -31,19 +27,13 @@ import java.util.logging.Logger;
  */
 public class EchoClientHandler extends ChannelHandlerAdapter {
 
-    private static final Logger logger = Logger.getLogger(
-            EchoClientHandler.class.getName());
-
     private final ByteBuf firstMessage;
 
     /**
      * Creates a client-side handler.
      */
-    public EchoClientHandler(int firstMessageSize) {
-        if (firstMessageSize <= 0) {
-            throw new IllegalArgumentException("firstMessageSize: " + firstMessageSize);
-        }
-        firstMessage = Unpooled.buffer(firstMessageSize);
+    public EchoClientHandler() {
+        firstMessage = Unpooled.buffer(EchoClient.SIZE);
         for (int i = 0; i < firstMessage.capacity(); i ++) {
             firstMessage.writeByte((byte) i);
         }
@@ -55,20 +45,19 @@ public class EchoClientHandler extends ChannelHandlerAdapter {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("EchoClientHandler: " + ((ByteBuf) msg).toString(Charset.defaultCharset()));
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ctx.write(msg);
     }
 
     @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+    public void channelReadComplete(ChannelHandlerContext ctx) {
        ctx.flush();
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         // Close the connection when an exception is raised.
-        logger.log(Level.WARNING, "Unexpected exception from downstream.", cause);
+        cause.printStackTrace();
         ctx.close();
     }
 }

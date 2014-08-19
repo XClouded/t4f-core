@@ -16,12 +16,9 @@
 package io.aos.netty5.udt.echo.bytes;
 
 import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelHandlerAdapter;
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.udt.nio.NioUdtProvider;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handler implementation for the echo server.
@@ -29,7 +26,10 @@ import java.util.logging.Logger;
 @Sharable
 public class ByteEchoServerHandler extends ChannelHandlerAdapter {
 
-    private static final Logger log = Logger.getLogger(ByteEchoServerHandler.class.getName());
+    @Override
+    public void channelActive(final ChannelHandlerContext ctx) {
+        System.err.println("ECHO active " + NioUdtProvider.socketUDT(ctx.channel()).toStringOptions());
+    }
 
     @Override
     public void channelRead(final ChannelHandlerContext ctx, Object msg) {
@@ -37,20 +37,13 @@ public class ByteEchoServerHandler extends ChannelHandlerAdapter {
     }
 
     @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+    public void channelReadComplete(ChannelHandlerContext ctx) {
         ctx.flush();
     }
 
     @Override
-    public void exceptionCaught(final ChannelHandlerContext ctx,
-            final Throwable cause) {
-        log.log(Level.WARNING, "close the connection when an exception is raised", cause);
+    public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
+        cause.printStackTrace();
         ctx.close();
     }
-
-    @Override
-    public void channelActive(final ChannelHandlerContext ctx) throws Exception {
-        log.info("ECHO active " + NioUdtProvider.socketUDT(ctx.channel()).toStringOptions());
-    }
-
 }

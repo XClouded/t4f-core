@@ -15,8 +15,6 @@
  */
 package io.aos.netty5.udt.echo.bytes;
 
-import io.aos.netty5.udt.util.UtilConsoleReporter;
-import io.aos.netty5.udt.util.UtilThreadFactory;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -25,10 +23,8 @@ import io.netty.channel.udt.UdtChannel;
 import io.netty.channel.udt.nio.NioUdtProvider;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
+import io.netty.util.concurrent.DefaultExecutorFactory;
+import io.netty.util.concurrent.ExecutorFactory;
 
 /**
  * UDT Byte Stream Client
@@ -38,26 +34,18 @@ import java.util.logging.Logger;
  * between the echo client and server by sending the first message to the
  * server.
  */
-public class ByteEchoClient {
+public final class ByteEchoClient {
 
-    private static final Logger log = Logger.getLogger(ByteEchoClient.class.getName());
+    static final String HOST = System.getProperty("host", "127.0.0.1");
+    static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
+    static final int SIZE = Integer.parseInt(System.getProperty("size", "256"));
 
-    private final String host;
-    private final int port;
-    private final int messageSize;
-
-    public ByteEchoClient(final String host, final int port,
-            final int messageSize) {
-        this.host = host;
-        this.port = port;
-        this.messageSize = messageSize;
-    }
-
-    public void run() throws Exception {
+    public static void main(String[] args) throws Exception {
         // Configure the client.
-        final ThreadFactory connectFactory = new UtilThreadFactory("connect");
-        final NioEventLoopGroup connectGroup = new NioEventLoopGroup(1,
-                connectFactory, NioUdtProvider.BYTE_PROVIDER);
+        final ExecutorFactory connectFactory = new DefaultExecutorFactory("connect");
+        final NioEventLoopGroup connectGroup =
+                new NioEventLoopGroup(1, connectFactory, NioUdtProvider.BYTE_PROVIDER);
+
         try {
             final Bootstrap boot = new Bootstrap();
             boot.group(connectGroup)
@@ -68,11 +56,11 @@ public class ByteEchoClient {
                                 throws Exception {
                             ch.pipeline().addLast(
                                     new LoggingHandler(LogLevel.INFO),
-                                    new ByteEchoClientHandler(messageSize));
+                                    new ByteEchoClientHandler());
                         }
                     });
             // Start the client.
-            final ChannelFuture f = boot.connect(host, port).sync();
+            final ChannelFuture f = boot.connect(HOST, PORT).sync();
             // Wait until the connection is closed.
             f.channel().closeFuture().sync();
         } finally {
@@ -80,21 +68,4 @@ public class ByteEchoClient {
             connectGroup.shutdownGracefully();
         }
     }
-
-    public static void main(final String[] args) throws Exception {
-        log.info("init");
-
-        // client is reporting metrics
-        UtilConsoleReporter.enable(3, TimeUnit.SECONDS);
-
-        final String host = "localhost";
-        final int port = 1234;
-
-        final int messageSize = 64 * 1024;
-
-        new ByteEchoClient(host, port, messageSize).run();
-
-        log.info("done");
-    }
-
 }

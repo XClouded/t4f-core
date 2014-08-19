@@ -15,11 +15,8 @@
  */
 package io.aos.netty5.objectecho;
 
-import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelHandlerAdapter;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import io.netty.channel.ChannelHandlerContext;
 
 /**
  * Handles both client-side and server-side handler depending on which
@@ -27,27 +24,20 @@ import java.util.logging.Logger;
  */
 public class ObjectEchoServerHandler extends ChannelHandlerAdapter {
 
-    private static final Logger logger = Logger.getLogger(
-            ObjectEchoServerHandler.class.getName());
-
     @Override
-    public void channelRead(
-            ChannelHandlerContext ctx, Object msg) throws Exception {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
         // Echo back the received object to the client.
         ctx.write(msg);
     }
 
     @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+    public void channelReadComplete(ChannelHandlerContext ctx) {
         ctx.flush();
     }
 
     @Override
-    public void exceptionCaught(
-            ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        logger.log(
-                Level.WARNING,
-                "Unexpected exception from downstream.", cause);
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        cause.printStackTrace();
         ctx.close();
     }
 }

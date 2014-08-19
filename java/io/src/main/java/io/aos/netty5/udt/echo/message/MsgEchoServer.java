@@ -15,7 +15,6 @@
  */
 package io.aos.netty5.udt.echo.message;
 
-import io.aos.netty5.udt.util.UtilThreadFactory;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -25,32 +24,26 @@ import io.netty.channel.udt.UdtChannel;
 import io.netty.channel.udt.nio.NioUdtProvider;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-
-import java.util.concurrent.ThreadFactory;
-import java.util.logging.Logger;
+import io.netty.util.concurrent.DefaultExecutorFactory;
+import io.netty.util.concurrent.ExecutorFactory;
 
 /**
  * UDT Message Flow Server
  * <p>
  * Echoes back any received data from a client.
  */
-public class MsgEchoServer {
+public final class MsgEchoServer {
 
-    private static final Logger log = Logger.getLogger(MsgEchoServer.class.getName());
+    static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
 
-    private final int port;
+    public static void main(String[] args) throws Exception {
+        final ExecutorFactory acceptFactory = new DefaultExecutorFactory("accept");
+        final ExecutorFactory connectFactory = new DefaultExecutorFactory("connect");
+        final NioEventLoopGroup acceptGroup =
+                new NioEventLoopGroup(1, acceptFactory, NioUdtProvider.MESSAGE_PROVIDER);
+        final NioEventLoopGroup connectGroup =
+                new NioEventLoopGroup(1, connectFactory, NioUdtProvider.MESSAGE_PROVIDER);
 
-    public MsgEchoServer(final int port) {
-        this.port = port;
-    }
-
-    public void run() throws Exception {
-        final ThreadFactory acceptFactory = new UtilThreadFactory("accept");
-        final ThreadFactory connectFactory = new UtilThreadFactory("connect");
-        final NioEventLoopGroup acceptGroup = new NioEventLoopGroup(1,
-                acceptFactory, NioUdtProvider.MESSAGE_PROVIDER);
-        final NioEventLoopGroup connectGroup = new NioEventLoopGroup(1,
-                connectFactory, NioUdtProvider.MESSAGE_PROVIDER);
         // Configure the server.
         try {
             final ServerBootstrap boot = new ServerBootstrap();
@@ -68,7 +61,7 @@ public class MsgEchoServer {
                         }
                     });
             // Start the server.
-            final ChannelFuture future = boot.bind(port).sync();
+            final ChannelFuture future = boot.bind(PORT).sync();
             // Wait until the server socket is closed.
             future.channel().closeFuture().sync();
         } finally {
@@ -77,15 +70,4 @@ public class MsgEchoServer {
             connectGroup.shutdownGracefully();
         }
     }
-
-    public static void main(final String[] args) throws Exception {
-        log.info("init");
-
-        final int port = 1234;
-
-        new MsgEchoServer(port).run();
-
-        log.info("done");
-    }
-
 }

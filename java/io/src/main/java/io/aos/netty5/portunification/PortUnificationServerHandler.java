@@ -15,23 +15,21 @@
  */
 package io.aos.netty5.portunification;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelPipeline;
 import io.aos.netty5.factorial.BigIntegerDecoder;
 import io.aos.netty5.factorial.FactorialServerHandler;
 import io.aos.netty5.factorial.NumberEncoder;
 import io.aos.netty5.http.snoop.HttpSnoopServerHandler;
-import io.aos.netty5.securechat.SecureChatSslContextFactory;
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelPipeline;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.compression.ZlibCodecFactory;
 import io.netty.handler.codec.compression.ZlibWrapper;
 import io.netty.handler.codec.http.HttpContentCompressor;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
+import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslHandler;
-
-import javax.net.ssl.SSLEngine;
 
 import java.util.List;
 
@@ -41,14 +39,16 @@ import java.util.List;
  */
 public class PortUnificationServerHandler extends ByteToMessageDecoder {
 
+    private final SslContext sslCtx;
     private final boolean detectSsl;
     private final boolean detectGzip;
 
-    public PortUnificationServerHandler() {
-        this(true, true);
+    public PortUnificationServerHandler(SslContext sslCtx) {
+        this(sslCtx, true, true);
     }
 
-    private PortUnificationServerHandler(boolean detectSsl, boolean detectGzip) {
+    private PortUnificationServerHandler(SslContext sslCtx, boolean detectSsl, boolean detectGzip) {
+        this.sslCtx = sslCtx;
         this.detectSsl = detectSsl;
         this.detectGzip = detectGzip;
     }
@@ -112,13 +112,8 @@ public class PortUnificationServerHandler extends ByteToMessageDecoder {
 
     private void enableSsl(ChannelHandlerContext ctx) {
         ChannelPipeline p = ctx.pipeline();
-
-        SSLEngine engine =
-            SecureChatSslContextFactory.getServerContext().createSSLEngine();
-        engine.setUseClientMode(false);
-
-        p.addLast("ssl", new SslHandler(engine));
-        p.addLast("unificationA", new PortUnificationServerHandler(false, detectGzip));
+        p.addLast("ssl", sslCtx.newHandler(ctx.alloc()));
+        p.addLast("unificationA", new PortUnificationServerHandler(sslCtx, false, detectGzip));
         p.remove(this);
     }
 
@@ -126,7 +121,7 @@ public class PortUnificationServerHandler extends ByteToMessageDecoder {
         ChannelPipeline p = ctx.pipeline();
         p.addLast("gzipdeflater", ZlibCodecFactory.newZlibEncoder(ZlibWrapper.GZIP));
         p.addLast("gzipinflater", ZlibCodecFactory.newZlibDecoder(ZlibWrapper.GZIP));
-        p.addLast("unificationB", new PortUnificationServerHandler(detectSsl, false));
+        p.addLast("unificationB", new PortUnificationServerHandler(sslCtx, detectSsl, false));
         p.remove(this);
     }
 

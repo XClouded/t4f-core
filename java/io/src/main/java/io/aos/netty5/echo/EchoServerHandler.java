@@ -15,14 +15,9 @@
  */
 package io.aos.netty5.echo;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-
-import java.nio.charset.Charset;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handler implementation for the echo server.
@@ -30,24 +25,20 @@ import java.util.logging.Logger;
 @Sharable
 public class EchoServerHandler extends ChannelHandlerAdapter {
 
-    private static final Logger logger = Logger.getLogger(EchoServerHandler.class.getName());
-
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.printf("EchoServerHandler: thread[%d] message[%s]", Thread.currentThread().getId(), ((ByteBuf) msg).toString(Charset.defaultCharset()));
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ctx.write(msg);
     }
 
     @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+    public void channelReadComplete(ChannelHandlerContext ctx) {
         ctx.flush();
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         // Close the connection when an exception is raised.
-        logger.log(Level.WARNING, "Unexpected exception from downstream.", cause);
+        cause.printStackTrace();
         ctx.close();
     }
-    
 }

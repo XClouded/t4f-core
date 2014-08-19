@@ -59,7 +59,7 @@ public class OioSctpEchoClient {
                  public void initChannel(SctpChannel ch) throws Exception {
                      ch.pipeline().addLast(
                              new LoggingHandler(LogLevel.INFO),
-                             new SctpEchoClientHandler(firstMessageSize));
+                             new SctpEchoClientHandler());
                  }
              });
 
