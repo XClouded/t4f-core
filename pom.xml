@@ -41,6 +41,8 @@
   <modules>
     <module>c</module>
     <module>clojure</module>
+    <module>devops</module>
+    <module>game</module>
     <module>groovy</module>
     <module>java</module>
     <module>javascript</module>

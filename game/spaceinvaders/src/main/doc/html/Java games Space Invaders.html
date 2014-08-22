@@ -1,0 +1,976 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<title>Java games Space Invaders</title>
+<link rel="stylesheet" href="Java%20games%20Space%20Invaders_files/format.css" type="text/css">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="Java, Swing, tutorial, games, Space Invaders, programming, GUI, multiplatform">
+<meta name="description" content="This part of the Java games tutorial presents the Space Invaders game.">
+<meta name="language" content="en">
+<meta name="author" content="Jan Bodnar">
+<meta name="distribution" content="global">
+
+<script type="text/javascript" src="Java%20games%20Space%20Invaders_files/jquery.js"></script>
+<script type="text/javascript" src="Java%20games%20Space%20Invaders_files/common.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="wide_ad" class="ltow">
+<script type="text/javascript"><!--
+google_ad_client = "pub-9706709751191532";
+/* 160x600, August 2011 */
+google_ad_slot = "2484182563";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript" src="Java%20games%20Space%20Invaders_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px"><ins id="aswift_0_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" frameborder="0" height="600" scrolling="no" width="160"></iframe></ins></ins>
+</div>
+
+<div class="content">
+
+
+<a href="http://zetcode.com/" title="Home">Home</a>&nbsp;
+<a href="http://zetcode.com/tutorials/javagamestutorial/">Contents</a>
+
+
+<h1>Space Invaders</h1>
+
+<p>
+In this part of the Java 2D games tutorial we will create a simple 
+Space Invaders game clone.
+</p>
+
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-9706709751191532";
+/* LargeSquare */
+google_ad_slot = "5070696322";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript" src="Java%20games%20Space%20Invaders_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px"><ins id="aswift_1_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" frameborder="0" height="280" scrolling="no" width="336"></iframe></ins></ins>
+
+<p>
+<b>Space Invaders</b> is an arcade video game designed by <b>Tomohiro Nishikado</b>. 
+It was first released in 1978. The player controls a cannon. He is about 
+to save the Earth from invasion of evil space invaders. 
+</p>
+
+
+<h2>Development</h2>
+
+<p>
+In our java clone we have 24 invaders. These aliens heavily shell the ground. 
+When the player shoots a missile, he can shoot another one only when it hits 
+an alien or the top of the Board. The player shoots with the alt key.  Aliens 
+launch randomly their bombs. Each alien shoots a bomb
+only after the previous one hits the bottom. 
+</p>
+
+<div class="codehead">SpaceInvaders.java</div>
+<pre class="code">package spaceinvaders;
+
+import javax.swing.JFrame;
+
+public class SpaceInvaders extends JFrame implements Commons {
+
+    public SpaceInvaders()
+    {
+        add(new Board());
+        setTitle("Space Invaders");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(BOARD_WIDTH, BOARD_HEIGTH);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        setResizable(false);
+    }
+
+    public static void main(String[] args) {
+        new SpaceInvaders();
+    }
+}
+</pre>
+
+<p>
+This is the main class. 
+</p>
+
+<div class="codehead">Commons.java</div>
+<pre class="code">package spaceinvaders;
+
+public interface Commons {
+
+    public static final int BOARD_WIDTH = 358;
+    public static final int BOARD_HEIGTH = 350;
+    public static final int GROUND = 290;
+    public static final int BOMB_HEIGHT = 5;
+    public static final int ALIEN_HEIGHT = 12;
+    public static final int ALIEN_WIDTH = 12;
+    public static final int BORDER_RIGHT = 30;
+    public static final int BORDER_LEFT = 5;
+    public static final int GO_DOWN = 15;
+    public static final int NUMBER_OF_ALIENS_TO_DESTROY = 24;
+    public static final int CHANCE = 5;
+    public static final int DELAY = 17;
+    public static final int PLAYER_WIDTH = 15;
+    public static final int PLAYER_HEIGHT = 10;
+}
+</pre>
+
+<p>
+The Commons.java file has some common constants. They are self-explanatory.
+</p>
+
+
+<div class="codehead">Alien.java</div>
+<pre class="code">package spaceinvaders;
+
+import javax.swing.ImageIcon;
+
+
+public class Alien extends Sprite {
+
+    private Bomb bomb;
+    private final String shot = "../spacepix/alien.png";
+
+    public Alien(int x, int y) {
+        this.x = x;
+        this.y = y;
+
+        bomb = new Bomb(x, y);
+        ImageIcon ii = new ImageIcon(this.getClass().getResource(shot));
+        setImage(ii.getImage());
+
+    }
+
+    public void act(int direction) {
+        this.x += direction;
+    }
+
+    public Bomb getBomb() {
+        return bomb;
+    }
+
+    public class Bomb extends Sprite {
+
+        private final String bomb = "../spacepix/bomb.png";
+        private boolean destroyed;
+
+        public Bomb(int x, int y) {
+            setDestroyed(true);
+            this.x = x;
+            this.y = y;
+            ImageIcon ii = new ImageIcon(this.getClass().getResource(bomb));
+            setImage(ii.getImage());
+        }
+
+        public void setDestroyed(boolean destroyed) {
+            this.destroyed = destroyed;
+        }
+
+        public boolean isDestroyed() {
+            return destroyed;
+        }
+    }
+}
+</pre>
+
+<p>
+This is the Alien sprite. Each alien has an inner Bomb class. 
+</p>
+
+
+<pre class="explanation">public void act(int direction) {
+    this.x += direction;
+}
+</pre>
+
+<p>
+The act() method is called from the Board class. 
+It is used to position an alien in horizontal 
+direction. 
+</p>
+
+
+<pre class="explanation">public Bomb getBomb() {
+    return bomb;
+}
+</pre>
+
+<p>
+The getBomb() method is called, when the alien is about to drop a bomb. 
+</p>
+
+<div class="codehead">Player.java</div>
+<pre class="code">package spaceinvaders;
+
+import java.awt.event.KeyEvent;
+
+import javax.swing.ImageIcon;
+
+
+public class Player extends Sprite implements Commons{
+
+    private final int START_Y = 280; 
+    private final int START_X = 270;
+
+    private final String player = "../spacepix/player.png";
+    private int width;
+
+    public Player() {
+
+        ImageIcon ii = new ImageIcon(this.getClass().getResource(player));
+
+        width = ii.getImage().getWidth(null); 
+
+        setImage(ii.getImage());
+        setX(START_X);
+        setY(START_Y);
+    }
+
+    public void act() {
+        x += dx;
+        if (x &lt;= 2) 
+            x = 2;
+        if (x &gt;= BOARD_WIDTH - 2*width) 
+            x = BOARD_WIDTH - 2*width;
+    }
+
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_LEFT)
+        {
+            dx = -2;
+        }
+
+        if (key == KeyEvent.VK_RIGHT)
+        {
+            dx = 2;
+        }
+
+    }
+
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_LEFT)
+        {
+            dx = 0;
+        }
+
+        if (key == KeyEvent.VK_RIGHT)
+        {
+            dx = 0;
+        }
+    }
+}
+</pre>
+
+<p>
+This is the Player sprite. We control the cannon with the cursor keys. 
+</p>
+
+<pre class="explanation">private final int START_Y = 280; 
+private final int START_X = 270;
+</pre>
+
+<p>
+These are the initial coordinates of the player sprite.
+</p>
+
+<pre class="explanation">if (key == KeyEvent.VK_LEFT)
+{
+    dx = -2;
+}
+</pre>
+
+<p>
+If we press the left cursor key, the <b>dx</b> variable is set to -2. Next 
+time the act() method is called, the player moves to the left. 
+</p>
+
+<pre class="explanation">if (key == KeyEvent.VK_LEFT)
+{
+    dx = 0;
+}
+
+if (key == KeyEvent.VK_RIGHT)
+{
+    dx = 0;
+}
+</pre>
+
+<p>
+If we release the left or the right cursor, the <b>dx</b> variable is 
+set to zero. The player sprite stops moving. 
+</p>
+
+
+<div class="codehead">Shot.java</div>
+<pre class="code">package spaceinvaders;
+
+import javax.swing.ImageIcon;
+
+
+public class Shot extends Sprite {
+
+    private String shot = "../spacepix/shot.png";
+    private final int H_SPACE = 6;
+    private final int V_SPACE = 1;
+
+    public Shot() {
+    }
+
+    public Shot(int x, int y) {
+
+        ImageIcon ii = new ImageIcon(this.getClass().getResource(shot));
+        setImage(ii.getImage());
+        setX(x + H_SPACE);
+        setY(y - V_SPACE);
+    }
+}
+</pre>
+
+<p>
+This is the Shot sprite. The shot is triggered with the alt key. 
+The H_SPACE and the V_SPACE
+constants are used to position the missile appropriately. 
+</p>
+
+<div class="codehead">Sprite.java</div>
+<pre class="code">package spaceinvaders;
+
+import java.awt.Image;
+
+public class Sprite {
+
+        private boolean visible;
+        private Image image;
+        protected int x;
+        protected int y;
+        protected boolean dying;
+        protected int dx;
+
+        public Sprite() {
+            visible = true;
+        }
+
+        public void die() {
+            visible = false;
+        }
+
+        public boolean isVisible() {
+            return visible;
+        }
+
+        protected void setVisible(boolean visible) {
+            this.visible = visible;
+        }
+
+        public void setImage(Image image) {
+            this.image = image;
+        }
+
+        public Image getImage() {
+            return image;
+        }
+
+        public void setX(int x) {
+            this.x = x;
+        }
+
+        public void setY(int y) {
+            this.y = y;
+        }
+        public int getY() {
+            return y;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public void setDying(boolean dying) {
+            this.dying = dying;
+        }
+
+        public boolean isDying() {
+            return this.dying;
+        }
+}
+</pre>
+
+<p>
+This is the basic Sprite class. Other sprites inherit from it. It has some 
+common functionality. 
+</p>
+
+<div class="codehead">Board.java</div>
+<pre class="code">package spaceinvaders;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
+
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
+
+public class Board extends JPanel implements Runnable, Commons { 
+
+    private Dimension d;
+    private ArrayList aliens;
+    private Player player;
+    private Shot shot;
+
+    private int alienX = 150;
+    private int alienY = 5;
+    private int direction = -1;
+    private int deaths = 0;
+
+    private boolean ingame = true;
+    private final String expl = "../spacepix/explosion.png";
+    private final String alienpix = "../spacepix/alien.png";
+    private String message = "Game Over";
+
+    private Thread animator;
+
+    public Board() 
+    {
+
+        addKeyListener(new TAdapter());
+        setFocusable(true);
+        d = new Dimension(BOARD_WIDTH, BOARD_HEIGTH);
+        setBackground(Color.black);
+
+        gameInit();
+        setDoubleBuffered(true);
+    }
+
+    public void addNotify() {
+        super.addNotify();
+        gameInit();
+    }
+
+    public void gameInit() {
+
+        aliens = new ArrayList();
+
+        ImageIcon ii = new ImageIcon(this.getClass().getResource(alienpix));
+
+        for (int i=0; i &lt; 4; i++) {
+            for (int j=0; j &lt; 6; j++) {
+                Alien alien = new Alien(alienX + 18*j, alienY + 18*i);
+                alien.setImage(ii.getImage());
+                aliens.add(alien);
+            }
+        }
+
+        player = new Player();
+        shot = new Shot();
+
+        if (animator == null || !ingame) {
+            animator = new Thread(this);
+            animator.start();
+        }
+    }
+
+    public void drawAliens(Graphics g) 
+    {
+        Iterator it = aliens.iterator();
+
+        while (it.hasNext()) {
+            Alien alien = (Alien) it.next();
+
+            if (alien.isVisible()) {
+                g.drawImage(alien.getImage(), alien.getX(), alien.getY(), this);
+            }
+
+            if (alien.isDying()) {
+                alien.die();
+            }
+        }
+    }
+
+    public void drawPlayer(Graphics g) {
+
+        if (player.isVisible()) {
+            g.drawImage(player.getImage(), player.getX(), player.getY(), this);
+        }
+
+        if (player.isDying()) {
+            player.die();
+            ingame = false;
+        }
+    }
+
+    public void drawShot(Graphics g) {
+        if (shot.isVisible())
+            g.drawImage(shot.getImage(), shot.getX(), shot.getY(), this);
+    }
+
+    public void drawBombing(Graphics g) {
+
+        Iterator i3 = aliens.iterator();
+
+        while (i3.hasNext()) {
+            Alien a = (Alien) i3.next();
+
+            Alien.Bomb b = a.getBomb();
+
+            if (!b.isDestroyed()) {
+                g.drawImage(b.getImage(), b.getX(), b.getY(), this); 
+            }
+        }
+    }
+
+    public void paint(Graphics g)
+    {
+      super.paint(g);
+
+      g.setColor(Color.black);
+      g.fillRect(0, 0, d.width, d.height);
+      g.setColor(Color.green);   
+
+      if (ingame) {
+
+        g.drawLine(0, GROUND, BOARD_WIDTH, GROUND);
+        drawAliens(g);
+        drawPlayer(g);
+        drawShot(g);
+        drawBombing(g);
+      }
+
+      Toolkit.getDefaultToolkit().sync();
+      g.dispose();
+    }
+
+    public void gameOver()
+    {
+
+        Graphics g = this.getGraphics();
+
+        g.setColor(Color.black);
+        g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGTH);
+
+        g.setColor(new Color(0, 32, 48));
+        g.fillRect(50, BOARD_WIDTH/2 - 30, BOARD_WIDTH-100, 50);
+        g.setColor(Color.white);
+        g.drawRect(50, BOARD_WIDTH/2 - 30, BOARD_WIDTH-100, 50);
+
+        Font small = new Font("Helvetica", Font.BOLD, 14);
+        FontMetrics metr = this.getFontMetrics(small);
+
+        g.setColor(Color.white);
+        g.setFont(small);
+        g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message))/2, 
+            BOARD_WIDTH/2);
+    }
+
+    public void animationCycle()  {
+
+        if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
+            ingame = false;
+            message = "Game won!";
+        }
+
+        // player
+
+        player.act();
+
+        // shot
+        if (shot.isVisible()) {
+            Iterator it = aliens.iterator();
+            int shotX = shot.getX();
+            int shotY = shot.getY();
+
+            while (it.hasNext()) {
+                Alien alien = (Alien) it.next();
+                int alienX = alien.getX();
+                int alienY = alien.getY();
+
+                if (alien.isVisible() &amp;&amp; shot.isVisible()) {
+                    if (shotX &gt;= (alienX) &amp;&amp; 
+                        shotX &lt;= (alienX + ALIEN_WIDTH) &amp;&amp;
+                        shotY &gt;= (alienY) &amp;&amp;
+                        shotY &lt;= (alienY+ALIEN_HEIGHT) ) {
+                            ImageIcon ii = 
+                                new ImageIcon(getClass().getResource(expl));
+                            alien.setImage(ii.getImage());
+                            alien.setDying(true);
+                            deaths++;
+                            shot.die();
+                        }
+                }
+            }
+
+            int y = shot.getY();
+            y -= 4;
+            if (y &lt; 0)
+                shot.die();
+            else shot.setY(y);
+        }
+
+        // aliens
+
+         Iterator it1 = aliens.iterator();
+
+         while (it1.hasNext()) {
+             Alien a1 = (Alien) it1.next();
+             int x = a1.getX();
+
+             if (x  &gt;= BOARD_WIDTH - BORDER_RIGHT &amp;&amp; direction != -1) {
+                 direction = -1;
+                 Iterator i1 = aliens.iterator();
+                 while (i1.hasNext()) {
+                     Alien a2 = (Alien) i1.next();
+                     a2.setY(a2.getY() + GO_DOWN);
+                 }
+             }
+
+            if (x &lt;= BORDER_LEFT &amp;&amp; direction != 1) {
+                direction = 1;
+
+                Iterator i2 = aliens.iterator();
+                while (i2.hasNext()) {
+                    Alien a = (Alien)i2.next();
+                    a.setY(a.getY() + GO_DOWN);
+                }
+            }
+        }
+
+
+        Iterator it = aliens.iterator();
+
+        while (it.hasNext()) {
+            Alien alien = (Alien) it.next();
+            if (alien.isVisible()) {
+
+                int y = alien.getY();
+
+                if (y &gt; GROUND - ALIEN_HEIGHT) {
+                    ingame = false;
+                    message = "Invasion!";
+                }
+
+                alien.act(direction);
+            }
+        }
+
+        // bombs
+
+        Iterator i3 = aliens.iterator();
+        Random generator = new Random();
+
+        while (i3.hasNext()) {
+            int shot = generator.nextInt(15);
+            Alien a = (Alien) i3.next();
+            Alien.Bomb b = a.getBomb();
+            if (shot == CHANCE &amp;&amp; a.isVisible() &amp;&amp; b.isDestroyed()) {
+
+                b.setDestroyed(false);
+                b.setX(a.getX());
+                b.setY(a.getY());   
+            }
+
+            int bombX = b.getX();
+            int bombY = b.getY();
+            int playerX = player.getX();
+            int playerY = player.getY();
+
+            if (player.isVisible() &amp;&amp; !b.isDestroyed()) {
+                if ( bombX &gt;= (playerX) &amp;&amp; 
+                    bombX &lt;= (playerX+PLAYER_WIDTH) &amp;&amp;
+                    bombY &gt;= (playerY) &amp;&amp; 
+                    bombY &lt;= (playerY+PLAYER_HEIGHT) ) {
+                        ImageIcon ii = 
+                            new ImageIcon(this.getClass().getResource(expl));
+                        player.setImage(ii.getImage());
+                        player.setDying(true);
+                        b.setDestroyed(true);;
+                    }
+            }
+
+            if (!b.isDestroyed()) {
+                b.setY(b.getY() + 1);   
+                if (b.getY() &gt;= GROUND - BOMB_HEIGHT) {
+                    b.setDestroyed(true);
+                }
+            }
+        }
+    }
+
+    public void run() {
+
+        long beforeTime, timeDiff, sleep;
+
+        beforeTime = System.currentTimeMillis();
+
+        while (ingame) {
+            repaint();
+            animationCycle();
+
+            timeDiff = System.currentTimeMillis() - beforeTime;
+            sleep = DELAY - timeDiff;
+
+            if (sleep &lt; 0) 
+                sleep = 2;
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
+                System.out.println("interrupted");
+            }
+            beforeTime = System.currentTimeMillis();
+        }
+        gameOver();
+    }
+
+    private class TAdapter extends KeyAdapter {
+
+        public void keyReleased(KeyEvent e) {
+            player.keyReleased(e);
+        }
+
+        public void keyPressed(KeyEvent e) {
+
+          player.keyPressed(e);
+
+          int x = player.getX();
+          int y = player.getY();
+
+          if (ingame)
+          {
+            if (e.isAltDown()) {
+                if (!shot.isVisible())
+                    shot = new Shot(x, y);
+            }
+          }
+        }
+    }
+}
+</pre>
+
+<p>
+The main logic of the game is located in the <b class="keyword">Board</b> class. 
+</p>
+
+<pre class="explanation">for (int i=0; i &lt; 4; i++) {
+    for (int j=0; j &lt; 6; j++) {
+        Alien alien = new Alien(alienX + 18*j, alienY + 18*i);
+        alien.setImage(ii.getImage());
+        aliens.add(alien);
+   }
+}
+
+player = new Player();
+shot = new Shot();
+</pre>
+
+<p>
+In the gameInit() method we set up 24 aliens. The alien image size is 12x12px. 
+We put 6px space among the aliens. We also create the 
+player and the shot objects. 
+</p>
+
+
+<pre class="explanation">public void drawBombing(Graphics g) {
+
+    Iterator i3 = aliens.iterator();      
+    while (i3.hasNext()) {
+        Alien a = (Alien) i3.next();
+
+        Alien.Bomb b = a.getBomb();
+        if (!b.isDestroyed()) {
+            g.drawImage(b.getImage(), b.getX(), b.getY(), this); 
+        }
+    }
+}
+</pre>
+
+<p>
+The drawBombing() method draws bombs launched by the aliens. 
+</p>
+
+
+<pre class="explanation">if (ingame) {
+
+  g.drawLine(0, GROUND, BOARD_WIDTH, GROUND);
+  drawAliens(g);
+  drawPlayer(g);
+  drawShot(g);
+  drawBombing(g);
+}
+</pre>
+
+<p>
+Inside the paint() method, we draw the ground, the aliens, the player, the shot and the bombs. 
+</p>
+
+
+<p>
+Next we will examine the animationCycle() method. 
+</p>
+
+<pre class="explanation">if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
+  ingame = false;
+  message = "Game won!";
+}
+</pre>
+
+<p>
+If we destroy all aliens, we win the game. (24 in this game)
+</p>
+
+<pre class="explanation">if (alien.isVisible() &amp;&amp; shot.isVisible()) {
+    if (shotX &gt;= (alienX) &amp;&amp; 
+        shotX &lt;= (alienX + ALIEN_WIDTH) &amp;&amp;
+        shotY &gt;= (alienY) &amp;&amp;
+        shotY &lt;= (alienY+ALIEN_HEIGHT) ) {
+            ImageIcon ii = 
+                new ImageIcon(getClass().getResource(expl));
+            alien.setImage(ii.getImage());
+            alien.setDying(true);
+            deaths++;
+            shot.die();
+    }
+}
+</pre>
+
+<p>
+If the shot triggered by the player collides with an alien, the alien ship is 
+destroyed. More precisely, the dying flag is set. We use it to display an explosion. 
+The deaths variable increases and the shot sprite is destroyed. 
+</p>
+
+
+<pre class="explanation">if (x  &gt;= BOARD_WIDTH - BORDER_RIGHT &amp;&amp; direction != -1) {
+    direction = -1;
+    Iterator i1 = aliens.iterator();
+    while (i1.hasNext()) {
+        Alien a2 = (Alien) i1.next();
+        a2.setY(a2.getY() + GO_DOWN);
+    }
+}
+</pre>
+
+<p>
+If the aliens reach the right end of the Board, they move down and change their direction to the left. 
+</p>
+
+<pre class="explanation">Iterator it = aliens.iterator();
+
+while (it.hasNext()) {
+    Alien alien = (Alien) it.next();
+    if (alien.isVisible()) {
+
+        int y = alien.getY();
+        if (y &gt; GROUND - ALIEN_HEIGHT) {
+            ingame = false;
+            message = "Invasion!";
+        }
+        alien.act(direction);
+    }
+}
+</pre>
+
+<p>
+Aliens move. If they reach the bottom, the invasion begins. 
+</p>
+
+<pre class="explanation">int shot = generator.nextInt(15);
+Alien a = (Alien) i3.next();
+Alien.Bomb b = a.getBomb();
+if (shot == CHANCE &amp;&amp; a.isVisible() &amp;&amp; b.isDestroyed()) { 
+    b.setDestroyed(false);
+    b.setX(a.getX());
+    b.setY(a.getY());   
+}
+</pre>
+
+<p>
+This is the code that determines whether the alien will drop a bomb. The alien 
+must not be destroyed. Eg. it must be visible.  The bomb's destroyed flag must 
+be set. In other words, it is alien's first bomb dropping or previous dropped 
+bomb already hit the ground. If these two conditions are fulfilled, the bombing 
+is left to the chance. 
+</p>
+
+<pre class="explanation">if (!b.isDestroyed()) {
+    b.setY(b.getY() + 1);
+    if (b.getY() &gt;= GROUND - BOMB_HEIGHT) {
+        b.setDestroyed(true);
+    }
+}
+</pre>
+
+<p>
+If the bomb is not destroyed, it goes one px to the ground. If it hits the bottom, 
+the destroyed flag is set. The alien is now ready to drop another bomb. 
+</p>
+
+<pre class="explanation">public void keyReleased(KeyEvent e) {
+    player.keyReleased(e);  
+}
+</pre>
+
+<p>
+The actual processing of this particular KeyEvent is delegated to the player sprite. 
+</p>
+
+
+<img src="Java%20games%20Space%20Invaders_files/spaceinvaders.png" alt="Space Invaders">
+<div class="figure">Figure: Space Invaders</div>
+
+
+<p>
+This was the Space Invaders game.
+</p>
+
+<div class="center"> 
+<script type="text/javascript"><!--
+google_ad_client = "pub-9706709751191532";
+/* horizontal */
+google_ad_slot = "1734478269";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script> 
+<script type="text/javascript" src="Java%20games%20Space%20Invaders_files/show_ads.js"> 
+</script><ins style="display:inline-table;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px"><ins id="aswift_2_anchor" style="display:block;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;" frameborder="0" height="60" scrolling="no" width="468"></iframe></ins></ins> 
+</div>
+<br>
+
+
+<div class="botNav, center">
+<span class="botNavItem"><a href="http://zetcode.com/">Home</a></span> ‡ <span class="botNavItem"><a href="http://zetcode.com/tutorials/javagamestutorial/">Contents</a></span> ‡
+<span class="botNavItem"><a href="#">Top of Page</a></span>
+</div>
+
+
+<div class="footer">
+<div class="signature">
+<a href="http://zetcode.com/">ZetCode</a> last modified September 28, 2008  <span class="copyright">© 2007 - 2013 Jan Bodnar</span>
+</div>
+</div>
+
+</div> <!-- container --> 
+ 
+
+
+</div></body></html>

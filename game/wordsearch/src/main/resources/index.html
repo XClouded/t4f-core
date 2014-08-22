@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<!-- ---------------------------------------------------- -->
+<!-- Word Search Applet                                   -->
+<!--                                                      -->
+<!-- Copyright 2001 by Mike Hall                          -->
+<!-- Please see http://www.brainjar.com for terms of use. -->
+<!-- ---------------------------------------------------- -->
+<html>
+<head>
+<title>Word Search Applet</title>
+<link href="/common/default.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+
+body {
+  background-color: #e0e0e0;
+  color: #000000;
+}
+
+</style>
+<script type="text/javascript">
+
+if (window.self != window.top)
+  window.top.location = window.self.location;
+
+</script>
+<body>
+
+<div style="text-align:center;">
+<div style="width:700px;margin-left:auto;margin-right:auto;text-align:left;">
+
+<h3>Word Search Applet</h3>
+
+<applet code="WordSearch.class" width="425" height="350" style="margin-left:137px;">
+  <param name="screencolors" value="black,#e0e0e0,black">
+  <param name="buttoncolors" value="white,#808080">
+  <param name="gridcolors" value="black,white,#f0f0f0,yellow">
+  <param name="files" value="animals.txt,countries.txt,measures.txt,movies.txt,nightsky.txt">
+</applet>
+
+<table class="boxed" width="700">
+<tr>
+  <th class="boxedHeader" colspan="4">Instructions</th>
+</tr>
+<tr>
+  <td class="boxed" colspan="4">
+  To play, click on <code>New Game,</code> then drag your mouse over the grid
+  to select a word. Once found, words will remain circled. If you get stuck,
+  click on <code>Solve Game.</code> The word list can be scrolled if necessary
+  by clicking on the buttons provided.
+  <p/>
+  When you're done with one puzzle, click on <code>New Game</code> again to
+  load the next.
+  </td>
+</tr>
+<tr>
+  <th class="boxedHeader" colspan="4">Parameters</th>
+</tr>
+<tr>
+  <th class="boxed" width="20%">Name</th>
+  <th class="boxed" width="20%">Format</th>
+  <th class="boxed" width="40%">Description</th>
+  <th class="boxed" width="20%">Default</th>
+</tr>
+<tr>
+  <td class="boxed"><b> screencolors</b><br>(optional)</td>
+  <td class="boxed"><i>color,color,color</i></td>
+  <td class="boxed">Sets the text, background and border colors for the main
+  display.</td>
+  <td class="boxed">"black,white,black"</td>
+</tr>
+<tr>
+  <td class="boxed"><b>buttoncolors</b><br>(optional)</td>
+  <td class="boxed"><i>color,color</i></td>
+  <td class="boxed">Set the button foreground and background colors.</td>
+  <td class="boxed">"black,lightgray"</td>
+</tr>
+<tr>
+  <td class="boxed"><b>gridcolors</b><br>(optional)</td>
+  <td class="boxed"><i>color,color,color,color</i></td>
+  <td class="boxed">The first color pair sets letter grid text and background
+  colors, the third color is used in shading found words and the last color is
+  used in highlighting the current user selection.</td>
+  <td class="boxed">"black,white,lightgray,yellow"</td>
+</tr>
+<tr>
+  <td class="boxed"><b>listcolors</b><br>(optional)</td>
+  <td class="boxed"><i>color,color,color</i></td>
+  <td class="boxed">The first color pair sets the text and background colors of
+  the word list. The third color is used for the text of words that have been
+  found.</td>
+  <td class="boxed">"black,white,lightgray"</td>
+</tr>
+<tr>
+  <td class="boxed" colspan="4"><b>Note:</b> For color parameters, <i>color</i>
+  may be one of the following: black, blue, cyan, darkgray, gray,
+  green, lightgray, magenta, orange, pink, red, white or yellow. Or you can
+  specify a hex string in HTML format, e.g. #ffcc99.
+  </td>
+</tr>
+<tr>
+  <td class="boxed"><b>screenfont</b><br>(optional)</td>
+  <td class="boxed"><i>name,style,size</i></td>
+  <td class="boxed">Sets the message text font.</td>
+  <td class="boxed">"helvetica,bold,12"</td>
+</tr>
+<tr>
+  <td class="boxed"><b>buttonfont</b><br>(optional)</td>
+  <td class="boxed"><i>name,style,size</i></td>
+  <td class="boxed">Sets the button text font.</td>
+  <td class="boxed">"dialog,plain,10"</td>
+</tr>
+<tr>
+  <td class="boxed"><b>gridfont</b><br>(optional)</td>
+  <td class="boxed"><i>name,style,size</i></td>
+  <td class="boxed">Sets the letter grid font.</td>
+  <td class="boxed">"courier,plain,14"</td>
+</tr>
+<tr>
+  <td class="boxed"><b>listfont</b><br>(optional)</td>
+  <td class="boxed"><i>name,style,size</i></td>
+  <td class="boxed">Sets the word list font.</td>
+  <td class="boxed">"helvetica,bold,12"</td>
+</tr>
+<tr>
+  <td class="boxed" colspan="4"><b>Note:</b> For font parameters, <i>name</i>
+  may be one of: courier, dialog, helvetica, symbol or timesroman and
+  <i>style</i> may be one of: bold, bolditalic, italic or plain.
+  </td>
+</tr>
+<tr>
+  <td class="boxed"><b> gridsize</b><br>(optional)</td>
+  <td class="boxed"><i>n, m, d</i></td>
+  <td class="boxed">Sets the number of rows and columns used in the letter grid
+  and the size, in pixels, of each cell (this should be slightly bigger than
+  the size of the grid font).
+  </td>
+  <td class="boxed">"15,15,20"</td>
+</tr>
+<tr>
+  <td class="boxed"><b>files</b></td>
+  <td class="boxed"><i>url_1,url_2,...,url_n</i></td>
+  <td class="boxed">A list of URLs. Each should point to a text file
+  containing a list of words to use for each puzzle.</td>
+  <td class="boxed">n/a</td>
+</tr>
+<tr>
+  <th class="boxedHeader" colspan="4">Usage Notes</th>
+</tr>
+<tr>
+  <td class="boxed" colspan="4">
+  The width and height attributes of the APPLET tag should be adjusted as
+  necessary to accomodate the display.
+  <p/>
+  The applet reads data from one or more plain text files located on the
+  server. Given a list of file URLs, it will load a new set of words for each
+  new game, looping back to the first file after the last.
+  <p/>
+  Each line of the input file should contain a single word or phrase. These are
+  stripped of whitespace or non-alpha characters and converted to upper-case
+  before being added to the letter grid. For example, "New Mexico" shows on
+  the grid as "N E W M E X I C O". Words are listed in the order read.
+  <p/>
+  If a line begins with a '#' character, the text following it is used as the
+  puzzle title and not included on the list. See the download files for
+  examples.
+  <p/>
+  Words that are too big for the grid or that can't be placed because no space
+  is left are dropped from the list for that particular game instance. If this
+  happens often, try using a larger grid, fewer words or shorter words.
+  </td>
+</tr>
+<tr>
+  <th class="boxedHeader" colspan="4">Source and Download</th>
+</tr>
+<tr>
+  <td class="boxed" colspan="4">
+  <b>Source:</b> <a href="WordSearch.java">WordSearch.java</a><br>
+  <b>All files:</b> <a href="WordSearch.zip">WordSearch.zip</a>
+  </td>
+</tr>
+</table>
+
+</div>
+</div>
+
+</body>
+</html>

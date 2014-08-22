@@ -1,0 +1,19 @@
+/* CSS Document */
+
+/* Navigation strip */
+
+.navigation {color: #666666; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: small;}
+.navigation a:link {color: #666666;}
+.navigation a:hover {color: #999999;}
+.navigation a:visited {color: #666666;}
+
+.navigation {margin-top: 0px;}
+
+#ad-background {
+    position: absolute;
+	z-index: -5;
+	width: 320px;
+	height: 270px;
+	margin-top: -10px;
+	left: 70px;
+}

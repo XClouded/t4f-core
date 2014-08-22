@@ -1,0 +1,2 @@
+document.write("<a href='http://www.epicgameads.com/ads/clickAdClick.php?id=FzFpwbUUIW&pd=0&pcid=7079&adid=49023&icpc=0&icpl=0&axid=0&c=0.0009&cm=1&nc=0&uctt=1&channel=0&sf=0&t=728x90&fa=4&cb=1364906384' target='_blank'><img src='http://cdn.epicgameads.com/ads/images/custom/31639_728x90_48440811.jpg' style='width:728px;height:90px;' alt='' border='0' /></a>");
+        

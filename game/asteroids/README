@@ -1,0 +1,45 @@
+ _____  ____  ____  _  _    __    _____  ___ 
+(  _  )(  _ \( ___)( \( )  /__\  (  _  )/ __)
+ )(_)(  )___/ )__)  )  (  /(__)\  )(_)( \__ \
+(_____)(__)  (____)(_)\_)(__)(__)(_____)(___/
+
+OpenAOS - Open Application Operating System
+
+This is an Asteroids Game from http://www.brainjar.com
+
+To play Asteroids:
+
+Asteroids Applet
+Instructions
+Wait for the applet and sounds to load, then click on the applet area and press the 'S' key to start.
+
+Shoot the asteroids while avoiding collisions with them. Occasionally a flying saucer will appear and attempt to shoot you down with guided missles. Destroy it or the missles for more points.
+
+You begin with three ships, a bonus ship is awarded for every 5000 points scored.
+Keyboard Controls
+
+Key 	Description				Key 	Description
+
+S 	Start Game 	    			P 	Pause Game
+Cursor Left 	Rotate Left 	Cursor Right 	Rotate Right
+Cursor Up 	Fire Thrusters 		Cursor Down 	Fire Retro Thrusters
+Spacebar 	Fire Cannon 		H 	Hyperspace
+M 	Toggle Sound 				D 	Toggle Graphics Detail
+
+Scoring
+Object 	Points
+Large Asteroid 	25
+Small Asteroid 	50
+UFO 	250
+Missle 	500
+
+Option 1
+--------
+mvn package
+java -jar target/openaos-game-asteroids
+
+Option 2
+--------
+mvn exec:java
+
+Enjoy!
