@@ -7,3 +7,8 @@ Now, you can [use](usage.html) the elegant Markdown syntax for writing pages in 
 This project is an encapsulation of Markdownj in a Doxia module.
 
 This is the demo codes for [doxia-module-markdown](http://code.google.com/p/doxia-module-markdown/)
+
+    code
+    code
+    code
+    
