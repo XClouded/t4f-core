@@ -1,16 +1,30 @@
-+ atlassian
-+ eclipse
-+ elasticsearch
-+ geronimo
-+ hudson
+java
 + jin
 + jpf
 + jspf
-+ maven
-+ mozilla
-+ osgi
-+ pf4j
 + service-loader 
 + sezpoz
+
+js
++ jquery
+
+msc
++ elasticsearch
++ maven
++ mozilla
+
+osgi
++ eclipse
++ osgi
++ pf4j
+
+server
 + vert.x
++ wildfly
+
+html
++ atlassian
++ hawt.io
++ hudson
++ geronimo
 
