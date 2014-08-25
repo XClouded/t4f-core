@@ -1,0 +1,122 @@
+-------------------------------------------------------------------------------
+$ sudo su
+-------------------------------------------------------------------------------
+$ apt-get install docker.io
+-------------------------------------------------------------------------------
+$ docker -d &
+-------------------------------------------------------------------------------
+docker
+Usage: docker [OPTIONS] COMMAND [arg...]
+ -H=[unix:///var/run/docker.sock]: tcp://host:port to bind/connect to or unix://path/to/socket to use
+A self-sufficient runtime for linux containers.
+Commands:
+    attach    Attach to a running container
+    build     Build an image from a Dockerfile
+    commit    Create a new image from a container's changes
+    cp        Copy files/folders from the containers filesystem to the host path
+    diff      Inspect changes on a container's filesystem
+    events    Get real time events from the server
+    export    Stream the contents of a container as a tar archive
+    history   Show the history of an image
+    images    List images
+    import    Create a new filesystem image from the contents of a tarball
+    info      Display system-wide information
+    inspect   Return low-level information on a container
+    kill      Kill a running container
+    load      Load an image from a tar archive
+    login     Register or Login to the docker registry server
+    logs      Fetch the logs of a container
+    port      Lookup the public-facing port which is NAT-ed to PRIVATE_PORT
+    pause     Pause all processes within a container
+    ps        List containers
+    pull      Pull an image or a repository from the docker registry server
+    push      Push an image or a repository to the docker registry server
+    restart   Restart a running container
+    rm        Remove one or more containers
+    rmi       Remove one or more images
+    run       Run a command in a new container
+    save      Save an image to a tar archive
+    search    Search for an image in the docker index
+    start     Start a stopped container
+    stop      Stop a running container
+    tag       Tag an image into a repository
+    top       Lookup the running processes of a container
+    unpause   Unpause a paused container
+    version   Show the docker version information
+    wait      Block until a container stops, then print its exit code
+-------------------------------------------------------------------------------
+$ docker info
+$ docker version
+$ docker search ubuntu
+$ docker pull ubuntu
+$ docker pull ubuntu:14.04
+$ docker pull sequenceiq/hadoop-docker
+$ docker pull sequenceiq/spark
+$ docker images
+-------------------------------------------------------------------------------
+$ docker run [image name] [command to run]
+$ docker run -i -t ubuntu:14.04 "/bin/bash"
+$ docker run c629b7d70666
+$ docker run -p 50070:50070 -i -t sequenceiq/hadoop-docker /etc/bootstrap.sh -bash
+$ docker run -i -t -h sandbox sequenceiq/spark /etc/bootstrap.sh -bash
+$ docker ps
+$ docker logs <id>
+$ docker build -t sequenceiq/hadoop-docker:2.5.0 .
+-------------------------------------------------------------------------------
+$  docker login
+-------------------------------------------------------------------------------
+############################################################
+# Dockerfile to run Memcached Containers
+# Based on Ubuntu Image
+############################################################
+
+# Set the base image to use to Ubuntu
+FROM ubuntu
+
+# Set the file maintainer (your name - the file's author)
+MAINTAINER Maintaner Name
+
+# Update the default application repository sources list
+RUN apt-get update
+
+# Install Memcached
+RUN apt-get install -y memcached
+
+# Port to expose (default: 11211)
+EXPOSE 11211
+
+# Default Memcached run command arguments
+CMD ["-m", "128"]
+
+# Set the user to run Memcached daemon
+USER daemon
+
+# Set the entrypoint to memcached binary
+ENTRYPOINT memcached
+-------------------------------------------------------------------------------
+$ docker build -t echarles/memcached_img .
+-------------------------------------------------------------------------------
+FROM ubuntu:14.04
+MAINTAINER Kate Smith <ksmith@example.com>
+RUN apt-get -qq update
+RUN apt-get -qqy install ruby ruby-dev
+RUN gem install sinatra
+-------------------------------------------------------------------------------
+$ docker run -t -i sinatra_img /bin/bash
+$ docker tag 5db5f8471261 sinatra
+-------------------------------------------------------------------------------
+$ docker inspect --format="{{.NetworkSettings.IPAddress}}" 934df0238dd3
+-------------------------------------------------------------------------------
+$ docker commit 8dbd9e392a96 my_img
+-------------------------------------------------------------------------------
+$ docker run -d -P --name="Hadoop" -h "hadoop" ruo91/hadoop:2.4.1
+$ ssh `docker inspect -f '{{ .NetworkSettings.IPAddress }}' Hadoop`
+$ start-all.sh
+$ jps
+$ for((i=0; i<10; i++)) do echo ${i}; done > test.log
+$ hdfs dfs -copyFromLocal test.log /
+$ hdfs dfs -ls /
+$ exit
+$ docker port Hadoop 50070
+-------------------------------------------------------------------------------
+    

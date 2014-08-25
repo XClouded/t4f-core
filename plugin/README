@@ -23,6 +23,7 @@ server
 + wildfly
 
 html
++ ambari
 + atlassian
 + hawt.io
 + hudson
