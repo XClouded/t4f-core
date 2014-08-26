@@ -49,33 +49,36 @@ Commands:
 -------------------------------------------------------------------------------
 | INSTALL                                                                     |
 -------------------------------------------------------------------------------
-$ sudo apt-get install docker.io
-$ sudo docker -d &
+sudo apt-get install docker.io
+sudo docker -d &
 -------------------------------------------------------------------------------
 | USAGE                                                                       |
 -------------------------------------------------------------------------------
-$ sudo docker info
-$ sudo docker images
-$ sudo docker version
-$ sudo docker search ubuntu
-$ sudo docker pull ubuntu
-$ sudo docker pull ubuntu:14.04
-$ sudo docker pull sequenceiq/hadoop-docker
-$ sudo docker pull sequenceiq/spark
-$ sudo docker run [image name] [command to run]
-$ sudo docker run -i -t ubuntu:14.04 "/bin/bash"
-$ sudo docker run c629b7d70666
-$ sudo docker run -p 50070:50070 -i -t sequenceiq/hadoop-docker /etc/bootstrap.sh -bash
-$ sudo docker run -i -t -h sandbox sequenceiq/spark /etc/bootstrap.sh -bash
-$ sudo docker ps
-$ sudo docker logs <container-id>
-$ sudo docker run -t -i sinatra_img /bin/bash
-$ sudo docker tag 5db5f8471261 sinatra
-$ sudo docker inspect --format="{{.NetworkSettings.IPAddress}}" 934df0238dd3
-$ sudo docker commit 8dbd9e392a96 my_img
-$ sudo docker login
-$ sudo docker build -t aosio/memcached .
-$ sudo docker build -t sequenceiq/hadoop-docker:2.5.0 .
+sudo docker info
+sudo docker images
+sudo docker version
+sudo docker search ubuntu
+sudo docker pull ubuntu
+sudo docker pull ubuntu:utopic
+sudo docker pull sequenceiq/hadoop-docker
+sudo docker pull sequenceiq/spark
+sudo docker run <image-name> <command-to-run>
+sudo docker run <image-name> -bash
+sudo docker run -i -t aosio/ubuntu:utopic /bin/bash
+sudo docker run -i -t aosio/sinatra /bin/bash
+sudo docker run -p 50070:50070 -i -t sequenceiq/hadoop-docker /etc/bootstrap.sh -bash
+sudo docker run -i -t -h sandbox sequenceiq/spark /etc/bootstrap.sh -bash
+sudo docker ps
+sudo docker logs <container-id>
+sudo docker build -t aosio/memcached .
+sudo docker build -t aosio/ssdh .
+sudo docker port aosio/sshd 22
+ssh root@localhost -p <port>
+sudo docker build -t sequenceiq/hadoop-docker:2.5.0 .
+sudo docker commit 8dbd9e392a96 my_img
+sudo docker tag 5db5f8471261 sinatra
+sudo docker inspect --format="{{.NetworkSettings.IPAddress}}" 934df0238dd3
+sudo docker login
 -------------------------------------------------------------------------------
 | IMAGES                                                                      |
 -------------------------------------------------------------------------------
@@ -83,18 +86,18 @@ ubuntu-image
 + https://github.com/tianon/docker-brew-ubuntu-core.git
 -------------------------------------------------------------------------------
 hadoop-image
-$ sudo docker run -d -P --name="Hadoop" -h "hadoop" ruo91/hadoop:2.4.1
-$ ssh `docker inspect -f '{{ .NetworkSettings.IPAddress }}' Hadoop`
-$ start-all.sh
-$ jps
-$ for((i=0; i<10; i++)) do echo ${i}; done > test.log
-$ hdfs dfs -copyFromLocal test.log /
-$ hdfs dfs -ls /
-$ exit
-$ sudo docker port Hadoop 50070
+sudo docker run -d -P --name="Hadoop" -h "hadoop" ruo91/hadoop:2.4.1
+ssh `docker inspect -f '{{ .NetworkSettings.IPAddress }}' Hadoop`
+start-all.sh
+jps
+for((i=0; i<10; i++)) do echo ${i}; done > test.log
+hdfs dfs -copyFromLocal test.log /
+hdfs dfs -ls /
+exit
+sudo docker port Hadoop 50070
 ------------------------------------------------------------------------------
 ambari-image
-$ sudo docker run -d -p 8080 -h amb0.mycorp.kom --name ambari-singlenode sequenceiq/ambari --tag ambari-server=true
++ sudo docker run -d -p 8080 -h amb0.mycorp.kom --name ambari-singlenode sequenceiq/ambari --tag ambari-server=true
 -------------------------------------------------------------------------------
 | API                                                                         |
 -------------------------------------------------------------------------------
