@@ -27,7 +27,7 @@
 
 FROM aosio/ubuntu:utopic
 
-MAINTAINER Datalayer
+MAINTAINER AOS
 
 RUN apt-get update
 RUN apt-get install -y dnsmasq unzip curl

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Licensed to the AOS Community (AOS) under one or more
 # contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -15,16 +17,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-FROM aosio/ubuntu:utopic
-
-MAINTAINER Datalayer
-
-# Update the default application repository sources list
-RUN apt-get update
-RUN apt-get install -y openssh-server
-RUN mkdir /var/run/sshd
-RUN echo 'root:screencast' | chpasswd
-
-EXPOSE 22
-
-CMD    ["/usr/sbin/sshd", "-D"]
+sudo docker stop ssh
+sudo docker rm ssh
+sudo docker run -d -P --name ssh aosio/ssh:utopic

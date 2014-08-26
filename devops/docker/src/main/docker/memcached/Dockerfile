@@ -19,7 +19,7 @@
 FROM aosio/ubuntu:utopic
 
 # Set the file maintainer (your name - the file's author)
-MAINTAINER Datalayer
+MAINTAINER AOS
 
 # Update the default application repository sources list
 RUN apt-get update

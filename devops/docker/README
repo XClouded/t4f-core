@@ -55,8 +55,8 @@ sudo docker -d &
 | USAGE                                                                       |
 -------------------------------------------------------------------------------
 sudo docker info
-sudo docker images
 sudo docker version
+sudo docker images
 sudo docker search ubuntu
 sudo docker pull ubuntu
 sudo docker pull ubuntu:utopic
@@ -68,12 +68,23 @@ sudo docker run -i -t aosio/ubuntu:utopic /bin/bash
 sudo docker run -i -t aosio/sinatra /bin/bash
 sudo docker run -p 50070:50070 -i -t sequenceiq/hadoop-docker /etc/bootstrap.sh -bash
 sudo docker run -i -t -h sandbox sequenceiq/spark /etc/bootstrap.sh -bash
+sudo docker inspect <container-id>
 sudo docker ps
 sudo docker logs <container-id>
 sudo docker build -t aosio/memcached .
-sudo docker build -t aosio/ssdh .
-sudo docker port aosio/sshd 22
+---
+sudo docker run -ti ubuntu:14.04 /bin/bash -c 'ls'
+sudo docker run -ti ubuntu:14.04 /bin/bash -c 'useradd -u 12345 -s /bin/bash eric; su - eric'
+---
+sudo docker build -t aosio/ssh:utopic .
+sudo docker run  -p 222:22 -i -t aosio/ssh:utopic /bin/bash
+ssh root@localhost -p 222
+sudo docker run -d -P --name ssh aosio/ssh:utopic
+sudo docker port ssh 22
 ssh root@localhost -p <port>
+sudo docker stop ssh
+sudo docker rm ssh
+---
 sudo docker build -t sequenceiq/hadoop-docker:2.5.0 .
 sudo docker commit 8dbd9e392a96 my_img
 sudo docker tag 5db5f8471261 sinatra

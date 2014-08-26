@@ -17,7 +17,7 @@
 
 FROM aosio/ubuntu:utopic
 
-MAINTAINER Datalayer
+MAINTAINER AOS
 
 RUN apt-get update
 

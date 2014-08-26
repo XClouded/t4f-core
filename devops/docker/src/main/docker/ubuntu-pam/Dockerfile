@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Licensed to the AOS Community (AOS) under one or more
 # contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -17,6 +15,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
-/usr/sbin/sshd -D &
- 
-apache2 -D FOREGROUND
+FROM aosio/ubuntu:utopic
+
+MAINTAINER AOS
+
+# Setup build environment for libpam
+RUN apt-get -y build-dep pam
+
+# Rebuild and install libpam with --disable-audit option
+RUN export CONFIGURE_OPTS=--disable-audit && cd /root && apt-get -b source pam && dpkg -i libpam-doc*.deb libpam-modules*.deb libpam-runtime*.deb libpam0g*.deb

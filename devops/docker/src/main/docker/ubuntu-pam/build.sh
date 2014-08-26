@@ -17,6 +17,4 @@
 # specific language governing permissions and limitations
 # under the License.
 
-/usr/sbin/sshd -D &
- 
-apache2 -D FOREGROUND
+sudo docker build -t aosio/ubuntu-pam:utopic .
