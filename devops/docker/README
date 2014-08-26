@@ -1,12 +1,7 @@
 -------------------------------------------------------------------------------
-$ sudo su
+| USAGE                                                                       |
 -------------------------------------------------------------------------------
-$ apt-get install docker.io
--------------------------------------------------------------------------------
-$ docker -d &
--------------------------------------------------------------------------------
-docker
-Usage: docker [OPTIONS] COMMAND [arg...]
+docker [OPTIONS] COMMAND [arg...]
  -H=[unix:///var/run/docker.sock]: tcp://host:port to bind/connect to or unix://path/to/socket to use
 A self-sufficient runtime for linux containers.
 Commands:
@@ -45,71 +40,38 @@ Commands:
     version   Show the docker version information
     wait      Block until a container stops, then print its exit code
 -------------------------------------------------------------------------------
-$ docker info
-$ docker version
-$ docker search ubuntu
-$ docker pull ubuntu
-$ docker pull ubuntu:14.04
-$ docker pull sequenceiq/hadoop-docker
-$ docker pull sequenceiq/spark
-$ docker images
+$ sudo apt-get install docker.io
+$ sudo docker -d &
+$ sudo docker info
+$ sudo docker images
+$ sudo docker version
+$ sudo docker search ubuntu
+$ sudo docker pull ubuntu
+$ sudo docker pull ubuntu:14.04
+$ sudo docker pull sequenceiq/hadoop-docker
+$ sudo docker pull sequenceiq/spark
+$ sudo docker run [image name] [command to run]
+$ sudo docker run -i -t ubuntu:14.04 "/bin/bash"
+$ sudo docker run c629b7d70666
+$ sudo docker run -p 50070:50070 -i -t sequenceiq/hadoop-docker /etc/bootstrap.sh -bash
+$ sudo docker run -i -t -h sandbox sequenceiq/spark /etc/bootstrap.sh -bash
+$ sudo docker ps
+$ sudo docker logs <container-id>
+$ sudo docker run -t -i sinatra_img /bin/bash
+$ sudo docker tag 5db5f8471261 sinatra
+$ sudo docker inspect --format="{{.NetworkSettings.IPAddress}}" 934df0238dd3
+$ sudo docker commit 8dbd9e392a96 my_img
+$ sudo docker login
+$ sudo docker build -t datalayer/memcached .
+$ sudo docker build -t sequenceiq/hadoop-docker:2.5.0 .
 -------------------------------------------------------------------------------
-$ docker run [image name] [command to run]
-$ docker run -i -t ubuntu:14.04 "/bin/bash"
-$ docker run c629b7d70666
-$ docker run -p 50070:50070 -i -t sequenceiq/hadoop-docker /etc/bootstrap.sh -bash
-$ docker run -i -t -h sandbox sequenceiq/spark /etc/bootstrap.sh -bash
-$ docker ps
-$ docker logs <id>
-$ docker build -t sequenceiq/hadoop-docker:2.5.0 .
+| IMAGES                                                                      |
 -------------------------------------------------------------------------------
-$  docker login
+ubuntu-image
++ https://github.com/tianon/docker-brew-ubuntu-core.git
 -------------------------------------------------------------------------------
-############################################################
-# Dockerfile to run Memcached Containers
-# Based on Ubuntu Image
-############################################################
-
-# Set the base image to use to Ubuntu
-FROM ubuntu
-
-# Set the file maintainer (your name - the file's author)
-MAINTAINER Maintaner Name
-
-# Update the default application repository sources list
-RUN apt-get update
-
-# Install Memcached
-RUN apt-get install -y memcached
-
-# Port to expose (default: 11211)
-EXPOSE 11211
-
-# Default Memcached run command arguments
-CMD ["-m", "128"]
-
-# Set the user to run Memcached daemon
-USER daemon
-
-# Set the entrypoint to memcached binary
-ENTRYPOINT memcached
--------------------------------------------------------------------------------
-$ docker build -t echarles/memcached_img .
--------------------------------------------------------------------------------
-FROM ubuntu:14.04
-MAINTAINER Kate Smith <ksmith@example.com>
-RUN apt-get -qq update
-RUN apt-get -qqy install ruby ruby-dev
-RUN gem install sinatra
--------------------------------------------------------------------------------
-$ docker run -t -i sinatra_img /bin/bash
-$ docker tag 5db5f8471261 sinatra
--------------------------------------------------------------------------------
-$ docker inspect --format="{{.NetworkSettings.IPAddress}}" 934df0238dd3
--------------------------------------------------------------------------------
-$ docker commit 8dbd9e392a96 my_img
--------------------------------------------------------------------------------
-$ docker run -d -P --name="Hadoop" -h "hadoop" ruo91/hadoop:2.4.1
+hadoop-image
+$ sudo docker run -d -P --name="Hadoop" -h "hadoop" ruo91/hadoop:2.4.1
 $ ssh `docker inspect -f '{{ .NetworkSettings.IPAddress }}' Hadoop`
 $ start-all.sh
 $ jps
@@ -117,6 +79,40 @@ $ for((i=0; i<10; i++)) do echo ${i}; done > test.log
 $ hdfs dfs -copyFromLocal test.log /
 $ hdfs dfs -ls /
 $ exit
-$ docker port Hadoop 50070
+$ sudo docker port Hadoop 50070
+------------------------------------------------------------------------------
+ambari-image
+$ sudo docker run -d -p 8080 -h amb0.mycorp.kom --name ambari-singlenode sequenceiq/ambari --tag ambari-server=true
 -------------------------------------------------------------------------------
-    
+| API                                                                         |
+-------------------------------------------------------------------------------
+java-api
++ https://github.com/jboss-fuse/fuse-docker
+-------------------------------------------------------------------------------
+| ORCHESTRATION                                                               |
+-------------------------------------------------------------------------------
++ flynn https://flynn.io
++ deis http://deis.io
++ coreos http://coreos.com
++ Mesos http://mesosphere.io/2013/09/26/docker-on-mesos
++ maestro https://github.com/toscanini/maestro
++ Docker Openstack https://wiki.openstack.org/wiki/Docker
++ Paas zone within OpenStack http://www.sebastien-han.fr/blog/2013/10/31/build-a-paas-zone-within-your-openstack-cloud
++ shipyard http://shipyard-project.com
++ http://www.infoq.com/news/2013/12/futureops
++ http://www.slideshare.net/profyclub_ru/8-mitchell-hashimoto-hashicorp
++ Decentralizing Docker: How to use serf with Docker http://blog.ctl-c.io/?p=43
++ http://mesosphere.io/learn/run-docker-on-mesosphere
++ https://github.com/mesosphere/deimos
++ https://github.com/mesosphere/marathon
++ http://www.tsuru.io
++ https://github.com/tsuru/docker-cluster
++ http://docs.tsuru.io/en/latest/provisioners/docker/schedulers.html
++ http://blog.tsuru.io/2014/04/04/running-tsuru-in-production-scaling-and-segregating-docker-containers
++ maestro-ng https://github.com/signalfuse/maestro-ng
++ decking http://decking.io
++ kubernetes https://github.com/GoogleCloudPlatform/kubernetes
++ projectatomic http://www.projectatomic.io
++ geard http://openshift.github.io/geard
+-------------------------------------------------------------------------------
+
