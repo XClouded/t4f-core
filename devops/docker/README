@@ -6,7 +6,7 @@
                                    
  #docker.io
 -------------------------------------------------------------------------------
-| USAGE                                                                       |
+| COMMANDS                                                                    |
 -------------------------------------------------------------------------------
 docker [OPTIONS] COMMAND [arg...]
  -H=[unix:///var/run/docker.sock]: tcp://host:port to bind/connect to or unix://path/to/socket to use
@@ -47,8 +47,13 @@ Commands:
     version   Show the docker version information
     wait      Block until a container stops, then print its exit code
 -------------------------------------------------------------------------------
+| INSTALL                                                                     |
+-------------------------------------------------------------------------------
 $ sudo apt-get install docker.io
 $ sudo docker -d &
+-------------------------------------------------------------------------------
+| USAGE                                                                       |
+-------------------------------------------------------------------------------
 $ sudo docker info
 $ sudo docker images
 $ sudo docker version

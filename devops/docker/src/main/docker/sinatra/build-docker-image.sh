@@ -18,4 +18,3 @@
 # under the License.
 
 sudo docker build -t aosio/sinatra:utopic .
-
