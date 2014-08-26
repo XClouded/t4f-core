@@ -1,4 +1,11 @@
 -------------------------------------------------------------------------------
+ ____          _             _     
+|    \ ___ ___| |_ ___ ___  |_|___ 
+|  |  | . |  _| '_| -_|  _|_| | . |
+|____/|___|___|_,_|___|_| |_|_|___|
+                                   
+ #docker.io
+-------------------------------------------------------------------------------
 | USAGE                                                                       |
 -------------------------------------------------------------------------------
 docker [OPTIONS] COMMAND [arg...]
@@ -62,7 +69,7 @@ $ sudo docker tag 5db5f8471261 sinatra
 $ sudo docker inspect --format="{{.NetworkSettings.IPAddress}}" 934df0238dd3
 $ sudo docker commit 8dbd9e392a96 my_img
 $ sudo docker login
-$ sudo docker build -t datalayer/memcached .
+$ sudo docker build -t aosio/memcached .
 $ sudo docker build -t sequenceiq/hadoop-docker:2.5.0 .
 -------------------------------------------------------------------------------
 | IMAGES                                                                      |

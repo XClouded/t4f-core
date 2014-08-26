@@ -17,5 +17,5 @@
 # specific language governing permissions and limitations
 # under the License.
 
-sudo docker build -t datalayer/serf:utopic .
+sudo docker build -t aosio/serf:utopic .
 

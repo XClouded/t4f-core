@@ -17,5 +17,5 @@
 # specific language governing permissions and limitations
 # under the License.
 
-sudo docker build -t datalayer/sinatra:utopic .
+sudo docker build -t aosio/sinatra:utopic .
 
