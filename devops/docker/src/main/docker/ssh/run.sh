@@ -20,3 +20,6 @@
 sudo docker stop ssh
 sudo docker rm ssh
 sudo docker run -d -P --name ssh aosio/ssh:utopic
+
+sudo docker ps
+sudo docker port ssh 22
