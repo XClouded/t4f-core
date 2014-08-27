@@ -23,6 +23,8 @@ MAINTAINER aos.io
 RUN apt-get -y update
 RUN apt-get install -y maven llvm-gcc build-essential zlib1g-dev make cmake pkg-config libssl-dev automake autoconf 
 
+RUN apt-get -y install software-properties-common
+
 # Add oracle java 7 repository
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get -y update
@@ -38,8 +40,6 @@ RUN update-alternatives --display java
 ENV JAVA_HOME /usr/lib/jvm/java-7-oracle/ 
 ENV PATH $PATH:$JAVA_HOME/bin
 
-RUN apt-get -y install software-properties-common
-
 #RUN (locale-gen en_US en_US.UTF-8 && dpkg-reconfigure locales)
 #RUN (DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -q && DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y -q )
 #RUN DEBIAN_FRONTEND=noninteractive apt-get install -y nano apt-utils
@@ -52,4 +52,4 @@ RUN mkdir /var/run/sshd
 
 RUN echo 'root:root' | chpasswd
 
-RUN /usr/sbin/sshd -D
+# RUN /usr/sbin/sshd -D
