@@ -17,10 +17,14 @@
 
 FROM aosio/ubuntu:utopic
 
-MAINTAINER AOS
+MAINTAINER AOS.IO
 
 RUN apt-get update
 RUN apt-get install -y apache2 openssh-server
+
+RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+RUN sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
+RUN sed -ri 's/PermitRootLogin without-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data

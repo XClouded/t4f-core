@@ -16,7 +16,15 @@
 # under the License.
 
 FROM ubuntu:utopic
+#FROM stackbrew/ubuntu:utopic
 
-MAINTAINER AOS
+MAINTAINER AOS.IO
 
 RUN apt-get update
+
+#RUN (locale-gen en_US en_US.UTF-8 && dpkg-reconfigure locales)
+
+#RUN (DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -q && DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y -q )
+#RUN DEBIAN_FRONTEND=noninteractive apt-get install -y nano apt-utils
+
+#RUN echo 'root:root' | chpasswd

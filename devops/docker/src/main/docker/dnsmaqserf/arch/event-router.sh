@@ -1,4 +1,5 @@
 #!/bin/sh
+
 HANDLER_DIR="/etc/serf/handlers"
 
 if [ "$SERF_EVENT" = "user" ]; then

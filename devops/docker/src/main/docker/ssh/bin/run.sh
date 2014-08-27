@@ -17,4 +17,10 @@
 # specific language governing permissions and limitations
 # under the License.
 
-sudo docker build -t aosio/serf:utopic .
+sudo docker stop ssh
+sudo docker rm ssh
+sudo docker run -d -P --name ssh aosio/ssh:utopic
+# sudo docker run -d -p 22 aosio/ssh:utopic /usr/sbin/sshd -D
+
+sudo docker ps
+sudo docker port ssh 22

@@ -17,7 +17,7 @@
 
 FROM aosio/ubuntu:utopic
 
-MAINTAINER AOS
+MAINTAINER AOS.IO
 
 # Setup build environment for libpam
 RUN apt-get -y build-dep pam

@@ -17,7 +17,7 @@
 
 FROM aosio/ubuntu:utopic
 
-MAINTAINER AOS
+MAINTAINER AOS.IO
 
 RUN apt-get update
 

@@ -49,47 +49,47 @@ Commands:
 -------------------------------------------------------------------------------
 | INSTALL                                                                     |
 -------------------------------------------------------------------------------
-sudo apt-get install docker.io
-sudo docker -d &
+apt-get install docker.io
+docker -d &
 -------------------------------------------------------------------------------
 | USAGE                                                                       |
 -------------------------------------------------------------------------------
-sudo docker info
-sudo docker version
-sudo docker images
-sudo docker search ubuntu
-sudo docker pull ubuntu
-sudo docker pull ubuntu:utopic
-sudo docker pull sequenceiq/hadoop-docker
-sudo docker pull sequenceiq/spark
-sudo docker run <image-name> <command-to-run>
-sudo docker run <image-name> -bash
-sudo docker run -i -t aosio/ubuntu:utopic /bin/bash
-sudo docker run -i -t aosio/sinatra /bin/bash
-sudo docker run -p 50070:50070 -i -t sequenceiq/hadoop-docker /etc/bootstrap.sh -bash
-sudo docker run -i -t -h sandbox sequenceiq/spark /etc/bootstrap.sh -bash
-sudo docker inspect <container-id>
-sudo docker ps
-sudo docker logs <container-id>
-sudo docker build -t aosio/memcached .
+docker info
+docker version
+docker images
+docker search ubuntu
+docker pull ubuntu
+docker pull ubuntu:utopic
+docker pull sequenceiq/hadoop-docker
+docker pull sequenceiq/spark
+docker run <image-name> -bash
+docker run <image-name> <command-to-run>
+docker run -it aosio/ubuntu:utopic /bin/bash
+docker run -it aosio/sinatra /bin/bash
+docker run -p 50070:50070 -i -t sequenceiq/hadoop-docker /etc/bootstrap.sh -bash
+docker run -it -h sandbox sequenceiq/spark /etc/bootstrap.sh -bash
+docker inspect <container-id>
+docker ps
+docker logs <container-id>
+docker build -t aosio/memcached .
 ---
-sudo docker run -ti ubuntu:14.04 /bin/bash -c 'ls'
-sudo docker run -ti ubuntu:14.04 /bin/bash -c 'useradd -u 12345 -s /bin/bash eric; su - eric'
+docker run -ti ubuntu:14.04 /bin/bash -c 'ls'
+docker run -ti ubuntu:14.04 /bin/bash -c 'useradd -u 12345 -s /bin/bash eric; su - eric'
 ---
-sudo docker build -t aosio/ssh:utopic .
-sudo docker run  -p 222:22 -i -t aosio/ssh:utopic /bin/bash
+docker build -t aosio/ssh:utopic .
+docker run  -p 222:22 -i -t aosio/ssh:utopic /bin/bash
 ssh root@localhost -p 222
-sudo docker run -d -P --name ssh aosio/ssh:utopic
-sudo docker port ssh 22
+docker run -d -P --name ssh aosio/ssh:utopic
+docker port ssh 22
 ssh root@localhost -p <port>
-sudo docker stop ssh
-sudo docker rm ssh
+docker stop ssh
+docker rm ssh
 ---
-sudo docker build -t sequenceiq/hadoop-docker:2.5.0 .
-sudo docker commit 8dbd9e392a96 my_img
-sudo docker tag 5db5f8471261 sinatra
-sudo docker inspect --format="{{.NetworkSettings.IPAddress}}" 934df0238dd3
-sudo docker login
+docker build -t sequenceiq/hadoop-docker:2.5.0 .
+docker commit 8dbd9e392a96 my_img
+docker tag 5db5f8471261 sinatra
+docker inspect --format="{{.NetworkSettings.IPAddress}}" 934df0238dd3
+docker login
 -------------------------------------------------------------------------------
 | IMAGES                                                                      |
 -------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ ubuntu-image
 + https://github.com/tianon/docker-brew-ubuntu-core.git
 -------------------------------------------------------------------------------
 hadoop-image
-sudo docker run -d -P --name="Hadoop" -h "hadoop" ruo91/hadoop:2.4.1
+docker run -d -P --name="Hadoop" -h "hadoop" ruo91/hadoop:2.4.1
 ssh `docker inspect -f '{{ .NetworkSettings.IPAddress }}' Hadoop`
 start-all.sh
 jps
@@ -105,10 +105,10 @@ for((i=0; i<10; i++)) do echo ${i}; done > test.log
 hdfs dfs -copyFromLocal test.log /
 hdfs dfs -ls /
 exit
-sudo docker port Hadoop 50070
+docker port Hadoop 50070
 ------------------------------------------------------------------------------
 ambari-image
-+ sudo docker run -d -p 8080 -h amb0.mycorp.kom --name ambari-singlenode sequenceiq/ambari --tag ambari-server=true
++ docker run -d -p 8080 -h amb0.mycorp.kom --name ambari-singlenode sequenceiq/ambari --tag ambari-server=true
 -------------------------------------------------------------------------------
 | API                                                                         |
 -------------------------------------------------------------------------------
