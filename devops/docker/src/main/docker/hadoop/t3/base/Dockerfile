@@ -19,8 +19,6 @@ FROM aosio/serf
 
 MAINTAINER aos.io
 
-RUN apt-get install -y maven llvm-gcc build-essential zlib1g-dev make cmake pkg-config libssl-dev automake autoconf 
-
 RUN addgroup hadoop
 RUN useradd -d /home/hduser -m -s /bin/bash -G hadoop hduser
 

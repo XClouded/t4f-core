@@ -20,6 +20,9 @@ FROM ubuntu:utopic
 
 MAINTAINER aos.io
 
+RUN apt-get -y update
+RUN apt-get install -y maven llvm-gcc build-essential zlib1g-dev make cmake pkg-config libssl-dev automake autoconf 
+
 # Add oracle java 7 repository
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get -y update
