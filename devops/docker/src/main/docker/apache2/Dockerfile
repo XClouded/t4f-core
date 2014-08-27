@@ -19,7 +19,6 @@ FROM aosio/ubuntu:utopic
 
 MAINTAINER AOS.IO
 
-RUN apt-get update
 RUN apt-get install -y apache2 openssh-server
 
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config

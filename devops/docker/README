@@ -62,8 +62,9 @@ docker pull ubuntu
 docker pull ubuntu:utopic
 docker pull sequenceiq/hadoop-docker
 docker pull sequenceiq/spark
-docker run <image-name> -bash
+docker run <image-name>
 docker run <image-name> <command-to-run>
+docker run <image-name> <command-to-run> -bash
 docker run -it aosio/ubuntu:utopic /bin/bash
 docker run -it aosio/sinatra /bin/bash
 docker run -p 50070:50070 -i -t sequenceiq/hadoop-docker /etc/bootstrap.sh -bash

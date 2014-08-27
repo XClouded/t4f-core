@@ -17,8 +17,8 @@
 # specific language governing permissions and limitations
 # under the License.
 
-sudo docker stop ssh
-sudo docker rm ssh
+stop.sh
+
 sudo docker run -d -P --name ssh aosio/ssh:utopic
 # sudo docker run -d -p 22 aosio/ssh:utopic /usr/sbin/sshd -D
 
