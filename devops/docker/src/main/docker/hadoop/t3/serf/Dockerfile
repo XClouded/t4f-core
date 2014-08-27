@@ -17,19 +17,18 @@
 
 # Creates a base ubuntu image with serf and dnsmasq
 #
-# it aims to create a dynamic cluster of docker containers
+# It aims to create a dynamic cluster of docker containers
 # each able to refer other by fully qulified domainnames
 #
-# this isn't trivial as docker has readonly /etc/hosts
+# This isn't trivial as docker has readonly /etc/hosts
 #
-# The docker images was directly taken from sequenceiq and converted to ubuntu image
+# The docker images was directly taken from sequenceiq and converetd to ubuntu image
 # because I wanted to create the cluster on ubuntu.
 
 FROM aosio/ubuntu:utopic
 
 MAINTAINER aos.io
 
-RUN apt-get update
 RUN apt-get install -y dnsmasq unzip curl
 
 # dnsmasq configuration

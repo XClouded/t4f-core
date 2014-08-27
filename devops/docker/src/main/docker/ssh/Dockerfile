@@ -17,7 +17,7 @@
 
 FROM aosio/ubuntu:utopic
 
-MAINTAINER AOS.IO
+MAINTAINER aos.io
 
 RUN apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
