@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Licensed to the AOS Community (AOS) under one or more
 # contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -14,8 +16,6 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-
-#!/bin/bash
 
 /usr/bin/svscan /etc/service/ &
 

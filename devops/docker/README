@@ -58,21 +58,26 @@ docker info
 docker version
 docker images
 docker search ubuntu
+-------------------------------------------------------------------------------
 docker pull ubuntu
 docker pull ubuntu:utopic
 docker pull sequenceiq/hadoop-docker
 docker pull sequenceiq/spark
+-------------------------------------------------------------------------------
+docker ps
+docker logs <container-id>
+-------------------------------------------------------------------------------
 docker run <image-name>
+docker run -d <image-name> 
 docker run <image-name> <command-to-run>
 docker run -it aosio/ubuntu:utopic /bin/bash
 docker run -it aosio/sinatra /bin/bash
 docker run -p 50070:50070 -i -t sequenceiq/hadoop-docker /etc/bootstrap.sh -bash
 docker run -it -h sandbox sequenceiq/spark /etc/bootstrap.sh -bash
 docker inspect <container-id>
-docker ps
-docker logs <container-id>
+-------------------------------------------------------------------------------
 docker build -t aosio/memcached .
----
+-------------------------------------------------------------------------------
 docker run -ti ubuntu:14.04 /bin/bash -c 'ls'
 docker run -ti ubuntu:14.04 /bin/bash -c 'useradd -u 12345 -s /bin/bash eric; su - eric'
 ---

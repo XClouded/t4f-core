@@ -17,12 +17,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
-docker run -i -d -t --dns 127.0.0.1 -e NODE_TYPE=m -P --name master -h master.aos.io aosio/hadoop-namenode
+docker ps
 
-NAMENODE_IP=$(docker inspect --format="{{.NetworkSettings.IPAddress}}" master)
+docker rm -f master
 for i in `seq 1 5`
 do
-  docker run -i -d -t --dns 127.0.0.1 -e NODE_TYPE=s -e JOIN_IP=$NAMENODE_IP -P --name slave${i} -h slave${i}.aos.io aosio/hadoop-datanode
+  docker rm -f slave${i}
 done
 
 docker ps
