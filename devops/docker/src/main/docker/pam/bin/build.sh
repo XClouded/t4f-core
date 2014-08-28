@@ -17,4 +17,4 @@
 # specific language governing permissions and limitations
 # under the License.
 
-sudo docker build -t aosio/ubuntu-pam:utopic .
+sudo docker build -t aosio/pam:utopic .
