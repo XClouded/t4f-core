@@ -22,6 +22,7 @@ docker run -i -d -t --dns 127.0.0.1 -e NODE_TYPE=m -P --name master -h master.ao
 NAMENODE_IP=$(docker inspect --format="{{.NetworkSettings.IPAddress}}" master)
 for i in `seq 1 5`
 do
+  sleep 10
   docker run -i -d -t --dns 127.0.0.1 -e NODE_TYPE=s -e JOIN_IP=$NAMENODE_IP -P --name slave${i} -h slave${i}.aos.io aosio/hadoop-datanode
 done
 
