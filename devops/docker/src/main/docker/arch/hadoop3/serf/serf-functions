@@ -1,6 +1,6 @@
 #!/bin/bash
 
-: ${MYDOMAIN:=aos.io}
+: ${MYDOMAIN:=mycorp.kom}
 : ${IMAGE:=aosio/serf}
 : ${DOCKER_OPTS:="--dns 127.0.0.1 -p 7373 -p 7946"}
 : ${DEBUG:=1}

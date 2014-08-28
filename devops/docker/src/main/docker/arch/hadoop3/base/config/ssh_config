@@ -4,6 +4,6 @@ Host localhost
 Host 0.0.0.0
   StrictHostKeyChecking no
   
-Host *.aos.io
+Host *.mycorp.kom
    StrictHostKeyChecking no
    UserKnownHostsFile=/dev/null
