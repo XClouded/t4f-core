@@ -62,5 +62,6 @@ EXPOSE 9000 50010 50020 50070 50075 50090 50475
 # YARN ports
 EXPOSE 8030 8031 8032 8033 8040 8042 8060 8088 50060
 
-#ENTRYPOINT ["/bin/bash", "/usr/local/hadoop/bin/start-hadoop.sh"]
-CMD ["/bin/bash"]
+# CMD ["/bin/bash"]
+
+ENTRYPOINT ["/bin/bash", "/usr/local/hadoop/bin/start-hadoop.sh"]

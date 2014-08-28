@@ -17,12 +17,13 @@
 
 #!/bin/bash
 
-docker run -i -t --dns 127.0.0.1 -e NODE_TYPE=m -P --name master -h master.aos.io aosio/hadoop-namenode
+/usr/bin/svscan /etc/service/ &
 
-SLAVE_ID=4
-NAMENODE_IP=$(docker inspect --format="{{.NetworkSettings.IPAddress}}" master)
-docker run -i -t --dns 127.0.0.1 -e NODE_TYPE=s -e JOIN_IP=$NAMENODE_IP -P --name slave${SLAVE_ID} -h slave${SLAVE_ID}.aos.io aosio/hadoop-datanode
+sleep 4
 
-docker rm -f master
-docker rm -f slave1
-docker rm -f slave2
+if [ "$NODE_TYPE" = "s" ]; then
+   su hduser -c "$HADOOP_INSTALL/sbin/start-dfs.sh"
+   su hduser -c "$HADOOP_INSTALL/sbin/start-yarn.sh"
+fi
+
+tail -f $HADOOP_INSTALL/logs/*
