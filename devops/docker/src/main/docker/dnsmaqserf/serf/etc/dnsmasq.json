@@ -1,7 +1,0 @@
-{
-  "event_handlers": [
-    "member-join=/usr/local/serf/handlers/dnsmasq-member-join",
-    "member-failed=/usr/local/serf/handlers/dnsmasq-member-join",
-    "member-leave=/usr/local/serf/handlers/dnsmasq-member-join"
-  ]
-}
