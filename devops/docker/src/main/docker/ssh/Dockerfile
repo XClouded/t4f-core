@@ -15,10 +15,11 @@
 # specific language governing permissions and limitations
 # under the License.
 
-FROM aosio/ubuntu:utopic
+FROM ubuntu:utopic
 
 MAINTAINER aos.io
 
+RUN apt-get update
 RUN apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
 RUN echo 'root:root' | chpasswd
