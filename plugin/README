@@ -1,3 +1,30 @@
++ http://moonshine.atteo.org/
++ jin
++ jpf
++ jspf
++ mvn
++ sezpoz
++ osgi
+
+JDK ServiceLoader
+
+OSGI
++ Felix
++ Karaf
+
+Eclipse PDE (Plug-in Development Environment)
++ http://www.eclipse.org/pde/
+
+Maven plugin Aether
++ http://git.eclipse.org/gitroot/aether/aether-core.git
++ http://maven.apache.org/guides/plugin/guide-java-plugin-development.html
+
+Java Plug-in Framework (JPF) Project
++ http://jpf.sourceforge.net/
+
+JSPF Java Simple Plugin Framework
++ http://code.google.com/p/jspf/
+
 java
 + jin
 + jpf
@@ -28,4 +55,3 @@ html
 + hawt.io
 + hudson
 + geronimo
-
