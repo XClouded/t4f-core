@@ -1,3 +1,53 @@
+--------------------------------------------------------------------------------
+ _____ ___ _____ 
+|_   _| | |   __|
+  | | |_  |   __|
+  |_|   |_|__|   
+                                                           
+ #t4f-core-plugin
+--------------------------------------------------------------------------------
+java
++ jin
++ jpf
++ jspf
++ service-loader 
++ sezpoz
+--------------------------------------------------------------------------------
+js
++ jquery
+--------------------------------------------------------------------------------
+msc
++ elasticsearch
++ maven
++ mozilla
+--------------------------------------------------------------------------------
+osgi
++ eclipse http://www.eclipse.org/pde/
++ osgi
++ pf4j
++ felix
++ karaf
++ service-mix
+--------------------------------------------------------------------------------
+server
++ vert.x
++ wildfly
+--------------------------------------------------------------------------------
+html
++ ambari
++ atlassian
++ hawt.io
++ hudson
++ geronimo
+--------------------------------------------------------------------------------
++ maven
++ maven-bundle
++ tycho
++ sigil
++ felix
++ obr
++ p2
+--------------------------------------------------------------------------------
 + http://moonshine.atteo.org/
 + jin
 + jpf
@@ -5,53 +55,14 @@
 + mvn
 + sezpoz
 + osgi
-
-JDK ServiceLoader
-
-OSGI
-+ Felix
-+ Karaf
-
-Eclipse PDE (Plug-in Development Environment)
-+ http://www.eclipse.org/pde/
-
+--------------------------------------------------------------------------------
 Maven plugin Aether
 + http://git.eclipse.org/gitroot/aether/aether-core.git
 + http://maven.apache.org/guides/plugin/guide-java-plugin-development.html
-
+--------------------------------------------------------------------------------
 Java Plug-in Framework (JPF) Project
 + http://jpf.sourceforge.net/
-
+--------------------------------------------------------------------------------
 JSPF Java Simple Plugin Framework
 + http://code.google.com/p/jspf/
-
-java
-+ jin
-+ jpf
-+ jspf
-+ service-loader 
-+ sezpoz
-
-js
-+ jquery
-
-msc
-+ elasticsearch
-+ maven
-+ mozilla
-
-osgi
-+ eclipse
-+ osgi
-+ pf4j
-
-server
-+ vert.x
-+ wildfly
-
-html
-+ ambari
-+ atlassian
-+ hawt.io
-+ hudson
-+ geronimo
+--------------------------------------------------------------------------------
