@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | INSTALL LOCAL JARS                                                          |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 $ mvn install:install-file -Dfile=<path-to-file> -DgroupId=<group-id> -DartifactId=<artifact-id> -Dversion=<version> -Dpackaging=<packaging>
 $ mvn install:install-file -Dfile=<path-to-file> -DpomFile=<path-to-pomfile>
 $ mvn install:install-file -Dfile=<path-to-file>

@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | T4F CLOJURE                                                                 |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 If not done by m2eclipse, add natures and buildcommands to eclipse .project file
 <natures>
  <nature>ccw.leiningen.nature</nature>
@@ -18,18 +18,18 @@ If not done by m2eclipse, add natures and buildcommands to eclipse .project file
     </arguments>
   </buildCommand>
 <buildSpec>
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 clj
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 lein clean
 lein compile
 lein install # !!! can override pom.xml, so rewrite with pom.xml_bu
 lein run
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 (load "io/aos/clj/hello")
 (ns io.aos.clj.hello)
 (hello "Clojure")
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Create and run a simple Clojure project ("Hello Betty")
 Open the Java perspective
   Window > Open Perspective > Java (a perspective is a predefined layout of views, suitable for a particular type of development)
@@ -46,4 +46,4 @@ Switch to the REPL in the namespace of your file:
 Call your function (Hit Enter to send the expression if the cursor is at the end, or hit Ctrl+Enter / Cmd+Enter if the cursor is not at the end of the text):
 > (hello "Clojure") [Ctrl+Enter]
 > "Hello Clojure !"
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------

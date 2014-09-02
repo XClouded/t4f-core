@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | VI                                                                          |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 vi +36 foo.c
 :36
 SHIFT+g     Goto line number
@@ -17,11 +17,11 @@ g           Begin of file
 :.=         Returns line number of current line at bottom of screen
 :=          Returns the total number of lines at bottom of screen
 ^g          Provides the current line number, along with the total number of lines, in the file at the bottom of the screen
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 see escape characters
 :set list
 :set nolist
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 The UNIX vi editor is a full screen editor and has two modes of operation:
        Command mode commands which cause action to be taken on the file, and
        Insert mode in which entered text is inserted into the file.
@@ -118,7 +118,7 @@ These commands permit you to input and output files other than the named file wi
      :w newfile<Return>     write current contents to a new file named newfile
      :12,35w smallfile<Return>     write the contents of the lines numbered 12 through 35 to a new file named smallfile
      :w! prevfile<Return>     write current contents over a pre-existing file named prevfile
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Basic movement
 h l k j  : : : character left, right; line up, down
 b w  : : : : word/token left, right
@@ -132,7 +132,7 @@ nj  : : : column n of current line
 %match of next brace, bracket, comment, #define
 nH nL  : : : line n from start, bottom of window
 M   : middle line of window
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Insertion & replace ! insert mode
 i a  insert before, after cursor
 I A   : : insert at beginning, end of line
@@ -151,7 +151,7 @@ g~m  : : : switch case of movement command m
 gum gUm: : : lowercase, uppercase text of movement m
 <m >m  : shift left, right text of movement m
 n<< n>>   shift n lines left, right
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Deletion
 x X   delete character under, before cursor
 dm  delete text of movement command m
@@ -172,7 +172,7 @@ Insert mode
 ^Oc  : : : execute c in temporary command mode
 ^X^E ^X^Y  : : : : scroll up, down
 hesci or ^[  abandon edition ! command mode
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Copying
 "x  : : : use register x for next delete, yank, put
 :reg -   : show the content of all registers
@@ -182,7 +182,7 @@ yy or Y  :yank current line into register
 p P  : : put register after, before cursor position
 ]p [p   : like p, P with indent adjusted
 gp gP  : : like p, P leaving cursor after new text
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Advanced insertion
 g?m : perform rot13 encoding on movement m
 n^A n^X   +n, n to number under cursor
@@ -210,7 +210,7 @@ q   stop recording
 :@c -  : : execute register c as an Ex command
 :rg/p/c -  :execute Ex command c on range r
 b where pattern p matches
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Complex movement
 + +  line up, down on rst non-blank character
 B W   : space-separated word left, right
@@ -229,7 +229,7 @@ tc Tc  : : : : before next, previous occurence of c
 [m ]m  : : : start of backward, forward Java method
 [# ]#:unclosed #if, #else, #endif backward, forward
 [* ]*  : start, end of /* */ backward, forward
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Search & substitution
 /s - ?s -  : : : : search forward, backward for s
 /s/o - ?s?o -  search fwd, bwd for s with o
@@ -253,4 +253,4 @@ You can use the number column for the text of wrapped lines:
 :set cpoptions+=n
 Finally, you can change the color used for the line numbers. For example:
 :highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------

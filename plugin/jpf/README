@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | GIT                                                                         |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 git checkout <branch-name> = git branch <branch-name>; git checkout <branch-name>; git pull origin <branch-name>
 git checkout -b <branch-name> origin/<branch-name>
 git branch -a
@@ -121,9 +121,9 @@ AllowUsers myuser git
 PasswordAuthentication no
 Where 2207 is a port of your choosing. Make sure to add this so your Git remote:
 git remote add origin ssh://git@myserver.com:2207/~/myrepo.git
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | SVN                                                                         |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 svn help
 usage: svn <subcommand> [options] [args]
 Subversion command-line client, version 1.6.15.
@@ -174,8 +174,8 @@ In Subversion, a global revision number N names a tree in the repository: it's t
 svn propset svn:externals "eggtoolpalette -r853 http://svn.gnome.org/svn/libegg/trunk/libegg/toolpalette/" .
 svn commit -m "Added eggtoolpalette"
 svn update
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | MANAGEMENT                                                                  |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------

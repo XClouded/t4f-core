@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
   _______    ____      _       _                 
  _______    |    \ ___| |_ ___| |___ _ _ ___ ___ 
   ________  |  |  | .'|  _| .'| | .'| | | -_|  _|
@@ -6,17 +6,17 @@
                                     |___|        
 
  #datalayer
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | BASH DOCUMENTATION                                                          |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 + http://tldp.org/
 + http://www.tldp.org/guides.html
 + http://www.tldp.org/LDP/abs/html/index.html
 + http://www.tldp.org/LDP/Bash-Beginners-Guide/html/index.html
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 useradd user1
 passwd user1
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 ALT^arrow_left ALT^arrow_right: go to the beginning or the end of the line
 source file.properties
 #/!bin/bash
@@ -24,14 +24,14 @@ username=...
 mysql -u $username
 CTRL^R: go back in history
 CTRL^...: go forward in history
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 screen -list // list all the screens
 screen -S aq // Create a new screen
 screen -r aq // Join an existing screen
 screen -D -r '1234.somescreensession'
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 dmesg
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 1. Download Ubuntu Desktop
 2. Open the Terminal (in /Applications/Utilities/ or query Terminal in Spotlight).
 3. Convert the .iso file to .img using the convert option of hdiutil (e.g.,hdiutil convert -format UDRW -o ~/path/to/target.img ~/path/to/ubuntu.iso)
@@ -46,18 +46,18 @@ Note: OS X tends to put the .dmg ending on the output file automatically.
     If you see the error dd: /dev/diskN: Resource busy, make sure the disk is not in use. Start the 'Disk Utility.app' and unmount (don't eject) the drive
 9. Run diskutil eject /dev/diskN and remove your flash media when the command completes.
 10. Restart your Mac and press alt/option key while the Mac is restarting to choose the USB stick.
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | SHELL                                                                       |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 rename 's/ACDC/AC-DC/' *.xxx
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | SSH                                                                         |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Host *
   ServerAliveInterval 120
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | GIT                                                                         |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 git config --global user.name "Eric Charles"
 git config --global user.email eric@aos.io
 ---
@@ -313,9 +313,9 @@ AllowUsers myuser git
 PasswordAuthentication no
 Where 2207 is a port of your choosing. Make sure to add this so your Git remote:
 git remote add origin ssh://git@myserver.com:2207/~/myrepo.git
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | SVN                                                                         |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 svn help
 usage: svn <subcommand> [options] [args]
 Subversion command-line client, version 1.6.15.
@@ -325,7 +325,7 @@ or 'svn --version --quiet' to see just the version number.
 Most subcommands take file and/or directory arguments, recursing
 on the directories.  If no arguments are supplied to such a
 command, it recurses on the current directory (inclusive) by default.
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Available subcommands:
  add
  blame (praise, annotate, ann)
@@ -360,29 +360,29 @@ Available subcommands:
  switch (sw)
  unlock
  update (up)
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Changesets
 Before we proceed further, we should warn you that there's going to be a lot of discussion of “changes” in the pages ahead. A lot of people experienced with version control systems use the terms “change” and “changeset” interchangeably, and we should clarify what Subversion understands as a changeset.
 Everyone seems to have a slightly different definition of changeset, or at least a different expectation of what it means for a version control system to have one. For our purposes, let's say that a changeset is just a collection of changes with a unique name. The changes might include textual edits to file contents, modifications to tree structure, or tweaks to metadata. In more common speak, a changeset is just a patch with a name you can refer to.
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 In Subversion, a global revision number N names a tree in the repository: it's the way the repository looked after the Nth commit. It's also the name of an implicit changeset: if you compare tree N with tree N−1, you can derive the exact patch that was committed. For this reason, it's easy to think of revision N as not just a tree, but a changeset as well. If you use an issue tracker to manage bugs, you can use the revision numbers to refer to particular patches that fix bugs—for example, “this issue was fixed by r9238.” Somebody can then run svn log -r 9238 to read about the exact changeset that fixed the bug, and run svn diff -c 9238 to see the patch itself. And (as you'll see shortly) Subversion's svn merge command is able to use revision numbers. You can merge specific changesets from one branch to another by naming them in the merge arguments: passing -c 9238 to svn merge would merge changeset r9238 into your working copy.
 svn propset svn:externals "eggtoolpalette -r853 http://svn.gnome.org/svn/libegg/trunk/libegg/toolpalette/" .
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 svn commit -m "Added eggtoolpalette"
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 svn log | more
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 svn up
 svn up -rXXXX
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 svn diff -r 63:64 .
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | MANAGEMENT                                                                  |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 + 
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | BASH                                                                        |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 sort
 uniq
 wc
@@ -406,7 +406,7 @@ chmod -R 755 . # default permission
 tty
 script -a /dev/pts/1
 xmllint
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 $ cat /proc/meminfo
 $ less /proc/meminfo
 $ more /proc/meminfo
@@ -419,15 +419,15 @@ SwapCached:            0 kB
 SwapTotal:      15859708 kB
 SwapFree:       15859708 kB
 $ free -m
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 command | tee file
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 w3m
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 lspci
 lsusb
 dmesg |grep eth0
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 more /etc/fstab
 fdisk -l
 du -hs /path/to/directory | sort
@@ -444,9 +444,9 @@ To show the size of specific directory
 du -sh /home
 To show the size of all sub directories of a specific directory
 du -sh /home/*
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | KERNEL                                                                      |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 + process
 ls /proc/<pid>/...
 netstat -lnap
@@ -515,7 +515,7 @@ After a bit of fiddling around, I found what appears to be the best solution for
 + enter this in the shell;
 chkconfig --add startup_filename
 + type ntsysv - your startup script should now be in the list, checked and ready for action!
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Simple Commands Complex Commands The For Structure Example For Syntax The While Structure Example While Syntax The If Structure Example Simple If Syntax Example Complex If Syntax The Case Structure Example Case Syntax The Parent & Sub-Shell Structure The Function Structure Example Function Syntax Special Commands Comment Structure
 Built-In Commands
 (Simple, Complex & Special Commands)
@@ -696,9 +696,9 @@ Most of these special commands get used somewhere in this book and more detailed
 Comment structure:
 The next thing on my systems man page is a reference to the hash (#) comment character. It states that any word beginning with # causes that word and all the following characters up to a newline to be ignored. There are no notes about the first line exceptions that I gave in The Basic Shells when we were dealing with shell indicators (The #! sequence)
 Home Next Preface Introduction Basic Shells Shell Syntax Built-In Commands Command Substitution Startup & Environment Pipes, Lists & Redirection Input & Output Using Files Design Considerations Functions Debugging Putting It All Together Appendix Code Examples Page 205 This page was brought to you by rhreepe@injunea.demon.co.uk
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 TOMCAT
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 setenv.sh
 JAVA_HOME="/usr/lib/jvm/java-gcj"
 JAVA_HOME="/usr/lib/jvm/java-6-sun"
@@ -751,9 +751,9 @@ SERVER.XML
 ----------
 URIEncoding="UTF-8"
 <Connector connectionTimeout="20000" port="80" URIEncoding="UTF-8" protocol="HTTP/1.1" redirectPort="8443"/>
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | GUAVA                                                                      |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 + splitters and joiners (that work right)
 final static Splitter onWhiteSpace = Splitter.on(CharMatcher.WHITESPACE);
 + type inferencing factory methods
@@ -763,18 +763,18 @@ Map<String, Integer> table = ImmutableMap.of("abc", 1, "def", 2);
 Ordering.natural().immutableSortedCopy(iterable)
 + reading a resource all in a gulp (note the predefined charset that never requires a throw):
 Resources.readLines(Resources.getResource("foo.csv"), Charsets.UTF-8)
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | MAVEN                                                                       |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 mvn release:prepare -Darguments="-DskipTests"
 mvn install -Dmaven.findbugs.enable
 mvn dependency:unpack-dependencies build-helper:attach-test-classes (Running tests from a maven test-jar)
 mvn dependency:sources
 mvn dependency:resolve -Dclassifier=javadoc
 -DdownloadSources=true -DdownloadJavadocs=true
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | SPAMASSASSIN                                                                |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 apt-get install spamassassin
 spamassassin -D < nospam-corporate-umg-1.txt 2> out
 vi /etc/spamassassin/local.cf
@@ -788,9 +788,9 @@ ENABLED=1
 tail -f /var/log/syslog
 create /nonexisting/.spamassassin ???
 /etc/init.d/spamassassin start
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | OPENOFFICE                                                                 |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 apt-get build-dep openoffice.org
 apt-get install x-window-system-core
 apt-get install gnome-desktop-environment
@@ -820,9 +820,9 @@ cd <source directory>
 debuild
 dpkg-deb  -c openoffice.org-core_2.2.0-1ubuntu3_i386.deb
 dpkg -i *.deb
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | IMAGEMAGICK                                                                |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 --------------------
 A.1. GET IF FROM APT
 --------------------
@@ -887,18 +887,18 @@ cp libJMagick.so /usr/lib
 scp /usr/lib/libJMagick.so root@172.16.1.206:/usr/lib/
 OR apt-get install jmagick ??? => UselibJMagick.so from apt !?!
 cp /usr/lib/jni/libJMajick.so /usr/lib
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | EC2                                                                         |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 ec2metadata
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | MME                                                                         |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 http://www.flashinsider.com/2006/07/26/how-to-create-your-own-youtube-site/
 http://blog.go4teams.com/?p=56
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | FFMPEG                                                                      |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 + MPG>MP3: ffmpeg -i video.flv -acodec copy audio.mp3
 + MPG>OGG: ffmpeg -i 1.mp4 -acodec libvorbis -vcodec libtheora -f ogg output.ogg
 + MPG>FLV; ffmpeg -i video.mpg -ar 22050 -ab 32 -f flv -s 320x240 -aspect 4:3 -y video.flv
@@ -1014,9 +1014,9 @@ for i in *.mp4; do
 ffmpeg -i "$i" -f mp3 -ab 192000 -vn "$i".mp3
 done
 ffmpeg -i 1.mp4  -f mp3 -ab 192000 -vn 1.mp3
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | FLVTOOL2                                                                    |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 apt-get install ruby
 download from http://rubyforge.org/projects/flvtool2/
 Untar it and execute the following commands inside the untared directory:
@@ -1024,9 +1024,9 @@ ruby setup.rb config
 ruby setup.rb setup
 sudo ruby setup.rb install
 You can then use flvtool2 as a shell command.
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | MYSQL                                                                       |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 /etc/init/mysql.conf: exec /usr/sbin/mysqld --skip-grant-tables
 Access denied for user ‘root’@'localhost’ (using password: NO)
 Who is fault? No matter. Probably, because of my root user doesn’t have password.
@@ -1040,9 +1040,9 @@ grant all privileges on mydatabase.* to root@localhost identified by ‘mypasswo
 3. Run mysql server from command line as:
 mysqld –init-file=F:\mysql\bin\init.txt
 show processlist
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | SSH MULTIPLE KEYS                                                           |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 In quite a few situations its preferred to have ssh keys dedicated for a service or a specific role. Eg. a key to use for home / fun stuff and another one to use for Work things, and another one for Version Control access etc. Creating the keys is simple, just use
 ssh-keygen -t rsa -f ~/.ssh/id_rsa.work -C "Key for Word stuff"
 Use different file names for each key. Lets assume that there are 2 keys, ~/.ssh/id_rsa.work and ~/.ssh/id_rsa.misc . The simple way of making sure each of the keys works all the time is to now create config file for ssh:
@@ -1076,9 +1076,9 @@ IdentityFile   ~/.ssh/private_ssh_file
 User           username-on-remote-machine
 Now you can connect using the friendly-name:
 ssh friendly-name
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | SSH PORT FORWARDING                                                         |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 ssh -oForwardAgent=yes -L60030:jobtracker.hadoop.staging.qutics.com:50030 ubuntu@jobtracker.hadoop.staging.qutics.com
 ---
 ssh -i ~/.ssh/Hadoop_main.pem -L60030:jobtracker.hadoop.staging.qutics.com:50030 ubuntu@jobtracker.hadoop.staging.qutics.com
@@ -1094,13 +1094,13 @@ TCPKeepAlive yes
 KeepAlive yes
 ClientAliveInterval 60
 and restart sshd.
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | SSH REMOTE SSH WITH X11                                                     |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 ssh -Y -l echarles hostname
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | SSH MULTIPLE PORTS                                                          |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 $ more sshd_config
 # Package generated configuration file
 # See the sshd_config(5) manpage for details
@@ -1173,15 +1173,15 @@ Subsystem sftp /usr/lib/openssh/sftp-server
 # PAM authentication, then enable this but set PasswordAuthentication
 # and ChallengeResponseAuthentication to 'no'.
 UsePAM yes
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | PASSWORDLESS SSH                                                            |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 ssh-keygen -t rsa -C "<youremail>" -P ""
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ssh localhost
 cat ~/.ssh/id_rsa.pub | ssh git@172.16.1.156 'cat >> ~/.ssh/authorized_keys'
 cat ~/.ssh/id_rsa.pub | ssh git@localhost 'cat >> ~/.ssh/authorized_keys'
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 First log in on A as user a and generate a pair of authentication keys. Do not enter a passphrase:
 a@A:~> ssh-keygen -t rsa
 Generating public/private rsa key pair.
@@ -1217,7 +1217,7 @@ echo 0 > /selinux/enforce
 2.Permanent (If you can reboot)
 vim /etc/selinux/config
 and make SELINUX=disabled.
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Home ~ Personal ~ Resume ~ Code and Classes and Research ~ Favorite Links ~ Comics Pit
 There are a few cases where having passwordless access to a machine is convenient or necessary. I'm always looking up a series of commands that I can just copy and paste to do it right quick. Here they are.
    Generate your key pair - One of the login modes of ssh is to use a SSH key pair. A key pair is made up of both a private and a public key. The private key is kept on your local machine while your public key is what you distribute to all the machines you want to log in to. There are a few flavors of keys you can generate, rsa1 (for SSH1), dsa (SSH2), or rsa (SSH2). According to my IT guy he likes DSA. You can (and should) associate a password with your key pair, so that only you can use it even if someone else manages to gain access to your account. If you have more than one key pair, using the same password for all key pairs will make them all active at the same time. You can also vary the number of bits used for the key. The more bits you use the harder it will be to crack, but I believe at a nominal performance drop. I was recommended to use 2048 bits. Very well, 2048 bit DSA key it is.
@@ -1250,7 +1250,7 @@ Now you should simply be able to run agent once on the machine, and then sshagen
    ssh root@remote.machine.com
    It is recommended that once you have the ability to log in remotely as root with keys, you should disable password-based logins via ssh by making sure the following line is in /etc/ssh/sshd_config:
    PermitRootLogin   without-password
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 jclouds-virtualbox uses the current user.name and private key  for sending commands to localhost over ssh.
 The current user (user.name) should have passwordless ssh. On a *nix system, you can enable this feature using `ssh-keygen` and `ssh-copy-id`.
 - ssh-keygen \- creates the public and private keys (by default in `${user.home}/.ssh/id_rsa.pub` and `${user.home}/.ssh/id_rsa`)
@@ -1261,19 +1261,19 @@ In this case:
 $ ssh-copy-id -i ~/.ssh/id_rsa your-user@localhost
 If your system does not have an `ssh-copy-id` command, use something like this:
  $ cat ~/.ssh/id_rsa.pub | ssh your-user@localhost "cat -> ~/.ssh/authorized_keys"
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | PASSWORDLESS SUDO                                                           |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 You need to have passwordless sudo rights on localhost. This is done by editing the sudoers file (/etc/sudoers). Use caution when editing this file, as introducing errors will lock you out of the system. Therefore, it is recommended to edit this file through the visudo command.
 The sudoers file should have a line like this (replace your-user):
 > your-user    ALL=(ALL)   NOPASSWD: ALL
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | CRON                                                                        |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 + https://help.ubuntu.com/community/CronHowto
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | AUTOMATIC BACKUP                                                            |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 The loss of critical data can prove devastating. Still, millions of professionals ignore backing up their data. While individual reasons vary, one of the most common explanations is that performing routine backups can be a real chore. Because machines excel at mundane and repetitive tasks, the key to reducing the inherent drudgery and the natural human tendency for procrastination, is to automate the backup process.
 More dW content related to: how to automate scp
 If you use Linux, you already have access to extrƒemely powerful tools for creating custom backup solutions. The solutions in this article can help you perform simple to more advanced and secure network backups using open source tools that are part of nearly every Linux distribution.
@@ -1532,13 +1532,13 @@ INSTALL OOo
 + Set OFFICE_HOME=C:\Program Files\OpenOffice.org 2.0\
 + Set PATH=%OFFICE_HOME%\program\;%PATH%
 + Set CLASSPATH=%OFFICE_HOME%\program\classes\juh.jar
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | BENCHMARK                                                                   |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 ab -c 10 -n 100000 http://localhost:8080/app/
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | GPG                                                                        |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 http://www.apache.org/dist/james/server/james-binary-2.3.2.tar.gz
 http://www.apache.org/dist/james/server/james-binary-2.3.2.tar.gz.asc
 http://www.apache.org/dist/james/KEYS
@@ -1695,9 +1695,9 @@ giraph-0.1.0-incubating-src.tar.gz: OK
 MD5
 ---
 http://raamdev.com/2008/howto-install-md5sum-sha1sum-on-mac-os-x/
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | BITTORRENT                                                                 |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 ctorrent -s 1 -e 12 -C 32 -p 400 -u http://www.sumotracker.org/announce file.torrent
 ctorrent  -d -s out-folder -e 12 -C 32 -i 173.12.23.23 -p 6881 file.torrent
 I needed a command line BitTorrent client for my Fedora Core 6, and started to look for some options, I found ctorrent, which I could see has the options I may need, and as it is written in C should be fast, I know there is another one written in python also.
@@ -1742,15 +1742,15 @@ home page: http://ctorrent.sourceforge.net/
 see also: http://www.rahul.net/dholmes/ctorrent/
 bug report: dholmes@ct.boxmail.com
 original author: bsdi@sina.com
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | IRC                                                                        |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 http://webchat.freenode.net/
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 (/connect freenode)
 /server irc.freenode.net
 /join #james
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 IRC Information.....
 
 IRC Class - Basic IRC Commands
@@ -1864,9 +1864,9 @@ You are doing great so far. If you haven't yet read some Basic IRC Tips, I'd enc
     PIRCH Setup Tutorial 
 
 Let's move on with the next step -- getting online with IRC :) 
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | MAC OSX                                                                     |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 + iTerm2
 -------------------------
 For Internet Recovery mode on boot by pressing CMD+OPTION(ALT)+R. you need to press before hearing the booting sound.
@@ -1925,30 +1925,30 @@ Done. You will see a picture file in at your desktop. That’s the screen captur
 You can also do a screen capture for a portion of your screen.
 Switch to the screen that you wan to to do screen capture
 Hold down Apple key ⌘ + Shift + 4 and release all key
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | ANDROID                                                                     |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 mkdir android ; cd android ; repo init -u git://android.git.kernel.org/platform/manifest.git ; repo sync ; make"
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | CHROMIUM                                                                    |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 javascript:(function(){ window.location.href='url1'; window.open('url2');})();
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | SPAM ASSASSIN                                                               |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 apache-james roy.james@xemaps.com
 http://wiki.apache.org/spamassassin/Rules/SL_HELO_NON_FQDN_1
 http://wiki.apache.org/spamassassin/Rules/HELO_LOCALHOST
 http://wiki.apache.org/spamassassin/Rules/RCVD_NUMERIC_HELO
 http://wiki.apache.org/spamassassin/Rules/SPF_NEUTRAL
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | GRAPHITE                                                                    |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 echo "gaugor:333|g" | nc -u graphite.qutics.com 8125
 https://github.com/etsy/statsd
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | AWS                                                                         |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 When you boot an Amazon Linux EC2 instance it boots with a 8GB EBS volume.
 If you need more space you need to add additional drives. For this you need to use EBS volumes.
 Before you start the process please have look at the current partition blocks loaded in your server. 
@@ -1997,7 +1997,7 @@ Writing superblocks and filesystem accounting information: done
 
 The format process can take few seconds just be patient.
 The drive is ready to use, and to do the same we need mount it.
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 sudo apt-get install apache2
 sudo mkdir /vol
 sudo mount /dev/xvdf /vol
@@ -2038,7 +2038,7 @@ If you wish this device to mount automatically when you reboot the server make s
 # more /etc/fstab
 LABEL=cloudimg-rootfs   /    ext4   defaults    0 0
 /dev/xvdf /vol auto noatime 0 0
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 cd /
 rm -fr /opt # if needed...
 sudo ln -s /vol opt
@@ -2050,13 +2050,13 @@ ln -s /opt/env/dot-aos .aos
 ln -s /opt/env/bash_profile .bash_profile
 placestory-store-reset-restart.sh
 jps
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 ssh-keygen -t rsa -P ""
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ssh localhost
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 | S3                                                                          |
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 http://www.slideshare.net/echarles/savedfiles?s_title=storm-distributed-and-faulttolerant-realtime-computation&user_login=nathanmarz
 http://s3.amazonaws.com/ppt-download/storm-strange-loop-110920101342-phpapp01.pdf?response-content-disposition=attachment&Signature=1jx8dEs5XsAUwVzFuxAbcR8Uqq8%3D&Expires=1354693255&AWSAccessKeyId=AKIAIW74DRRRQSO4NIKA
 -------------------------------------------------------------------------------                                                    
@@ -2199,4 +2199,4 @@ z   7A  122     -
 }   7D  125     -
 ~   7E  126     -
 DELete  7F  127     -
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
