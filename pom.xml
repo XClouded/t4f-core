@@ -48,6 +48,7 @@
     <module>javascript</module>
     <module>msc</module>
     <module>pattern</module>
+    <module>python</module>
     <module>plugin</module>
     <module>scala</module>
   </modules>

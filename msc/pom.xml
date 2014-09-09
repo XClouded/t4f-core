@@ -31,7 +31,6 @@
   <packaging>pom</packaging>
   <modules>
     <module>grails</module>
-    <module>python</module>
     <module>spring</module>
   </modules>
 </project>
