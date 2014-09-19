@@ -24,6 +24,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.spdy.SpdyOrHttpChooser.SelectedProtocol;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.ssl.IdentityCipherSuiteFilter;
+import io.netty.handler.ssl.JettyNpnSslEngineWrapper;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
 
@@ -55,8 +57,9 @@ public final class SpdyServer {
         // Configure SSL.
         SelfSignedCertificate ssc = new SelfSignedCertificate();
         SslContext sslCtx = SslContext.newServerContext(
-                ssc.certificate(), ssc.privateKey(), null, null,
+                ssc.certificate(), ssc.privateKey(), null, null, IdentityCipherSuiteFilter.INSTANCE,
                 Arrays.asList(SelectedProtocol.SPDY_3_1.protocolName(), SelectedProtocol.HTTP_1_1.protocolName()),
+                JettyNpnSslEngineWrapper.instance(),
                 0, 0);
 
         // Configure the server.
