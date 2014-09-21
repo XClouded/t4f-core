@@ -22,22 +22,10 @@
   <packaging>pom</packaging>
   <parent>
     <groupId>io.aos</groupId>
-    <artifactId>aos-parent</artifactId>
+    <artifactId>t4f-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <relativePath></relativePath>
   </parent>
-  <scm>
-    <connection>scm:git:git://github.com/aos-io/aos-t4f.git</connection>
-    <developerConnection>scm:git:git@github.com:aos-io/aos-t4f.git</developerConnection>
-    <url>https://github.com/aos-io/aos-t4f</url>
-  </scm>
-  <properties>
-    <t4f.version>1.0.0-SNAPSHOT</t4f.version>
-  </properties>
-  <dependencyManagement>
-    <dependencies>
-    </dependencies>
-  </dependencyManagement>
   <modules>
     <module>c</module>
     <module>clojure</module>
