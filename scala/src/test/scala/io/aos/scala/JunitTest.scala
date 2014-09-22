@@ -1,4 +1,5 @@
-/****************************************************************
+/**
+ * **************************************************************
  * Licensed to the AOS Community (AOS) under one or more        *
  * contributor license agreements.  See the NOTICE file         *
  * distributed with this work for additional information        *
@@ -15,50 +16,22 @@
  * KIND, either express or implied.  See the License for the    *
  * specific language governing permissions and limitations      *
  * under the License.                                           *
- ****************************************************************/
+ * **************************************************************
+ */
 package io.aos.scala
 
-import org.junit.runner.RunWith
-import org.specs._
-import org.specs.matcher._
-import org.specs.runner.{ JUnitSuiteRunner, JUnit }
-//import org.scalacheck.Gen
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
-/**
- * Sample specification.
- *
- * This specification can be executed with: scala -cp <your classpath=""> ${package}.SpecsTest
- * Or using maven: mvn test
- *
- * For more information on how to write or run specifications, please visit: http://code.google.com/p/specs.
- *
- */
-@RunWith(classOf[JUnitSuiteRunner])
-class MySpecTest extends Specification with JUnit /*with ScalaCheck*/ {
+@Test
+class JunitTest {
 
-  "My" should {
-    "allow " in {
+  @Test
+  def testOK() = assertTrue(true)
 
-      //0
-    }
-    "deny " in {
-      //0
-    }
-  }
-
-  "A List" should {
-    "have a size method returning the number of elements in the list" in {
-      List(1, 2, 3).size must_== 3
-    }
-    // add more examples here
-    // ...
-  }
-
-}
-
-object MySpecMain {
-  def main(args: Array[String]) {
-    new MySpecTest().main(args)
+  @Test
+  def test() {
+    T4fScala.main("hello");
   }
 
 }

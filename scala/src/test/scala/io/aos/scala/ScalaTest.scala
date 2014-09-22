@@ -55,7 +55,7 @@ import org.scalatest.Spec
 import org.scalatest.matchers.MustMatchers
 import org.scalatest.Ignore
 
-class StackSuite extends Assertions {
+class ScalaTest extends Assertions {
 
   @Test def stackShouldPopValuesIinLastInFirstOutOrder() {
     val stack = new Stack[Int]
