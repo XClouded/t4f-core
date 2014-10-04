@@ -41,46 +41,46 @@
       <groupId>com.google.inject.extensions</groupId>
       <artifactId>guice-jmx</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.apache.onami.autobind</groupId>
-      <artifactId>org.apache.onami.autobind.examples</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.onami</groupId>
-      <artifactId>org.apache.onami.cache</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.onami</groupId>
-      <artifactId>org.apache.onami.configuration</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.onami</groupId>
-      <artifactId>org.apache.onami.guava</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.onami.lifecycle</groupId>
-      <artifactId>org.apache.onami.lifecycle.standard</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.onami.logging</groupId>
-      <artifactId>org.apache.onami.logging.slf4j</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.onami.logging</groupId>
-      <artifactId>org.apache.onami.logging.testfw</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.onami</groupId>
-      <artifactId>org.apache.onami.scheduler</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.onami.spi</groupId>
-      <artifactId>org.apache.onami.spi.modules</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.onami</groupId>
-      <artifactId>org.apache.onami.test</artifactId>
-    </dependency>
+<!--     <dependency> -->
+<!--       <groupId>org.apache.onami.autobind</groupId> -->
+<!--       <artifactId>org.apache.onami.autobind.examples</artifactId> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>org.apache.onami</groupId> -->
+<!--       <artifactId>org.apache.onami.cache</artifactId> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>org.apache.onami</groupId> -->
+<!--       <artifactId>org.apache.onami.configuration</artifactId> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>org.apache.onami</groupId> -->
+<!--       <artifactId>org.apache.onami.guava</artifactId> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>org.apache.onami.lifecycle</groupId> -->
+<!--       <artifactId>org.apache.onami.lifecycle.standard</artifactId> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>org.apache.onami.logging</groupId> -->
+<!--       <artifactId>org.apache.onami.logging.slf4j</artifactId> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>org.apache.onami.logging</groupId> -->
+<!--       <artifactId>org.apache.onami.logging.testfw</artifactId> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>org.apache.onami</groupId> -->
+<!--       <artifactId>org.apache.onami.scheduler</artifactId> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>org.apache.onami.spi</groupId> -->
+<!--       <artifactId>org.apache.onami.spi.modules</artifactId> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>org.apache.onami</groupId> -->
+<!--       <artifactId>org.apache.onami.test</artifactId> -->
+<!--     </dependency> -->
     <dependency>
       <groupId>org.apache.openjpa</groupId>
       <artifactId>openjpa-all</artifactId>

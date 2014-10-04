@@ -25,7 +25,8 @@ object Simple {
   def foo(x: Array[String]) = x.foldLeft("")((a, b) => a + b)
 
   def main(args: Array[String]) {
-    println("Hello World!")
+    val s = "Hello World!"
+    println(s)
     println("concat arguments = " + foo(args))
   }
 

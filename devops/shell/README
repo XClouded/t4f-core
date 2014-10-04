@@ -1954,7 +1954,7 @@ If you need more space you need to add additional drives. For this you need to u
 Before you start the process please have look at the current partition blocks loaded in your server. 
 You can do so using the contents of partition file.
 
-# cat /proc/partitions
+cat /proc/partitions
 major minor  #blocks  name 
 202        1    8388608 xvda1
 
@@ -1963,7 +1963,7 @@ Once the volume is created you need to attach this to an instance.
 You can right click on the created volume and say attach. Select the instance then device will populate automatically, you can either leave it or change if you need specific device name.
 Now check the partition file again. You can see a new device being added.
 
-# cat /proc/partitions
+cat /proc/partitions
 major minor  #blocks  name 
 202        1    8388608 xvda1
 202      128   26214400 xvdf
@@ -1973,7 +1973,7 @@ It is like a new hard disk. You need to partition and format the same.
 In our case I am going to use the full disk as one partition. 
 So I am going to skip the fdisk setup and jumping right into formatting the volume.
 
-# sudo mkfs.ext3 /dev/xvdf
+sudo mkfs.ext3 /dev/xvdf
 mke2fs 1.41.12 (17-May-2010)
 Filesystem label=
 OS type: Linux
@@ -1999,6 +1999,7 @@ The format process can take few seconds just be patient.
 The drive is ready to use, and to do the same we need mount it.
 -------------------------------------------------------------------------------
 sudo apt-get install apache2
+-------------------------------------------------------------------------------
 sudo mkdir /vol
 sudo mount /dev/xvdf /vol
 sudo cp /vol/000-default /etc/apache2/sites-enabled/

@@ -20,40 +20,14 @@
  */
 package io.aos.scala
 
-/*
-ScalaTest facilitates different styles of testing by providing traits you can mix
-together to get the behavior and syntax you prefer.  A few examples are
-included here.  For more information, visit:
-
-http://www.scalatest.org/
-
-One way to use ScalaTest is to help make JUnit or TestNG tests more
-clear and concise. Here's an example:
-*/
 import scala.collection.mutable.Stack
-import org.scalatest.Assertions
+
 import org.junit.Test
-
-/*
-Here's an example of a FunSuite with ShouldMatchers mixed in:
-*/
+import org.scalatest.Assertions
 import org.scalatest.FunSuite
-import org.scalatest.matchers.ShouldMatchers
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-
-/*
-ScalaTest also supports the behavior-driven development style, in which you
-combine tests with text that specifies the behavior being tested. Here's
-an example whose text output when run looks like:
-
-A Map
-- should only contain keys and values that were added to it
-- should report its size as the number of key/value pairs it contains
-*/
 import org.scalatest.Spec
 import org.scalatest.matchers.MustMatchers
-import org.scalatest.Ignore
+import org.scalatest.matchers.ShouldMatchers
 
 class ScalaTest extends Assertions {
 

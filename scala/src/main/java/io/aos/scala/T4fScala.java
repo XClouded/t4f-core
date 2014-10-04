@@ -24,11 +24,16 @@ import io.aos.scala.Companion$;
 public class T4fScala {
 
     public static void main(String... args) {
+
+        // a-la-Java
         new Companion().hello();
+        
         // Static
         Companion.hello1();
+        
         // Hidden Static
         Companion$.MODULE$.hello2();
+    
     }
 
 }

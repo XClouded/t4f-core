@@ -33,5 +33,6 @@
   <modules>
    <module>plugin</module>
    <module>report</module>
+   <module>skin</module>
   </modules>
 </project>

@@ -7,6 +7,7 @@
  #t4f-core-plugin
 -------------------------------------------------------------------------------
 java
++ gate
 + jin
 + jpf
 + jspf
@@ -33,12 +34,14 @@ server
 + vert.x
 + wildfly
 -------------------------------------------------------------------------------
-html
+web
 + ambari
 + atlassian
 + hawt.io
 + hudson
 + geronimo
++ scala-notebook https://github.com/Bridgewater/scala-notebook.git
++ zeppelin https://github.com/NFLabs/zeppelin.git
 -------------------------------------------------------------------------------
 + maven
 + maven-bundle
