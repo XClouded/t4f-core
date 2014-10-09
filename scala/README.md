@@ -7,6 +7,16 @@
                                         
  #t4f-scala
 ```
+-------------------------------------------------------------------------------
+
+# How to run Scala code from Eclipse
+
+* Run as Application (Right-click and select Run As > Scala Application) - You need a main method (or your class should extends App)
+* Open the Scala Interpreter window (via menu Window, Show View), select code in Eclipse editor and type CTRL+SHIFT+X (see e.g. sandbox.scala)
+* Create a Scala Worksheet (read more https://github.com/scala-ide/scala-worksheet/wiki/Getting-Started - You must install the plugin separately)
+* Run io.aos.scala.repl.AosRepl
+
+# Notes
 
 A for loop is a repetition control structure that allows you to efficiently write a loop that needs to execute a specific number of times. There are various forms of for loop in Scala which are described below:
 The for Loop with Ranges

@@ -20,11 +20,14 @@
  */
 package io.aos.scala
 
-object ScalaApp extends App {
+object Simple3 {
 
   def foo(x: Array[String]) = x.foldLeft("")((a, b) => a + b)
 
-  println("Hello World!")
-  println("concat arguments = " + foo(args))
+  def main(args: Array[String]) {
+    println("Hello World!")
+    println("concat arguments = " + foo(args))
+    T4fScala.main("hello");
+  }
 
 }
