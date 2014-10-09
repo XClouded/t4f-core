@@ -20,14 +20,12 @@
  */
 package io.aos.scala
 
-object Simple {
+object ConcatArgs {
 
   def foo(x: Array[String]) = x.foldLeft("")((a, b) => a + b)
 
   def main(args: Array[String]) {
-    val s = "Hello World!"
-    println(s)
-    println("concat arguments = " + foo(args))
+    println("Concatenated arguments = " + foo(args))
   }
 
 }

@@ -1,4 +1,5 @@
 object hello {
+
   println("Welcome to the Scala worksheet")       //> Welcome to the Scala worksheet
   var xs = List(1, 2, 3)                          //> xs  : List[Int] = List(1, 2, 3)
   var x = 0                                       //> x  : Int = 0
@@ -12,4 +13,7 @@ object hello {
   }                                               //> 0
                                                   //| 1
                                                   //| 2
+    import io.aos.scala._
+    ConcatArgs.main(Array("hello1", "hello2"))    //> Concatenated arguments = hello1hello2
+
 }
