@@ -20,6 +20,8 @@
  */
 package io.aos.scala
 
+import io.aos.scala.controlchart._
+
 import scala.collection.mutable.Stack
 
 import org.junit.Test
@@ -44,6 +46,23 @@ class ScalaTest extends Assertions {
     intercept[NoSuchElementException] {
       emptyStack.pop()
     }
+  }
+
+  @Test def computeMeanAndVarianceFromCSV(): Unit = {
+    val testFile = new ReadCSV("src/main/resources/test.csv")
+    val mean = Stat.computeMean(testFile.getColumn(0))
+    val variance = Stat.computeVariance(testFile.getColumn(0), mean)
+    assert( BigDecimal(mean).setScale(3, BigDecimal.RoundingMode.HALF_UP).toDouble === 0.013)
+    assert( BigDecimal(variance).setScale(3, BigDecimal.RoundingMode.HALF_UP).toDouble === 1.500)
+  }
+
+  @Test def getOutliersFromControlChart() : Unit = {
+    val testFile = new ReadCSV("src/main/resources/test.csv")
+    val cc = new ControlChart(testFile.getColumn(0))
+    assert( cc.outliers(0) === 60)
+    assert( cc.outliers(1) === 91)
+    assert( cc.outliers(2) === 100)
+    cc.summary()
   }
 }
 
