@@ -35,32 +35,20 @@ import java.io.File
 
 object Stat {
   def computeMean(input: Array[Float]): Float = {
-    var sum = 0.0
-    for (i <- 0 to (input.length - 1)) {
-      sum += input(i)
-    }
-    val mean = sum / input.length
+    val mean = input.reduceLeft(_ + _) / input.length
     return mean.toFloat
   }
 
   /** Compute empirical variance */
   def computeVariance(input: Array[Float], mean: Float): Float = {
-    var variance = 0.0
-    for (i <- 0 to (input.length - 1)) {
-      variance += Math.pow(input(i) - mean, 2)
-    }
-    variance = variance / (input.length - 1)
-
+    val variance = input.map(x => Math.pow(x - mean, 2)).reduceLeft(_ + _) / (input.length - 1)
     return variance.toFloat
   }
 
   /** Compute naively the area under the curve. */
   def computeIntegral(xAxis: Array[Float], yAxis: Array[Float]): Float = {
-    var integ = 0.0
     val step = Math.abs(xAxis(1) - xAxis(0))
-    for (i <- 0 to (yAxis.length - 1)) {
-      integ += yAxis(i) * step
-    }
+    var integ = yAxis.map(x => x * step).reduceLeft(_ + _)
     return integ.toFloat
   }
 
@@ -75,20 +63,13 @@ object Stat {
   * */
  class ReadCSV(filePath: String) {
   def arToFloat(ar: Array[String]): Array[Float] = {
-    val newAr = new Array[Float](ar.length)
-    for (i <- 0 to (ar.length - 1)) {
-      newAr(i) = ar(i).toFloat
-    }
+    val newAr = ar.map(x => x.toFloat)
     return newAr
   }
 
   def getColumn(col: Int): Array[Float] = {
-    val column = new Array[Float](event.length)
-
-    for (i <- (0 to event.length - 1)) {
-      column(i) = event(i)(col)
-    }
-    return column
+    val column = event.map(x => x(col))
+    return column.toArray
   }
 
   def getLine(col: Int): Array[Float] = {
@@ -114,14 +95,8 @@ class ReadCSVFolder(folderPath: String) {
   }
 
   val folder = new File(folderPath)
-
-  val files = listFiles(folder)
-  val files_fil = files.filter(_.toString.endsWith(".csv"))
-
-  val data = new Array[ReadCSV](files_fil.length)
-  for (f <- 0 to (data.length - 1)) {
-    data(f) = new ReadCSV(files_fil(f).toString)
-  }
+  val files = listFiles(folder).filter(_.toString.endsWith(".csv"))
+  val data = files.map(x => new ReadCSV(x.toString))
 }
 
 /** The Control Chart class perform a basic control chart. It simply oulines
@@ -132,10 +107,7 @@ class ControlChart(data: Array[Float]) {
   println(Stat.computeVariance(data, mean))
   val stdDev = Math.sqrt(Stat.computeVariance(data, mean)).toFloat
 
-  val localDev = new Array[Float](data.length)
-  for (i <- 0 to (data.length - 1)) {
-    localDev(i) = Stat.computeStdDev(data(i), mean)
-  }
+  val localDev = data.map(x => Stat.computeStdDev(x, mean))
 
   val outliers = scala.collection.mutable.ArrayBuffer.empty[Int]
 
@@ -152,8 +124,7 @@ class ControlChart(data: Array[Float]) {
     print("\n")
     println("Outliers:")
 
-    for (i <- 0 to (outliers.length - 1)) {
-      print("Data value : " + data(outliers(i)) + " -- " + i + "\n")
-    }
+    outliers.foreach(x => print("Data value : \t"  + data(x) + " \t-- " + x + "\n"))
   }
 }
+
