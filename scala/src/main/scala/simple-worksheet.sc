@@ -6,14 +6,14 @@ object hello {
   xs foreach println                              //> 1
                                                   //| 2
                                                   //| 3
-  while(x < 3) {
+  while (x < 3) {
     println(x)
-    x+=1
+    x += 1
     Thread.sleep(200)
   }                                               //> 0
                                                   //| 1
                                                   //| 2
-    import io.aos.scala._
-    ConcatArgs.main(Array("hello1", "hello2"))    //> Concatenated arguments = hello1hello2
+  import io.aos.scala._
+  ConcatArgs.main(Array("hello1", "hello2"))      //> Concatenated arguments = hello1hello2
 
 }

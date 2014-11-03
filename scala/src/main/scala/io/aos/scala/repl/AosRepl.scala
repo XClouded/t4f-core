@@ -6,18 +6,21 @@ import scala.tools.nsc.interpreter.ReplReporter
 
 /**
  * http://www.scala-lang.org/archives/downloads/distrib/files/nightly/docs/compiler/scala/tools/nsc/interpreter/package.html
- * http://www.michaelpollmeier.com/create-your-custom-scala-repl/
+ * http://www.michaelpollmeier.com/create-your-custom-scala-repl
  */
 object Console extends App {
   val settings = new Settings
   settings.usejavacp.value = true
   settings.deprecation.value = true
-  new GremlinILoop().process(settings)
+  new AosILoop().process(settings)
 }
 
-class GremlinILoop extends ILoop {
+class AosILoop extends ILoop {
+
   override def prompt = "aos> "
 
+  var aosIntp: AosInterpreter = _
+  
   addThunk {
     intp.beQuietDuring {
       intp.addImports(Imports.asList: _*)
@@ -34,23 +37,22 @@ class GremlinILoop extends ILoop {
 """)
   }
 
-  var gremlinIntp: GremlinInterpreter = _
   override def createInterpreter() {
     if (addedClasspath != "")
       settings.classpath.append(addedClasspath)
-    gremlinIntp = new GremlinInterpreter
-    intp = gremlinIntp
+    aosIntp = new AosInterpreter
+    intp = aosIntp
   }
 
   override def command(line: String): Result = {
     val result = super.command(line)
-    if (result.keepRunning && result.lineToRecord.isDefined)
-      printLastValue
+//    if (result.keepRunning && result.lineToRecord.isDefined)
+//      printLastValue
     result
   }
 
-  /**Prints the last value by expanding its elements if it's iterator-like or collection-like. */
-  def printLastValue = gremlinIntp.lastValue match {
+  /** Prints the last value by expanding its elements if it's iterator-like or collection-like. */
+  def printLastValue = aosIntp.lastValue match {
     case Some(value) ⇒ for (v ← toIterator(value)) out.println("==> " + v)
     case _           ⇒
   }
@@ -68,11 +70,15 @@ class GremlinILoop extends ILoop {
     }
   }
 
-  class GremlinInterpreter extends ILoopInterpreter {
+  class AosInterpreter extends ILoopInterpreter {
     def prevRequest: Option[Request] = Option(lastRequest)
 
-    /**Returns the last value evaluated by this interpreter. See https://issues.scala-lang.org/browse/SI-4899 */
+    /**
+     * Returns the last value evaluated by this interpreter.
+     * See https://issues.scala-lang.org/browse/SI-4899 
+     **/
     def lastValue: Option[AnyRef] = prevRequest flatMap (_.lineRep.callOpt("$result"))
+    
   }
 
 }

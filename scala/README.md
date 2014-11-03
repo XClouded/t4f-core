@@ -16,6 +16,8 @@
 * Create a Scala Worksheet (read more https://github.com/scala-ide/scala-worksheet/wiki/Getting-Started - You must install the plugin separately)
 * Run io.aos.scala.repl.AosRepl
 
+-------------------------------------------------------------------------------
+
 # Notes
 
 A for loop is a repetition control structure that allows you to efficiently write a loop that needs to execute a specific number of times. There are various forms of for loop in Scala which are described below:
@@ -34,6 +36,16 @@ Following is the example of for loop with range using i to j syntax:
 
 object Test {
    def main(args: Array[String]) {
+      var a = 0;
+      // for loop execution with a range
+      for( a <- 1 to 10){
+         println( "Value of a: " + a );
+      }
+   }
+}
+
+object Test {
+   def t() {
       var a = 0;
       // for loop execution with a range
       for( a <- 1 to 10){
@@ -307,3 +319,78 @@ object HelloWorld {
 $ scalac HelloWorld.scala
 $ scala -cp . HelloWorld
 -------------------------------------------------------------------------------
+$ bin/console
+Welcome to Scala 2.10.2 (OpenJDK 64-Bit Server VM, Java 1.6.0_27)
+
+In [1]: 1
+Out[1]: 1
+
+In [2]: 1 + 2 + 3
+Out[2]: 6
+
+In [3]: (1 to 5).foreach { i => println(i); Thread.sleep(1000) }
+1
+2
+3
+4
+5
+
+In [4]: val x = 1
+Out[4]: 1
+
+In [5]: x
+Out[5]: 1
+
+In [6]: 100*x + 17
+Out[6]: 117
+
+In [7]: x.<TAB>
+x.%             x.-             x.>>            x.isInstanceOf  x.toFloat       x.toString      x.|
+x.&             x./             x.>>>           x.toByte        x.toInt         x.unary_+
+x.*             x.>             x.^             x.toChar        x.toLong        x.unary_-
+x.+             x.>=            x.asInstanceOf  x.toDouble      x.toShort       x.unary_~
+
+In [7]: x.to<TAB>
+x.toByte    x.toChar    x.toDouble  x.toFloat   x.toInt     x.toLong    x.toShort   x.toString
+
+In [7]: x.toS<TAB>
+x.toShort   x.toString
+
+In [7]: 1/0
+java.lang.ArithmeticException: / by zero
+
+In [8]: java.util.UUID.fromString("abc")
+java.lang.IllegalArgumentException: Invalid UUID string: abc
+    java.util.UUID.fromString(UUID.java:226)
+
+In [9]: class Foo(a: Int) { def bar(b: String) = b*a }
+
+In [10]: new Foo(5)
+Out[10]: Foo@70f4d063
+
+In [11]: _10.bar("xyz")
+Out[11]: xyzxyzxyzxyzxyz
+
+In [12]: import scala.language.experimental.macros
+
+In [13]: import scala.reflect.macros.Context
+
+In [14]: object Macros {
+    ...:     def membersImpl[A: c.WeakTypeTag](c: Context): c.Expr[List[String]] = {
+    ...:         import c.universe._
+    ...:         val tpe = weakTypeOf[A]
+    ...:         val members = tpe.declarations.map(_.name.decoded).toList.distinct
+    ...:         val literals = members.map(member => Literal(Constant(member)))
+    ...:         c.Expr[List[String]](Apply(reify(List).tree, literals))
+    ...:     }
+    ...:
+    ...:     def members[A] = macro membersImpl[A]
+    ...: }
+    ...:
+
+In [15]: Macros.members[Int]
+Out[15]: List(<init>, toByte, toShort, toChar, toInt, toLong, toFloat, toDouble, unary_~,
+unary_+, unary_-, +, <<, >>>, >>, ==, !=, <, <=, >, >=, |, &, ^, -, *, /, %, getClass)
+
+-------------------------------------------------------------------------------
+
